@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love from Me</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Theme Switcher Floating Buttons -->
+    <div class="theme-switcher">
+      <div class="theme-btn default" onclick="setTheme('default')" title="Default"></div>
+      <div class="theme-btn cyberpunk" onclick="setTheme('cyberpunk')" title="Cyberpunk"></div>
+      <div class="theme-btn vintage" onclick="setTheme('vintage')" title="Vintage"></div>
+      <div class="theme-btn pastel" onclick="setTheme('pastel')" title="Pastel"></div>
+    </div>
+
+    <!-- Container Efek Elemen Melayang -->
+    <div id="heart-container"></div>
+
+    <!-- 1. HALAMAN AMPLOP -->
+    <div id="page-envelope" class="page active">
+        <h1 class="title-script">Press the Envelope</h1>
+        
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <img src="assets/amplop.png" alt="Envelope" class="img-envelope">
+        </div>
+        
+        <div id="surprise-box" class="surprise-box hidden">
+            <h2 class="surprise-title">semogaa sayangg suka yaa</h2>
+            <div class="surprise-photos">
+                <img src="assets/foto1.jpeg" alt="Foto 1" class="surprise-img img-1" onclick="openImagePreview('assets/foto1.jpeg')">
+                <img src="assets/foto2.jpeg" alt="Foto 2" class="surprise-img img-2" onclick="openImagePreview('assets/foto2.jpeg')">
+                <img src="assets/foto3.jpeg" alt="Foto 3" class="surprise-img img-3" onclick="openImagePreview('assets/foto3.jpeg')">
+            </div>
+            <button class="btn-next" onclick="showPage('page-menu')">Lanjut ke Menu</button>
+        </div>
+
+        <p class="subtitle" id="envelope-sub">tap to lanjut</p>
+    </div>
+
+    <!-- 2. HALAMAN MENU UTAMA -->
+    <div id="page-menu" class="page">
+        <h1 class="title-script">Choose the Surprise</h1>
+
+        <div class="love-counter-box">
+            <p class="counter-label">Together for</p>
+            <h2 id="days-count">0 Days</h2>
+            <p class="counter-sub">and counting every second</p>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-item" onclick="showPage('page-journey')">
+                <img src="assets/journey.png" alt="Journey">
+                <span>Journey</span>
+            </div>
+
+            <div class="menu-item" onclick="showPage('page-moment')">
+                <img src="assets/moment.jpeg" alt="Moment">
+                <span>Moment</span>
+            </div>
+
+            <div class="menu-item" onclick="showPage('page-playlist')">
+                <img src="assets/playlist.png" alt="Playlist">
+                <span>Playlist</span>
+            </div>
+
+            <div class="menu-item" onclick="showPage('page-gift')">
+                <img src="assets/gift.png" alt="Gift">
+                <span>Gift</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HALAMAN JOURNEY -->
+    <div id="page-journey" class="page">
+        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+        
+        <div class="journey-container">
+            <img src="assets/heart.png" class="sticker heart1" alt="Heart">
+            <img src="assets/heart2.png" class="sticker heart2" alt="Heart">
+            <img src="assets/saturn.png" class="sticker saturn" alt="Saturn">
+            <img src="assets/capybara.png" class="sticker capybara" alt="Capybara">
+
+            <div class="photo-gallery">
+                <div class="polaroid p1"><img src="assets/foto1.jpeg" alt="Foto 1" onclick="openImagePreview('assets/foto1.jpeg')"></div>
+                <div class="polaroid p2"><img src="assets/foto2.jpeg" alt="Foto 2" onclick="openImagePreview('assets/foto2.jpeg')"></div>
+                <div class="polaroid p3"><img src="assets/foto3.jpeg" alt="Foto 3" onclick="openImagePreview('assets/foto3.jpeg')"></div>
+                <div class="polaroid p4"><img src="assets/foto4.jpeg" alt="Foto 4" onclick="openImagePreview('assets/foto4.jpeg')"></div>
+                <div class="polaroid p5"><img src="assets/foto5.jpeg" alt="Foto 5" onclick="openImagePreview('assets/foto5.jpeg')"></div>
+                <div class="polaroid p6"><img src="assets/foto1.jpeg" alt="Foto 6" onclick="openImagePreview('assets/foto1.jpeg')"></div>
+                <div class="polaroid p7"><img src="assets/foto2.jpeg" alt="Foto 7" onclick="openImagePreview('assets/foto2.jpeg')"></div>
+                <div class="polaroid p8"><img src="assets/foto3.jpeg" alt="Foto 8" onclick="openImagePreview('assets/foto3.jpeg')"></div>
+            </div>
+
+            <!-- Galeri Momen Indah (Sampul Album) -->
+            <div class="journey-gallery-container">
+                <h3 class="gallery-title">Galeri Momen Indah</h3>
+                
+                <div class="album-cards-grid">
+                    <!-- Album 1 -->
+                    <div class="album-card" onclick="openAlbum(0)">
+                        <img src="assets/foto1.jpeg" alt="Album 1 Cover">
+                        <div class="album-card-info">
+                            <h4>Album 1</h4>
+                            <span>6 Foto</span>
+                        </div>
+                    </div>
+
+                    <!-- Album 2 -->
+                    <div class="album-card" onclick="openAlbum(1)">
+                        <img src="assets/foto2.jpeg" alt="Album 2 Cover">
+                        <div class="album-card-info">
+                            <h4>Album 2</h4>
+                            <span>6 Foto</span>
+                        </div>
+                    </div>
+
+                    <!-- Album 3 -->
+                    <div class="album-card" onclick="openAlbum(2)">
+                        <img src="assets/foto3.jpeg" alt="Album 3 Cover">
+                        <div class="album-card-info">
+                            <h4>Album 3</h4>
+                            <span>6 Foto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. HALAMAN MOMENT -->
+    <div id="page-moment" class="page">
+        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+        
+        <div class="moment-container">
+            <h1 class="name-title">Nurul Fatihah Hidayah</h1>
+
+            <div class="moment-content">
+                <div class="paper-letter">
+                    <img src="assets/bunga2.png" class="sticker-rose-left" alt="Rose">
+                    <p>
+                        "Hi,aku sayang banget sama kamu, mungkin lebih dari yang bisa aku ungkapin. aku gaakan ninggalin kamu, dalam kodaan apapun. aku tau aku empurna, tapi aku selalu berusaha jadi seseorang yang bisa kamu andalkan. kalau cape, butuh tempat cerita, atau cuma pengen didengar, aku selalu ada disini. maaf kalau kadang aku nyebelin atau terlalu khawatir, semua itu karena aku bener bener peduli. buat aku kamu itu rumah, tempat dimana hati ini selalu ingin pulang, apapun yang terjadi aku mau kita selalu berjuang bareng, sampai semua baik baik aja, ilysm, and i'm thankful every day that you're mine"
+                    </p>
+                </div>
+
+                <div class="gold-frame-wrapper">
+                    <img src="assets/bunga.png" class="sticker-rose-right" alt="Rose">
+                    <div class="gold-frame">
+                        <img src="assets/foto1.jpeg" alt="Foto Utama" onclick="openImagePreview('assets/foto1.jpeg')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="open-when-container">
+                <p class="open-when-title">Open When You Feel...</p>
+                <div class="open-when-buttons">
+                    <button class="btn-open-when" onclick="showNote('capek')">
+                        <img src="assets/note-capek.png" alt="" class="btn-icon"> Capek
+                    </button>
+                    <button class="btn-open-when" onclick="showNote('kangen')">
+                        <img src="assets/note-kangen.png" alt="" class="btn-icon"> Kangen
+                    </button>
+                    <button class="btn-open-when" onclick="showNote('sedih')">
+                        <img src="assets/note-sedih.png" alt="" class="btn-icon"> Sedih
+                    </button>
+                </div>
+            </div>
+
+            <div class="bottom-elements">
+                <div class="music-player-vinyl" onclick="togglePlayMusic()">
+                    <img src="assets/playlist.png" class="vinyl-disc" id="vinyl-img" alt="Vinyl">
+                    <button class="btn-play-custom">Play Musik</button>
+                    <audio id="bg-music" src="assets/music.mp3" loop></audio>
+                </div>
+                <img src="assets/journey.png" class="camera-decor" alt="Camera Decor">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pop-Up untuk Open When Note -->
+    <div id="note-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeNote()">&times;</span>
+            <h3 id="modal-title">Pesan untuk kamu</h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <!-- 5. HALAMAN PLAYLIST -->
+    <div id="page-playlist" class="page">
+        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+
+        <div class="playlist-container">
+            <img src="assets/radio.png" class="song-sticker radio" alt="Radio">
+            <img src="assets/bunga2.png" class="song-sticker flower" alt="Flower Left">
+            <img src="assets/tv.png" class="song-sticker tv" alt="TV">
+            <img src="assets/bunga2.png" class="song-sticker flower-right" alt="Flower Right">
+
+            <div class="playlist-header">
+                <div class="gold-frame cover-frame">
+                    <img src="assets/foto1.jpeg" alt="Cover Playlist" onclick="openImagePreview('assets/foto1.jpeg')">
+                </div>
+                <div class="playlist-info">
+                    <h2>Our Playlist</h2>
+                    <p>Collection of songs for you.</p>
+                </div>
+            </div>
+
+            <div class="video-wrapper">
+                <iframe
+                    id="youtube-player"
+                    src="https://www.youtube.com/embed/d90e0b3V8w4?enablejsapi=1"
+                    title="YouTube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="song-list">
+                <div class="song-card" onclick="playSong('https://youtu.be/xno6lesVMJc?si=8teLCNGKUI4Pbr96')">
+                    <img src="assets/foto1.jpeg" alt="Sparks">
+                    <div class="song-info">
+                        <h4>Sparks</h4>
+                        <span>Coldplay</span>
+                    </div>
+                </div>
+
+                <div class="song-card" onclick="playSong('https://youtu.be/W3JJxS0gNkE?si=HmZq6_ge8wOcCQVW')">
+                    <img src="assets/foto2.jpeg" alt="Fallingforyou">
+                    <div class="song-info">
+                        <h4>Fallingforyou</h4>
+                        <span>The 1975</span>
+                    </div>
+                </div>
+
+                <div class="song-card" onclick="playSong('https://youtu.be/RPvhItA3lIM?si=IuWmyGMrsTpktTq9')">
+                    <img src="assets/foto3.jpeg" alt="ILYSB">
+                    <div class="song-info">
+                        <h4>ILYSB</h4>
+                        <span>LANY</span>
+                    </div>
+                </div>
+
+                <div class="song-card" onclick="playSong('https://youtu.be/u9raS7-NisU?si=59nyB9pU7tdPFarz')">
+                    <img src="assets/foto4.jpeg" alt="Daylight">
+                    <div class="song-info">
+                        <h4>Daylight</h4>
+                        <span>Taylor Swift</span>
+                    </div>
+                </div>
+
+                <div class="song-card" onclick="playSong('https://youtu.be/ucRVDoFkcxc?si=doxSWe5bMYS0uY-k')">
+                    <img src="assets/foto5.jpeg" alt="Nothing">
+                    <div class="song-info">
+                        <h4>Nothing</h4>
+                        <span>Bruno Major</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. HALAMAN GIFT -->
+    <div id="page-gift" class="page">
+        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+        
+        <div class="gift-box-wrapper">
+            <div class="envelope-wrapper" onclick="openGift()">
+                <img src="assets/gift.png" alt="Gift Box" class="img-gift-big">
+            </div>
+            <p class="subtitle" id="gift-sub">klik disinii.</p>
+
+            <div id="gift-surprise-box" class="surprise-box hidden">
+                <h2 class="gift-title">4u sayangg</h2>
+                <div class="surprise-photos">
+                    <img src="assets/foto4.jpeg" alt="Foto 1" class="surprise-img img-1" onclick="openImagePreview('assets/foto4.jpeg')">
+                    <img src="assets/foto5.jpeg" alt="Foto 2" class="surprise-img img-2" onclick="openImagePreview('assets/foto5.jpeg')">
+                    <img src="assets/foto1.jpeg" alt="Foto 3" class="surprise-img img-3" onclick="openImagePreview('assets/foto1.jpeg')">
+                </div>
+                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 15px;">Makasih ya udah selalu ada dan nemenin aku terus!</p>
+
+                <div class="hug-container">
+                    <button id="hug-btn" class="btn-hug">
+                        <img src="assets/heart.png" alt="Heart Icon" class="hug-btn-icon">
+                        <span class="hug-text">Tahan untuk Pelukan</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay Efek Pelukan -->
+    <div id="hug-overlay" class="hug-overlay hidden">
+        <div class="hug-content">
+            <div class="hug-heart-pulse">
+                <img src="assets/heart.png" alt="Heart" class="hug-img-assets">
+            </div>
+            <p id="hug-message">Pelukan hangat terkirim! Aku selalu ada buat kamu.</p>
+        </div>
+    </div>
+
+    <!-- Modal Pratinjau Gambar / Lightbox Slider -->
+    <div id="image-preview-modal" class="modal hidden" onclick="closeImagePreview()">
+        <div class="preview-content" onclick="event.stopPropagation()">
+            <span class="preview-close" onclick="closeImagePreview()">&times;</span>
+            
+            <!-- Tombol Geser Kiri -->
+            <button class="nav-btn prev-btn" onclick="prevSlide()">&#10094;</button>
+            
+            <div class="preview-image-wrapper">
+                <img id="preview-image" src="" alt="Pratinjau Foto">
+                <p id="preview-caption" class="preview-caption"></p>
+            </div>
+
+            <!-- Tombol Geser Kanan -->
+            <button class="nav-btn next-btn" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
