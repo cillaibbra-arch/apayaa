@@ -124,6 +124,7 @@ body {
   background: var(--bg-gradient);
   color: var(--text-color);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1144,49 +1145,6 @@ body {
   border-left: 3px solid var(--accent-color);
 }
 
-/* MEDIA QUERIES */
-@media (max-width: 768px) {
-  .photo-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .heart1 { width: 40px; top: 10px; left: 5px; }
-  .heart2 { width: 35px; bottom: 10px; left: 10px; }
-  .saturn { width: 50px; right: 5px; }
-  .capybara { width: 45px; bottom: 10px; right: 10px; }
-
-  .song-sticker.radio { left: -15px; top: -10px; width: 80px; }
-  .song-sticker.tv { right: -15px; top: -10px; width: 80px; }
-  .song-sticker.flower-right { right: -20px; bottom: 10px; width: 90px; }
-
-  .playlist-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .playlist-info { text-align: center; }
-
-  .menu-item {
-    width: 100px;
-    height: 120px;
-  }
-
-  .menu-item img {
-    width: 55px;
-    height: 55px;
-  }
-}
-
-@media (max-width: 600px) {
-  .album-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .prev-btn { left: 5px; }
-  .next-btn { right: 5px; }
-}
-
 /* LOVE COUNTER SLIDER MODAL STYLES */
 .counter-modal-content.slider-mode {
   max-width: 420px;
@@ -1302,4 +1260,103 @@ body {
   background: var(--accent-color);
   width: 20px;
   border-radius: 10px;
+}
+
+/* MEDIA QUERIES (MOBILE RESPONSIVE) */
+@media (max-width: 768px) {
+  .page {
+    padding: 15px 10px;
+    padding-top: 60px;
+  }
+
+  .btn-back {
+    top: 10px;
+    left: 10px;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .title-script {
+    font-size: 2.3rem;
+  }
+
+  .photo-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .heart1 { width: 40px; top: 10px; left: 5px; }
+  .heart2 { width: 35px; bottom: 10px; left: 10px; }
+  .saturn { width: 50px; right: 5px; }
+  .capybara { width: 45px; bottom: 10px; right: 10px; }
+
+  .moment-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .name-title {
+    font-size: 2.2rem;
+    margin-left: 0;
+    text-align: center;
+    align-self: center;
+  }
+
+  .paper-letter {
+    width: 100%;
+    max-width: 300px;
+    transform: rotate(0deg);
+    padding: 20px 15px;
+  }
+
+  .gold-frame-wrapper {
+    transform: rotate(0deg);
+  }
+
+  .gold-frame img {
+    max-width: 180px;
+  }
+
+  .sticker-rose-left, 
+  .sticker-rose-right {
+    display: none;
+  }
+
+  .song-sticker.radio { left: -15px; top: -10px; width: 80px; }
+  .song-sticker.tv { right: -15px; top: -10px; width: 80px; }
+  .song-sticker.flower-right { right: -20px; bottom: 10px; width: 90px; }
+
+  .playlist-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .playlist-info { text-align: center; }
+
+  .menu-item {
+    width: 100px;
+    height: 120px;
+  }
+
+  .menu-item img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .cards-slider-track {
+    padding: 0 10px;
+  }
+
+  .memory-card {
+    flex: 0 0 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .album-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .prev-btn { left: 5px; }
+  .next-btn { right: 5px; }
 }
