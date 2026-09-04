@@ -1,7 +1,65 @@
-// Ubah tanggal jadian di sini (Format: YYYY-MM-DD)
+// Tanggal jadian
 const startDate = new Date('2026-05-14');
 
-// Data Album Momen Indah
+// Variable Slider Counting Days
+let currentCardIndex = 0;
+
+function openLoveCounterModal() {
+    playClickSound();
+    const modal = document.getElementById('counter-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        currentCardIndex = 0;
+        updateSliderPosition();
+    }
+}
+
+function closeLoveCounterModal() {
+    playClickSound();
+    const modal = document.getElementById('counter-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+// Logika Navigasi Slider Counting Days
+function updateSliderPosition() {
+    const wrapper = document.querySelector('.cards-slider-wrapper');
+    const cards = document.querySelectorAll('.memory-card');
+    const dots = document.querySelectorAll('.slider-dots .dot');
+
+    if (cards.length > 0 && wrapper) {
+        const cardWidth = cards[0].offsetWidth + 15; // Width + gap
+        wrapper.scrollTo({
+            left: currentCardIndex * cardWidth,
+            behavior: 'smooth'
+        });
+
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentCardIndex);
+        });
+    }
+}
+
+function moveCard(direction) {
+    playClickSound();
+    const cards = document.querySelectorAll('.memory-card');
+    currentCardIndex += direction;
+
+    if (currentCardIndex < 0) {
+        currentCardIndex = cards.length - 1;
+    } else if (currentCardIndex >= cards.length) {
+        currentCardIndex = 0;
+    }
+
+    updateSliderPosition();
+}
+
+function goToCard(index) {
+    playClickSound();
+    currentCardIndex = index;
+    updateSliderPosition();
+}
+
+// Data Album Foto
 const albumsData = [
     {
         title: "Album 1",
@@ -35,6 +93,17 @@ const albumsData = [
             { src: 'assets/foto22.jpeg', caption: 'Momen Indah 3.5' },
             { src: 'assets/foto23.jpeg', caption: 'Momen Indah 3.6' }
         ]
+    },
+    {
+        title: "Album 4",
+        photos: [
+            { src: 'assets/foto24.jpeg', caption: '4.1' },
+            { src: 'assets/foto25.jpeg', caption: '4.2' },
+            { src: 'assets/foto26.jpeg', caption: '4.3' },
+            { src: 'assets/foto27.jpeg', caption: '4.4' },
+            { src: 'assets/foto28.jpeg', caption: '4.5' },
+            { src: 'assets/foto29.jpeg', caption: '4.6' }
+        ]
     }
 ];
 
@@ -42,10 +111,8 @@ let currentAlbumIndex = 0;
 let currentPhotoIndex = 0;
 let activePhotoList = [];
 
-// Buat objek audio untuk efek klik
 const clickSound = new Audio('assets/click.mp3');
 
-// Fungsi untuk memainkan efek suara klik
 function playClickSound() {
     clickSound.currentTime = 0;
     clickSound.play().catch(() => {});
@@ -53,7 +120,6 @@ function playClickSound() {
 
 function setTheme(themeName) {
     playClickSound();
-
     document.body.classList.remove('theme-cyberpunk', 'theme-vintage', 'theme-pastel');
 
     if (themeName !== 'default') {
@@ -95,7 +161,7 @@ function autoPlayMusic() {
 
 const notes = {
     capek: "semangat selalu ya sayanggku,sayangg sangat sangatt hebat aku bangga sama sayang,kalau sayang capek aku ada buat sayang kapanpun itu.",
-    kangen: "yoo sayang kangen aku nyak,wleekk akuu juga sangatt sangat kangen sayangg,kalau sayan bisa main ayo kita main biar kangen eni hilang,walaupun nanti pas selesai main pasti kangen lagi,tapi tak apa yang penting kita bisa main bareng.",
+    kangen: "yoo sayang kangen aku nyak,wleekk akuu juga sangatt sangat kangen sayangg,kalau sayangg bisa main ayo kita main biar kangen eni hilang,walaupun nanti pas selesai main pasti kangen lagi,tapi tak apa yang penting kita bisa main bareng.",
     sedih: "sayang lagi sedih yaa?:(, sayang bisa cerita ke aku kalau sayang mau,dan kalau sayang mau peluk aku juga bisa buat peluk sayang kapanpun itu,dan kalau penyebab sayang sedih gara gara aku maafinn aku yaa sayangg,aku pasti bisa mgertiin sayang cuman aku harus mikir keras biar sayang engga sedih lagi,i lovee u sayanggkuu",
 };
 
@@ -223,7 +289,6 @@ function playSong(youtubeUrl) {
     }
 }
 
-// Fungsi Membuka Album
 function openAlbum(albumIndex) {
     playClickSound();
     
@@ -239,7 +304,6 @@ function openAlbum(albumIndex) {
     }
 }
 
-// Fungsi Membuka Foto Satuan
 function openImagePreview(src) {
     playClickSound();
     
@@ -254,7 +318,6 @@ function openImagePreview(src) {
     }
 }
 
-// Fungsi Mengubah Foto di Lightbox
 function updateLightboxImage() {
     const previewImage = document.getElementById('preview-image');
     const previewCaption = document.getElementById('preview-caption');
@@ -280,7 +343,6 @@ function updateLightboxImage() {
     }
 }
 
-// Navigasi Selanjutnya (Geser Kiri / Next)
 function nextSlide() {
     playClickSound();
     if (activePhotoList.length <= 1) return;
@@ -289,7 +351,6 @@ function nextSlide() {
     updateLightboxImage();
 }
 
-// Navigasi Sebelumnya (Geser Kanan / Prev)
 function prevSlide() {
     playClickSound();
     if (activePhotoList.length <= 1) return;
@@ -298,7 +359,6 @@ function prevSlide() {
     updateLightboxImage();
 }
 
-// Fungsi Menutup Modal Pratinjau Gambar
 function closeImagePreview() {
     playClickSound();
     const previewModal = document.getElementById('image-preview-modal');
@@ -307,7 +367,37 @@ function closeImagePreview() {
     }
 }
 
-// Inisialisasi Event Listener
+function initHugFeature() {
+    const hugBtn = document.getElementById('hug-btn');
+    const hugOverlay = document.getElementById('hug-overlay');
+
+    if (!hugBtn || !hugOverlay) return;
+
+    function startHug(e) {
+        if (e.type === 'touchstart') e.preventDefault();
+        
+        playClickSound();
+        hugOverlay.classList.remove('hidden');
+        hugOverlay.classList.add('active');
+
+        if (navigator.vibrate) {
+            navigator.vibrate([100, 50, 100]);
+        }
+    }
+
+    function endHug() {
+        hugOverlay.classList.remove('active');
+        hugOverlay.classList.add('hidden');
+    }
+
+    hugBtn.addEventListener('mousedown', startHug);
+    window.addEventListener('mouseup', endHug);
+
+    hugBtn.addEventListener('touchstart', startHug, { passive: false });
+    window.addEventListener('touchend', endHug);
+}
+
+// Event Listener Utama
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme) {
@@ -317,8 +407,27 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateDays();
     createFloatingElements();
     autoPlayMusic();
+    initHugFeature();
 
-    // Navigasi Keyboard
+    // Event Scroll Manual untuk Slider Counting Days
+    const wrapper = document.querySelector('.cards-slider-wrapper');
+    if (wrapper) {
+        wrapper.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.memory-card');
+            if (cards.length > 0) {
+                const cardWidth = cards[0].offsetWidth + 15;
+                const newIndex = Math.round(wrapper.scrollLeft / cardWidth);
+                
+                const dots = document.querySelectorAll('.slider-dots .dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === newIndex);
+                });
+                currentCardIndex = newIndex;
+            }
+        });
+    }
+
+    // Keyboard Navigation untuk Lightbox Modal
     document.addEventListener('keydown', (e) => {
         const previewModal = document.getElementById('image-preview-modal');
         if (previewModal && !previewModal.classList.contains('hidden')) {
@@ -328,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Support Swipe Gesture di HP
+    // Swipe Gesture untuk Mobile Lightbox
     let touchStartX = 0;
     let touchEndX = 0;
     const modalContent = document.querySelector('.preview-content');

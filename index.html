@@ -44,12 +44,12 @@
     <div id="page-menu" class="page">
         <h1 class="title-script">Choose the Surprise</h1>
 
-        <div class="love-counter-box">
+       <div class="love-counter-box" onclick="openLoveCounterModal()">
             <p class="counter-label">Together for</p>
             <h2 id="days-count">0 Days</h2>
             <p class="counter-sub">and counting every second</p>
+            <span class="tap-hint"> Tap to see our memory </span>
         </div>
-
         <div class="menu-grid">
             <div class="menu-item" onclick="showPage('page-journey')">
                 <img src="assets/journey.png" alt="Journey">
@@ -77,12 +77,18 @@
     <div id="page-journey" class="page">
         <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
         
-        <div class="journey-container">
+        <!-- Elemen Dekorasi Stiker -->
+        <div class="decor-stickers">
             <img src="assets/heart.png" class="sticker heart1" alt="Heart">
             <img src="assets/heart2.png" class="sticker heart2" alt="Heart">
             <img src="assets/saturn.png" class="sticker saturn" alt="Saturn">
             <img src="assets/capybara.png" class="sticker capybara" alt="Capybara">
+        </div>
 
+        <div class="journey-container">
+            <h2 class="journey-header-title">Our Memories</h2>
+            
+            <!-- Grid Foto Polaroid -->
             <div class="photo-gallery">
                 <div class="polaroid p1"><img src="assets/foto1.jpeg" alt="Foto 1" onclick="openImagePreview('assets/foto1.jpeg')"></div>
                 <div class="polaroid p2"><img src="assets/foto2.jpeg" alt="Foto 2" onclick="openImagePreview('assets/foto2.jpeg')"></div>
@@ -94,14 +100,16 @@
                 <div class="polaroid p8"><img src="assets/foto3.jpeg" alt="Foto 8" onclick="openImagePreview('assets/foto3.jpeg')"></div>
             </div>
 
-            <!-- Galeri Momen Indah (Sampul Album) -->
+            <!-- Galeri Album Momen Indah -->
             <div class="journey-gallery-container">
                 <h3 class="gallery-title">Galeri Momen Indah</h3>
                 
                 <div class="album-cards-grid">
                     <!-- Album 1 -->
                     <div class="album-card" onclick="openAlbum(0)">
-                        <img src="assets/foto1.jpeg" alt="Album 1 Cover">
+                        <div class="album-img-wrapper">
+                            <img src="assets/foto1.jpeg" alt="Album 1 Cover">
+                        </div>
                         <div class="album-card-info">
                             <h4>Album 1</h4>
                             <span>6 Foto</span>
@@ -110,7 +118,9 @@
 
                     <!-- Album 2 -->
                     <div class="album-card" onclick="openAlbum(1)">
-                        <img src="assets/foto2.jpeg" alt="Album 2 Cover">
+                        <div class="album-img-wrapper">
+                            <img src="assets/foto2.jpeg" alt="Album 2 Cover">
+                        </div>
                         <div class="album-card-info">
                             <h4>Album 2</h4>
                             <span>6 Foto</span>
@@ -119,9 +129,22 @@
 
                     <!-- Album 3 -->
                     <div class="album-card" onclick="openAlbum(2)">
-                        <img src="assets/foto3.jpeg" alt="Album 3 Cover">
+                        <div class="album-img-wrapper">
+                            <img src="assets/foto3.jpeg" alt="Album 3 Cover">
+                        </div>
                         <div class="album-card-info">
                             <h4>Album 3</h4>
+                            <span>6 Foto</span>
+                        </div>
+                    </div>
+
+                    <!-- Album 4 -->
+                    <div class="album-card" onclick="openAlbum(3)">
+                        <div class="album-img-wrapper">
+                            <img src="assets/foto4.jpeg" alt="Album 4 Cover">
+                        </div>
+                        <div class="album-card-info">
+                            <h4>Album 4</h4>
                             <span>6 Foto</span>
                         </div>
                     </div>
@@ -179,7 +202,6 @@
         </div>
     </div>
 
-    <!-- Modal Pop-Up untuk Open When Note -->
     <div id="note-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal" onclick="closeNote()">&times;</span>
@@ -188,7 +210,6 @@
         </div>
     </div>
 
-    <!-- 5. HALAMAN PLAYLIST -->
     <div id="page-playlist" class="page">
         <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
 
@@ -263,7 +284,6 @@
         </div>
     </div>
 
-    <!-- 6. HALAMAN GIFT -->
     <div id="page-gift" class="page">
         <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
         
@@ -284,7 +304,7 @@
 
                 <div class="hug-container">
                     <button id="hug-btn" class="btn-hug">
-                        <img src="assets/heart.png" alt="Heart Icon" class="hug-btn-icon">
+                        <img src="assets/heart2.png" alt="Heart Icon" class="hug-btn-icon">
                         <span class="hug-text">Tahan untuk Pelukan</span>
                     </button>
                 </div>
@@ -292,22 +312,19 @@
         </div>
     </div>
 
-    <!-- Overlay Efek Pelukan -->
     <div id="hug-overlay" class="hug-overlay hidden">
         <div class="hug-content">
             <div class="hug-heart-pulse">
-                <img src="assets/heart.png" alt="Heart" class="hug-img-assets">
+                <img src="assets/heart2.png" alt="Heart" class="hug-img-assets">
             </div>
             <p id="hug-message">Pelukan hangat terkirim! Aku selalu ada buat kamu.</p>
         </div>
     </div>
 
-    <!-- Modal Pratinjau Gambar / Lightbox Slider -->
     <div id="image-preview-modal" class="modal hidden" onclick="closeImagePreview()">
         <div class="preview-content" onclick="event.stopPropagation()">
             <span class="preview-close" onclick="closeImagePreview()">&times;</span>
             
-            <!-- Tombol Geser Kiri -->
             <button class="nav-btn prev-btn" onclick="prevSlide()">&#10094;</button>
             
             <div class="preview-image-wrapper">
@@ -315,8 +332,90 @@
                 <p id="preview-caption" class="preview-caption"></p>
             </div>
 
-            <!-- Tombol Geser Kanan -->
             <button class="nav-btn next-btn" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+
+    <div id="counter-modal" class="modal hidden" onclick="closeLoveCounterModal()">
+        <div class="counter-modal-content slider-mode" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeLoveCounterModal()">&times;</span>
+            
+            <h3 class="slider-main-title">Hari-Hari Bersamamu</h3>
+            <p class="slider-main-sub">Geser untuk melihat perjalanan kita</p>
+
+            <div class="cards-slider-wrapper">
+                <div class="cards-slider-track" id="slider-track">
+        
+                    <div class="memory-card">
+                        <div class="counter-photo-wrapper">
+                            <img src="assets/foto5brg.jpg" alt="Memory 1" class="counter-modal-img">
+                            <div class="photo-badge">Memory #1</div>
+                        </div>
+                        <div class="counter-modal-text">
+                            <p class="counter-highlight-date"> 2 juni 2026</p>
+                            <p class="counter-quote">"eni fotoo aku dikasih sama temen aku,walaupun fotoo itu sederhana tapi aku sukaa"</p>
+                        </div>
+                    </div>
+
+                    <div class="memory-card">
+                        <div class="counter-photo-wrapper">
+                            <img src="assets/foto4brg.jpg" alt="Memory 2" class="counter-modal-img">
+                            <div class="photo-badge">Memory #2</div>
+                        </div>
+                        <div class="counter-modal-text">
+                            <p class="counter-highlight-date"> 10 Juni 2026</p>
+                            <p class="counter-quote">"disini kita sering main bareng diperpuss,walaupun sebentar sajaa tapi kita senang."</p>
+                        </div>
+                    </div>
+
+                    <div class="memory-card">
+                        <div class="counter-photo-wrapper">
+                            <img src="assets/foto24.jpeg" alt="Memory 3" class="counter-modal-img">
+                            <div class="photo-badge">Memory #3</div>
+                        </div>
+                        <div class="counter-modal-text">
+                            <p class="counter-highlight-date"> 4 Juli 2026</p>
+                            <p class="counter-quote">"sayangg orang pertama yang merayakan ulang tahun aku dan ngucapin timaaci banyak sayanggku."</p>
+                        </div>
+                    </div>
+
+                    <div class="memory-card">
+                        <div class="counter-photo-wrapper">
+                            <img src="assets/foto1.jpeg" alt="Memory 4" class="counter-modal-img">
+                            <div class="photo-badge">Memory #4</div>
+                        </div>
+                        <div class="counter-modal-text">
+                            <p class="counter-highlight-date"> 5 Agustus 2026</p>
+                            <p class="counter-quote">"disinii kita pergi nonton spiderman brand new day,aku senang sekali bisa nonton spiderman bareng sayang."</p>
+                        </div>
+                    </div>
+
+                    <div class="memory-card">
+                        <div class="counter-photo-wrapper">
+                            <img src="assets/fotobrg1.jpg" alt="Memory 5" class="counter-modal-img">
+                            <div class="photo-badge">Memory #5</div>
+                        </div>
+                        <div class="counter-modal-text">
+                            <p class="counter-highlight-date"> 24 juni 2026</p>
+                            <p class="counter-quote">"disini kita lagi nungguin film toy story yang ditunda,karena kita tak taw maw ngapain jadinya kita ngobrol ngobrol sambil main onett,dan pada akhirnya uang kita direfund"</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+            <button class="slider-btn prev-card" onclick="moveCard(-1)">&#10094;</button>
+            <button class="slider-btn next-card" onclick="moveCard(1)">&#10095;</button>
+
+            
+            <div class="slider-dots" id="slider-dots">
+                <span class="dot active" onclick="goToCard(0)"></span>
+                <span class="dot" onclick="goToCard(1)"></span>
+                <span class="dot" onclick="goToCard(2)"></span>
+                <span class="dot" onclick="goToCard(3)"></span>
+                <span class="dot" onclick="goToCard(4)"></span>
+            </div>
         </div>
     </div>
 
