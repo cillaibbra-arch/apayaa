@@ -6,6 +6,7 @@
     <title>Love from Me</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <body>
 
     <!-- Theme Switcher Floating Buttons -->
@@ -69,6 +70,12 @@
             <div class="menu-item" onclick="showPage('page-gift')">
                 <img src="assets/gift.png" alt="Gift">
                 <span>Gift</span>
+            </div>
+
+            <!-- MENU DIARY BOOK -->
+            <div class="menu-item" onclick="showPage('page-diary')">
+                <img src="assets/bunga2.png" alt="Diary Book">
+                <span>Diary Book</span>
             </div>
         </div>
     </div>
@@ -164,7 +171,7 @@
                 <div class="paper-letter">
                     <img src="assets/bunga2.png" class="sticker-rose-left" alt="Rose">
                     <p>
-                        "Hi,aku sayang banget sama kamu, mungkin lebih dari yang bisa aku ungkapin. aku gaakan ninggalin kamu, dalam kodaan apapun. aku tau aku empurna, tapi aku selalu berusaha jadi seseorang yang bisa kamu andalkan. kalau cape, butuh tempat cerita, atau cuma pengen didengar, aku selalu ada disini. maaf kalau kadang aku nyebelin atau terlalu khawatir, semua itu karena aku bener bener peduli. buat aku kamu itu rumah, tempat dimana hati ini selalu ingin pulang, apapun yang terjadi aku mau kita selalu berjuang bareng, sampai semua baik baik aja, ilysm, and i'm thankful every day that you're mine"
+                        "Hi,aku sayang banget sama kamu, mungkin lebih dari yang bisa aku ungkapin. aku gaakan ninggalin kamu, dalam kodaan apapun. aku tau aku tidak sempurna, tapi aku selalu berusaha jadi seseorang yang bisa kamu andalkan. kalau cape, butuh tempat cerita, atau cuma pengen didengar, aku selalu ada disini. maaf kalau kadang aku nyebelin atau terlalu khawatir, semua itu karena aku bener bener peduli. buat aku kamu itu rumah, tempat dimana hati ini selalu ingin pulang, apapun yang terjadi aku mau kita selalu berjuang bareng, sampai semua baik baik aja, ilysm, and i'm thankful every day that you're mine"
                     </p>
                 </div>
 
@@ -210,6 +217,7 @@
         </div>
     </div>
 
+    <!-- 5. HALAMAN PLAYLIST -->
     <div id="page-playlist" class="page">
         <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
 
@@ -284,6 +292,7 @@
         </div>
     </div>
 
+    <!-- 6. HALAMAN GIFT -->
     <div id="page-gift" class="page">
         <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
         
@@ -308,6 +317,29 @@
                         <span class="hug-text">Tahan untuk Pelukan</span>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. HALAMAN DIARY BOOK (DENGAN DATABASE INTEGRATION) -->
+    <div id="page-diary" class="page">
+        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+        
+        <div class="diary-container">
+            <h2 class="journey-header-title">Our Diary Book</h2>
+            <p class="counter-sub" style="margin-bottom: 20px;">Tuliskan cerita dan kenangan manismu di sini...</p>
+
+            <!-- Form Tambah Catatan -->
+            <div class="diary-form-card">
+                <input type="text" id="diary-title" placeholder="Judul Catatan..." required>
+                <input type="date" id="diary-date" required>
+                <textarea id="diary-content" rows="4" placeholder="Tuliskan cerita kamu di sini..." required></textarea>
+                <button class="btn-next" onclick="addDiaryEntry()" style="margin-top: 10px; width: 100%;">Simpan Catatan</button>
+            </div>
+
+            <!-- Tempat Menampilkan Catatan dari Database -->
+            <div id="diary-list" class="diary-list">
+                <!-- Data diary akan dirender otomatis dari database JS -->
             </div>
         </div>
     </div>
@@ -404,11 +436,9 @@
                 </div>
             </div>
 
-            
             <button class="slider-btn prev-card" onclick="moveCard(-1)">&#10094;</button>
             <button class="slider-btn next-card" onclick="moveCard(1)">&#10095;</button>
 
-            
             <div class="slider-dots" id="slider-dots">
                 <span class="dot active" onclick="goToCard(0)"></span>
                 <span class="dot" onclick="goToCard(1)"></span>

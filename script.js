@@ -1,63 +1,18 @@
+// ==========================================
+// CONFIG & DATA GLOBAL
+// ==========================================
+
+// Inisialisasi Supabase Database
+// Ganti nilai URL dan ANON_KEY dengan milikmu dari Supabase (Project Settings > API)
+const SUPABASE_URL = 'https://dlbmoqkstharevuryzyx.supabase.co/rest/v1/';
+const SUPABASE_KEY = 'sb_publishable_PBlrVmuJYizxvuTywaKCIQ_QvmVzx9d';
+const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
 // Tanggal jadian
 const startDate = new Date('2026-05-14');
 
 // Variable Slider Counting Days
 let currentCardIndex = 0;
-
-function openLoveCounterModal() {
-    playClickSound();
-    const modal = document.getElementById('counter-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        currentCardIndex = 0;
-        updateSliderPosition();
-    }
-}
-
-function closeLoveCounterModal() {
-    playClickSound();
-    const modal = document.getElementById('counter-modal');
-    if (modal) modal.classList.add('hidden');
-}
-
-// Logika Navigasi Slider Counting Days
-function updateSliderPosition() {
-    const wrapper = document.querySelector('.cards-slider-wrapper');
-    const cards = document.querySelectorAll('.memory-card');
-    const dots = document.querySelectorAll('.slider-dots .dot');
-
-    if (cards.length > 0 && wrapper) {
-        const cardWidth = cards[0].offsetWidth + 15; // Width + gap
-        wrapper.scrollTo({
-            left: currentCardIndex * cardWidth,
-            behavior: 'smooth'
-        });
-
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentCardIndex);
-        });
-    }
-}
-
-function moveCard(direction) {
-    playClickSound();
-    const cards = document.querySelectorAll('.memory-card');
-    currentCardIndex += direction;
-
-    if (currentCardIndex < 0) {
-        currentCardIndex = cards.length - 1;
-    } else if (currentCardIndex >= cards.length) {
-        currentCardIndex = 0;
-    }
-
-    updateSliderPosition();
-}
-
-function goToCard(index) {
-    playClickSound();
-    currentCardIndex = index;
-    updateSliderPosition();
-}
 
 // Data Album Foto
 const albumsData = [
@@ -113,9 +68,33 @@ let activePhotoList = [];
 
 const clickSound = new Audio('assets/click.mp3');
 
+const notes = {
+    capek: "Semangat selalu ya sayangku. Kamu hebat banget dan aku selalu bangga sama kamu. Kalau kamu merasa capek, aku ada di sini kapan pun kamu butuh.",
+    kangen: "Kamu kangen aku ya? Hehe, aku juga sangat kangen sama kamu! Kalau ada waktu, ayo kita jalan bareng biar kangennya hilang.",
+    sedih: "Kamu lagi sedih ya? Cerita ke aku kalau kamu siap ya. Kalau butuh pelukan, aku selalu siap peluk kamu. Kalau penyebab kamu sedih karena aku, aku minta maaf ya sayang. I love you so much!",
+};
+
+
+// ==========================================
+// UTILITY FUNCTIONS
+// ==========================================
+
 function playClickSound() {
     clickSound.currentTime = 0;
     clickSound.play().catch(() => {});
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/[&<>"']/g, function(m) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[m];
+    });
 }
 
 function setTheme(themeName) {
@@ -140,51 +119,6 @@ function calculateDays() {
     }
 }
 
-function autoPlayMusic() {
-    const music = document.getElementById('bg-music');
-    const vinyl = document.getElementById('vinyl-img');
-
-    if (music) {
-        music.play().then(() => {
-            if (vinyl) vinyl.classList.add('spin');
-        }).catch(() => {
-            const startMusicOnUserInteraction = () => {
-                music.play().then(() => {
-                    if (vinyl) vinyl.classList.add('spin');
-                });
-                document.removeEventListener('click', startMusicOnUserInteraction);
-            };
-            document.addEventListener('click', startMusicOnUserInteraction);
-        });
-    }
-}
-
-const notes = {
-    capek: "semangat selalu ya sayanggku,sayangg sangat sangatt hebat aku bangga sama sayang,kalau sayang capek aku ada buat sayang kapanpun itu.",
-    kangen: "yoo sayang kangen aku nyak,wleekk akuu juga sangatt sangat kangen sayangg,kalau sayangg bisa main ayo kita main biar kangen eni hilang,walaupun nanti pas selesai main pasti kangen lagi,tapi tak apa yang penting kita bisa main bareng.",
-    sedih: "sayang lagi sedih yaa?:(, sayang bisa cerita ke aku kalau sayang mau,dan kalau sayang mau peluk aku juga bisa buat peluk sayang kapanpun itu,dan kalau penyebab sayang sedih gara gara aku maafinn aku yaa sayangg,aku pasti bisa mgertiin sayang cuman aku harus mikir keras biar sayang engga sedih lagi,i lovee u sayanggkuu",
-};
-
-function showNote(type) {
-    playClickSound();
-    const modal = document.getElementById('note-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalText = document.getElementById('modal-text');
-
-    if (type === 'capek') modalTitle.innerText = "Saat Kamu Capek";
-    if (type === 'kangen') modalTitle.innerText = "Saat Kamu Kangen";
-    if (type === 'sedih') modalTitle.innerText = "Saat Kamu Sedih";
-
-    modalText.innerText = notes[type];
-    modal.classList.remove('hidden');
-}
-
-function closeNote() {
-    playClickSound();
-    const modal = document.getElementById('note-modal');
-    modal.classList.add('hidden');
-}
-
 function createFloatingElements() {
     const container = document.getElementById('heart-container');
     if (!container) return;
@@ -205,36 +139,6 @@ function createFloatingElements() {
     }, 800);
 }
 
-function openEnvelope() {
-    playClickSound();
-    const envelopeWrap = document.querySelector("#page-envelope .envelope-wrapper");
-    const envelopeSub = document.getElementById("envelope-sub");
-    
-    if (envelopeWrap) envelopeWrap.style.display = "none";
-    if (envelopeSub) envelopeSub.style.display = "none";
-
-    const surpriseBox = document.getElementById("surprise-box");
-    if (surpriseBox) {
-        surpriseBox.classList.remove("hidden");
-        surpriseBox.style.display = "block";
-    }
-}
-
-function openGift() {
-    playClickSound();
-    const giftWrap = document.querySelector("#page-gift .envelope-wrapper");
-    const giftSub = document.getElementById("gift-sub");
-
-    if (giftWrap) giftWrap.style.display = "none";
-    if (giftSub) giftSub.style.display = "none";
-
-    const giftSurpriseBox = document.getElementById("gift-surprise-box");
-    if (giftSurpriseBox) {
-        giftSurpriseBox.classList.remove("hidden");
-        giftSurpriseBox.style.display = "block";
-    }
-}
-
 function showPage(pageId) {
     playClickSound();
     const pages = document.querySelectorAll('.page');
@@ -245,12 +149,206 @@ function showPage(pageId) {
 
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
+        void targetPage.offsetWidth; 
         targetPage.classList.add('active');
     }
 
     const youtubePlayer = document.getElementById('youtube-player');
     if (youtubePlayer && pageId !== 'page-playlist') {
         youtubePlayer.src = youtubePlayer.src;
+    }
+}
+
+
+// ==========================================
+// FITUR DIARY BOOK (SUPABASE CONNECTED)
+// ==========================================
+
+// Memuat/Mendapatkan daftar diary dari Supabase
+async function renderDiaryEntries() {
+    const diaryList = document.getElementById('diary-list');
+    if (!diaryList) return;
+
+    if (!supabase) {
+        diaryList.innerHTML = '<p style="opacity:0.7; color:#ff75a0; font-size:0.85rem;">Library Supabase belum terhubung di index.html</p>';
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('diaries')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        diaryList.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            diaryList.innerHTML = '<p style="opacity:0.7; font-size:0.9rem;">Belum ada catatan diary di database. Yuk tulis catatan pertamamu!</p>';
+            return;
+        }
+
+        data.forEach((entry) => {
+            const dateFormatted = entry.entry_date || entry.date || entry.created_at ? new Date(entry.entry_date || entry.date || entry.created_at).toISOString().split('T')[0] : '';
+            const card = document.createElement('div');
+            card.className = 'diary-card';
+            card.innerHTML = `
+                <div class="diary-card-header">
+                    <h3>${escapeHtml(entry.title)}</h3>
+                    <span class="diary-card-date">📅 ${dateFormatted}</span>
+                </div>
+                <div class="diary-card-body">${escapeHtml(entry.content)}</div>
+                <div class="diary-card-footer">
+                    <button class="btn-diary-action" onclick="deleteDiaryEntry(${entry.id})">🗑️ Hapus</button>
+                </div>
+            `;
+            diaryList.appendChild(card);
+        });
+    } catch (error) {
+        console.error('Error fetching diary from Supabase:', error);
+        diaryList.innerHTML = '<p style="opacity:0.7; color:#ff75a0; font-size:0.85rem;">Gagal memuat catatan dari Supabase. Cek konfigurasi API Key dan URL kamu.</p>';
+    }
+}
+
+// Menambah catatan baru ke Supabase
+async function addDiaryEntry() {
+    playClickSound();
+    const titleInput = document.getElementById('diary-title');
+    const dateInput = document.getElementById('diary-date');
+    const contentInput = document.getElementById('diary-content');
+
+    const title = titleInput.value.trim();
+    const date = dateInput.value;
+    const content = contentInput.value.trim();
+
+    if (!title || !date || !content) {
+        alert('Mohon isi judul, tanggal, dan cerita kamu dengan lengkap ya!');
+        return;
+    }
+
+    try {
+        const { error } = await supabase
+            .from('diaries')
+            .insert([{ title: title, entry_date: date, content: content }]);
+
+        if (error) throw error;
+
+        // Reset form setelah berhasil
+        titleInput.value = '';
+        dateInput.value = '';
+        contentInput.value = '';
+
+        // Muat ulang daftar diary dari Supabase
+        renderDiaryEntries();
+    } catch (error) {
+        console.error('Error adding diary to Supabase:', error);
+        alert('Gagal menyimpan catatan ke database Supabase!');
+    }
+}
+
+// Menghapus catatan dari Supabase
+async function deleteDiaryEntry(id) {
+    playClickSound();
+    if (confirm('Yakin ingin menghapus catatan ini dari database?')) {
+        try {
+            const { error } = await supabase
+                .from('diaries')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            renderDiaryEntries();
+        } catch (error) {
+            console.error('Error deleting diary from Supabase:', error);
+            alert('Gagal menghapus catatan dari Supabase!');
+        }
+    }
+}
+
+
+// ==========================================
+// FITUR SLIDER COUNTER MEMORIES
+// ==========================================
+
+function openLoveCounterModal() {
+    playClickSound();
+    const modal = document.getElementById('counter-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        currentCardIndex = 0;
+        updateSliderPosition();
+    }
+}
+
+function closeLoveCounterModal() {
+    playClickSound();
+    const modal = document.getElementById('counter-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function updateSliderPosition() {
+    const wrapper = document.querySelector('.cards-slider-wrapper');
+    const cards = document.querySelectorAll('.memory-card');
+    const dots = document.querySelectorAll('.slider-dots .dot');
+
+    if (cards.length > 0 && wrapper) {
+        const cardWidth = cards[0].offsetWidth + 15;
+        wrapper.scrollTo({
+            left: currentCardIndex * cardWidth,
+            behavior: 'smooth'
+        });
+
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentCardIndex);
+        });
+    }
+}
+
+function moveCard(direction) {
+    playClickSound();
+    const cards = document.querySelectorAll('.memory-card');
+    currentCardIndex += direction;
+
+    if (currentCardIndex < 0) {
+        currentCardIndex = cards.length - 1;
+    } else if (currentCardIndex >= cards.length) {
+        currentCardIndex = 0;
+    }
+
+    updateSliderPosition();
+}
+
+function goToCard(index) {
+    playClickSound();
+    currentCardIndex = index;
+    updateSliderPosition();
+}
+
+
+// ==========================================
+// FITUR MUSIK & ALBUM / PREVIEW
+// ==========================================
+
+function autoPlayMusic() {
+    const music = document.getElementById('bg-music');
+    const vinyl = document.getElementById('vinyl-img');
+
+    if (music) {
+        music.play().then(() => {
+            if (vinyl) vinyl.classList.add('spin');
+        }).catch(() => {
+            const startMusicOnUserInteraction = () => {
+                music.play().then(() => {
+                    if (vinyl) vinyl.classList.add('spin');
+                }).catch(() => {});
+                document.removeEventListener('click', startMusicOnUserInteraction);
+                document.removeEventListener('touchstart', startMusicOnUserInteraction);
+            };
+            document.addEventListener('click', startMusicOnUserInteraction);
+            document.addEventListener('touchstart', startMusicOnUserInteraction);
+        });
     }
 }
 
@@ -289,9 +387,58 @@ function playSong(youtubeUrl) {
     }
 }
 
+function showNote(type) {
+    playClickSound();
+    const modal = document.getElementById('note-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalText = document.getElementById('modal-text');
+
+    if (type === 'capek') modalTitle.innerText = "Saat Kamu Capek";
+    if (type === 'kangen') modalTitle.innerText = "Saat Kamu Kangen";
+    if (type === 'sedih') modalTitle.innerText = "Saat Kamu Sedih";
+
+    modalText.innerText = notes[type];
+    modal.classList.remove('hidden');
+}
+
+function closeNote() {
+    playClickSound();
+    const modal = document.getElementById('note-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function openEnvelope() {
+    playClickSound();
+    const envelopeWrap = document.querySelector("#page-envelope .envelope-wrapper");
+    const envelopeSub = document.getElementById("envelope-sub");
+    
+    if (envelopeWrap) envelopeWrap.style.display = "none";
+    if (envelopeSub) envelopeSub.style.display = "none";
+
+    const surpriseBox = document.getElementById("surprise-box");
+    if (surpriseBox) {
+        surpriseBox.classList.remove("hidden");
+        surpriseBox.style.display = "block";
+    }
+}
+
+function openGift() {
+    playClickSound();
+    const giftWrap = document.querySelector("#page-gift .envelope-wrapper");
+    const giftSub = document.getElementById("gift-sub");
+
+    if (giftWrap) giftWrap.style.display = "none";
+    if (giftSub) giftSub.style.display = "none";
+
+    const giftSurpriseBox = document.getElementById("gift-surprise-box");
+    if (giftSurpriseBox) {
+        giftSurpriseBox.classList.remove("hidden");
+        giftSurpriseBox.style.display = "block";
+    }
+}
+
 function openAlbum(albumIndex) {
     playClickSound();
-    
     currentAlbumIndex = albumIndex;
     activePhotoList = albumsData[albumIndex].photos;
     currentPhotoIndex = 0;
@@ -299,23 +446,18 @@ function openAlbum(albumIndex) {
     updateLightboxImage();
     
     const previewModal = document.getElementById('image-preview-modal');
-    if (previewModal) {
-        previewModal.classList.remove('hidden');
-    }
+    if (previewModal) previewModal.classList.remove('hidden');
 }
 
 function openImagePreview(src) {
     playClickSound();
-    
     activePhotoList = [{ src: src, caption: '' }];
     currentPhotoIndex = 0;
     
     updateLightboxImage();
     
     const previewModal = document.getElementById('image-preview-modal');
-    if (previewModal) {
-        previewModal.classList.remove('hidden');
-    }
+    if (previewModal) previewModal.classList.remove('hidden');
 }
 
 function updateLightboxImage() {
@@ -346,7 +488,6 @@ function updateLightboxImage() {
 function nextSlide() {
     playClickSound();
     if (activePhotoList.length <= 1) return;
-    
     currentPhotoIndex = (currentPhotoIndex + 1) % activePhotoList.length;
     updateLightboxImage();
 }
@@ -354,7 +495,6 @@ function nextSlide() {
 function prevSlide() {
     playClickSound();
     if (activePhotoList.length <= 1) return;
-
     currentPhotoIndex = (currentPhotoIndex - 1 + activePhotoList.length) % activePhotoList.length;
     updateLightboxImage();
 }
@@ -362,9 +502,7 @@ function prevSlide() {
 function closeImagePreview() {
     playClickSound();
     const previewModal = document.getElementById('image-preview-modal');
-    if (previewModal) {
-        previewModal.classList.add('hidden');
-    }
+    if (previewModal) previewModal.classList.add('hidden');
 }
 
 function initHugFeature() {
@@ -397,19 +535,26 @@ function initHugFeature() {
     window.addEventListener('touchend', endHug);
 }
 
-// Event Listener Utama
+
+// ==========================================
+// EVENT LISTENER UTAMA
+// ==========================================
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Muat Tema Terakhir
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme) {
         setTheme(savedTheme);
     }
 
+    // 2. Inisialisasi Fitur Utama
     calculateDays();
     createFloatingElements();
     autoPlayMusic();
     initHugFeature();
+    renderDiaryEntries(); // Fetch data diary dari Supabase saat pertama load
 
-    // Event Scroll Manual untuk Slider Counting Days
+    // 3. Scroll Listener Slider Memory
     const wrapper = document.querySelector('.cards-slider-wrapper');
     if (wrapper) {
         wrapper.addEventListener('scroll', () => {
@@ -427,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Keyboard Navigation untuk Lightbox Modal
+    // 4. Keyboard Shortcuts untuk Modal Preview
     document.addEventListener('keydown', (e) => {
         const previewModal = document.getElementById('image-preview-modal');
         if (previewModal && !previewModal.classList.contains('hidden')) {
@@ -437,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Swipe Gesture untuk Mobile Lightbox
+    // 5. Gestur Swipe untuk Modal Preview Foto
     let touchStartX = 0;
     let touchEndX = 0;
     const modalContent = document.querySelector('.preview-content');

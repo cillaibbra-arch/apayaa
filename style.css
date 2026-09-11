@@ -41,8 +41,10 @@
   font-size: 3rem;
   margin-bottom: 20px;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  animation: floatBounce 3s ease-in-out infinite;
 }
 
+/* HALAMAN & ANIMASI MASUK HALAMAN */
 .page {
   display: none;
   flex-direction: column;
@@ -54,21 +56,85 @@
   text-align: center;
   position: relative;
   opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: scale(0.92) translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .page.active {
   display: flex;
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translateY(0);
+}
+
+/* ANIMASI MASUK ELEMEN ELEMEN KETIKA HALAMAN AKTIF */
+.page.active .title-script,
+.page.active .menu-item,
+.page.active .love-counter-box,
+.page.active .polaroid,
+.page.active .album-card,
+.page.active .paper-letter,
+.page.active .gold-frame-wrapper,
+.page.active .song-card,
+.page.active .open-when-buttons button,
+.page.active .diary-form-card,
+.page.active .diary-card {
+  animation: fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* DELAY STAGGER UNTUK CARD & MENU */
+.page.active .menu-item:nth-child(1) { animation-delay: 0.1s; }
+.page.active .menu-item:nth-child(2) { animation-delay: 0.2s; }
+.page.active .menu-item:nth-child(3) { animation-delay: 0.3s; }
+.page.active .menu-item:nth-child(4) { animation-delay: 0.4s; }
+.page.active .menu-item:nth-child(5) { animation-delay: 0.5s; }
+
+.page.active .polaroid:nth-child(1) { animation-delay: 0.05s; }
+.page.active .polaroid:nth-child(2) { animation-delay: 0.1s; }
+.page.active .polaroid:nth-child(3) { animation-delay: 0.15s; }
+.page.active .polaroid:nth-child(4) { animation-delay: 0.2s; }
+.page.active .polaroid:nth-child(5) { animation-delay: 0.25s; }
+.page.active .polaroid:nth-child(6) { animation-delay: 0.3s; }
+.page.active .polaroid:nth-child(7) { animation-delay: 0.35s; }
+.page.active .polaroid:nth-child(8) { animation-delay: 0.4s; }
+
+.page.active .song-card:nth-child(1) { animation-delay: 0.1s; }
+.page.active .song-card:nth-child(2) { animation-delay: 0.2s; }
+.page.active .song-card:nth-child(3) { animation-delay: 0.3s; }
+.page.active .song-card:nth-child(4) { animation-delay: 0.4s; }
+.page.active .song-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* KEYFRAMES ANIMASI MASUK & GERAK */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes stickerWobble {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
 }
 
 .btn-back {
   position: absolute;
   top: 20px;
   left: 20px;
-  z-index: 999;
+  z-index: 100;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -143,7 +209,7 @@ body {
   padding: 8px 12px;
   border-radius: 30px;
   border: 1px solid var(--border-color);
-  z-index: 9999;
+  z-index: 1000;
 }
 
 .theme-btn {
@@ -167,7 +233,7 @@ body {
 /* AMPLOP & KEJUTAN */
 .envelope-wrapper {
   cursor: pointer;
-  animation: pulse 2s infinite;
+  animation: pulse 2s infinite, floatSlow 4s ease-in-out infinite;
   transition: transform 0.3s ease;
 }
 
@@ -189,6 +255,7 @@ body {
   margin-top: 15px;
   font-size: 0.9rem;
   opacity: 0.8;
+  animation: floatBounce 2s ease-in-out infinite;
 }
 
 .surprise-box {
@@ -220,20 +287,24 @@ body {
 
 .surprise-img.img-1 {
   transform: rotate(-18deg) translateY(10px);
+  animation: floatSlow 3s ease-in-out infinite alternate;
 }
 
 .surprise-img.img-2 {
   transform: rotate(0deg) translateY(-8px) scale(1.05);
   z-index: 2;
+  animation: floatSlow 3.5s ease-in-out infinite alternate-reverse;
 }
 
 .surprise-img.img-3 {
   transform: rotate(18deg) translateY(10px);
+  animation: floatSlow 2.8s ease-in-out infinite alternate;
 }
 
 .surprise-img:hover {
   transform: scale(1.2) rotate(0deg) translateY(-12px) !important;
   z-index: 10;
+  animation: none;
 }
 
 .btn-next {
@@ -294,6 +365,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
+  animation: floatSlow 4s ease-in-out infinite;
 }
 
 .love-counter-box:hover {
@@ -343,34 +415,46 @@ body {
 .menu-item {
   width: 120px;
   height: 140px;
-  background: rgba(255, 255, 255, .08);
-  border: 1px solid rgba(255, 255, 255, .15);
-  backdrop-filter: blur(10px);
-  border-radius: 22px;
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: .3s;
+  animation: floatSlow 3.5s ease-in-out infinite;
+}
+
+.menu-item:nth-child(even) {
+  animation-delay: 0.5s;
 }
 
 .menu-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: none;
 }
 
 .menu-item img {
-  width: 65px;
-  height: 65px;
+  width: 75px;
+  height: 75px;
   object-fit: contain;
   margin-bottom: 12px;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover img {
+  transform: scale(1.15) rotate(5deg);
 }
 
 .menu-item span {
   color: white;
   font-weight: 600;
   font-size: .95rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* JOURNEY */
@@ -466,12 +550,13 @@ body {
   pointer-events: none;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
   transition: transform 0.3s ease;
+  animation: stickerWobble 4s ease-in-out infinite alternate;
 }
 
-.heart1 { width: 50px; top: 15px; left: 15px; transform: rotate(-15deg); }
-.heart2 { width: 45px; bottom: 25px; left: 20px; transform: rotate(10deg); }
-.saturn { width: 65px; top: 50%; right: 10px; transform: translateY(-50%) rotate(-12deg); }
-.capybara { width: 55px; bottom: 15px; right: 20px; transform: rotate(8deg); }
+.heart1 { width: 50px; top: 15px; left: 15px; animation-delay: 0s; }
+.heart2 { width: 45px; bottom: 25px; left: 20px; animation-delay: 1s; }
+.saturn { width: 65px; top: 50%; right: 10px; animation-delay: 0.5s; }
+.capybara { width: 55px; bottom: 15px; right: 20px; animation-delay: 1.5s; }
 
 .journey-gallery-container {
   width: 100%;
@@ -506,6 +591,11 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.album-card:nth-child(even) {
+  animation-delay: 1s;
 }
 
 .album-card:hover {
@@ -597,6 +687,7 @@ body {
   font-size: 0.85rem;
   line-height: 1.6;
   text-align: left;
+  animation: floatSlow 3.8s ease-in-out infinite alternate;
 }
 
 .sticker-rose-left {
@@ -605,11 +696,13 @@ body {
   top: 20%;
   width: 70px;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  animation: stickerWobble 3s ease-in-out infinite alternate;
 }
 
 .gold-frame-wrapper {
   position: relative;
   transform: rotate(4deg);
+  animation: floatSlow 4.2s ease-in-out infinite alternate-reverse;
 }
 
 .gold-frame {
@@ -637,6 +730,7 @@ body {
   width: 65px;
   z-index: 5;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  animation: stickerWobble 3.5s ease-in-out infinite alternate;
 }
 
 .open-when-container {
@@ -670,7 +764,11 @@ body {
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: 0.3s ease;
+  animation: floatBounce 3s ease-in-out infinite;
 }
+
+.btn-open-when:nth-child(2) { animation-delay: 0.3s; }
+.btn-open-when:nth-child(3) { animation-delay: 0.6s; }
 
 .btn-icon {
   width: 60px;  
@@ -680,7 +778,7 @@ body {
 
 .btn-open-when:hover {
   background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.05);
 }
 
 .bottom-elements {
@@ -726,12 +824,14 @@ body {
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 2;
+  animation: pulse 1.5s infinite;
 }
 
 .camera-decor {
   width: 80px;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
   transform: rotate(-5deg);
+  animation: stickerWobble 4s ease-in-out infinite;
 }
 
 /* MODAL & LIGHTBOX SLIDER */
@@ -747,6 +847,12 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 10000;
+  animation: fadeInModal 0.3s ease-out forwards;
+}
+
+@keyframes fadeInModal {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .modal-content {
@@ -758,7 +864,12 @@ body {
   text-align: center;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: fadeInZoom 0.3s ease;
+  animation: modalZoomIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalZoomIn {
+  0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .close-modal {
@@ -793,6 +904,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: modalZoomIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .preview-image-wrapper {
@@ -806,7 +918,6 @@ body {
   max-height: 75vh;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  animation: fadeInZoom 0.3s ease;
   object-fit: contain;
 }
 
@@ -936,7 +1047,7 @@ body {
 
 .song-card:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateX(6px);
+  transform: translateX(8px);
 }
 
 .song-card img {
@@ -955,22 +1066,151 @@ body {
   pointer-events: none;
   z-index: 1;
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.35));
+  animation: stickerWobble 4s ease-in-out infinite alternate;
 }
 
-.song-sticker.radio { width: 120px; top: 10px; left: -40px; transform: rotate(-12deg); }
-.song-sticker.tv { width: 120px; top: 30px; right: -40px; transform: rotate(10deg); }
-.song-sticker.flower-right { width: 140px; bottom: 20px; right: -50px; transform: rotate(25deg); opacity: 0.9; z-index: 1; }
+.song-sticker.radio { width: 120px; top: 10px; left: -40px; transform: rotate(-12deg); animation-delay: 0.2s; }
+.song-sticker.tv { width: 120px; top: 30px; right: -40px; transform: rotate(10deg); animation-delay: 0.8s; }
+.song-sticker.flower-right { width: 140px; bottom: 20px; right: -50px; transform: rotate(25deg); opacity: 0.9; z-index: 1; animation-delay: 1.2s; }
 
 /* GIFT */
 .img-gift-big {
   width: 140px;
   margin-bottom: 15px;
   filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+  animation: floatSlow 3s ease-in-out infinite;
 }
 
 .gift-title {
   font-size: 1.8rem;
   margin-bottom: 8px;
+}
+
+/* DIARY BOOK */
+.diary-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+}
+
+.diary-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.diary-container::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
+}
+
+.diary-form-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.diary-form-card input,
+.diary-form-card textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.diary-form-card input:focus,
+.diary-form-card textarea:focus {
+  border-color: var(--accent-color);
+}
+
+.diary-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.diary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 18px 20px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.diary-card:hover {
+  transform: translateY(-4px);
+}
+
+.diary-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 8px;
+}
+
+.diary-card-header h3 {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+}
+
+.diary-card-date {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.diary-card-body {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  white-space: pre-line;
+  margin-bottom: 12px;
+}
+
+.diary-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-diary-action {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.btn-diary-action:hover {
+  opacity: 1;
+  color: #ff4d4d;
 }
 
 /* EFEK PELUKAN & OVERLAY */
@@ -995,6 +1235,7 @@ body {
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
   user-select: none;
+  animation: floatBounce 2.5s ease-in-out infinite;
 }
 
 .btn-hug:hover {
@@ -1075,7 +1316,7 @@ body {
   text-align: center;
   position: relative;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  animation: fadeInZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: modalZoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .counter-photo-wrapper {
@@ -1339,8 +1580,8 @@ body {
   }
 
   .menu-item img {
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
   }
 
   .cards-slider-track {
