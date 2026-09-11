@@ -27,6 +27,7 @@
   top: -30px;
   animation: fall linear forwards;
   opacity: 0.6;
+  pointer-events: none;
 }
 
 @keyframes fall {
@@ -1607,11 +1608,10 @@ body {
    ========================================== */
 
 @media (max-width: 768px) {
-  /* Fix layout halaman dan pernapasan konten */
   .page {
     padding: 12px 8px;
-    padding-top: 55px; /* Ruang agar tidak tertutup tombol BACK */
-    padding-bottom: 70px; /* Ruang agar tidak tertutup Theme Switcher */
+    padding-top: 55px;
+    padding-bottom: 70px;
     min-height: 100dvh;
   }
 
@@ -1628,7 +1628,6 @@ body {
     margin-bottom: 12px;
   }
 
-  /* Theme Switcher dipindah agar ramah jempol HP */
   .theme-switcher {
     bottom: 12px;
     right: 50%;
@@ -1638,7 +1637,6 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
   }
 
-  /* Menu Utama Grid 2 Kolom Seimbang */
   .menu-grid {
     gap: 12px;
     display: grid;
@@ -1657,7 +1655,6 @@ body {
     height: 55px;
   }
 
-  /* Galeri Polaroid (Journey) */
   .photo-gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -1668,7 +1665,6 @@ body {
     max-width: 100%;
   }
 
-  /* Halaman Moment */
   .moment-content {
     flex-direction: column;
     gap: 16px;
@@ -1693,7 +1689,6 @@ body {
     max-width: 160px;
   }
 
-  /* Halaman Playlist */
   .playlist-container {
     padding: 15px;
   }
@@ -1718,7 +1713,6 @@ body {
     height: 48px;
   }
 
-  /* Sembunyikan stiker yang menutupi layar HP */
   .song-sticker.radio,
   .song-sticker.tv,
   .song-sticker.flower-right,
@@ -1727,7 +1721,6 @@ body {
     display: none !important;
   }
 
-  /* Modal Preview Foto & Card Slider */
   .counter-modal-content.slider-mode {
     width: 95%;
     padding: 15px 5px;
@@ -1750,5 +1743,376 @@ body {
   .album-cards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+}
+
+/* INTERACTION FIX */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+button,
+a,
+[onclick] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  pointer-events: none;
+}
+
+.page.active {
+  pointer-events: auto;
+}
+
+.theme-switcher,
+.theme-btn {
+  pointer-events: auto;
+}
+
+.envelope-wrapper,
+.love-counter-box,
+.menu-item,
+.album-card,
+.polaroid,
+.song-card,
+.music-player-vinyl,
+.btn-back,
+.btn-next,
+.btn-open-when,
+.btn-hug,
+.nav-btn,
+.slider-btn,
+.dot,
+.close-modal,
+.preview-close {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.img-envelope,
+.img-gift-big,
+.menu-item img,
+.surprise-img,
+.polaroid img,
+.album-card img,
+.gold-frame img,
+.song-card img,
+.counter-modal-img,
+.btn-icon,
+.vinyl-disc {
+  -webkit-user-drag: none;
+}
+
+.modal,
+.hug-overlay {
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .page {
+    min-height: 100dvh;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 62px;
+    padding-bottom: 85px;
+  }
+
+  .theme-switcher {
+    bottom: max(10px, env(safe-area-inset-bottom));
+    right: 50%;
+    z-index: 20000;
+  }
+
+  .btn-back {
+    z-index: 200;
+    min-height: 40px;
+  }
+
+  .menu-grid {
+    width: min(100%, 360px);
+  }
+
+  .menu-item {
+    min-height: 112px;
+  }
+
+  .btn-next,
+  .btn-back,
+  .btn-open-when,
+  .btn-hug,
+  .nav-btn,
+  .slider-btn {
+    min-height: 44px;
+  }
+
+  .btn-open-when {
+    min-width: 110px;
+  }
+
+  .journey-container,
+  .diary-container {
+    max-height: none;
+    min-height: 0;
+  }
+
+  .preview-content {
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    max-height: calc(100dvh - 30px);
+  }
+
+  .preview-content img {
+    max-width: calc(100vw - 70px);
+    max-height: 70dvh;
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cards-slider-wrapper {
+    touch-action: pan-x;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-script {
+    font-size: 2rem;
+  }
+
+  .menu-grid {
+    gap: 8px;
+    max-width: 330px;
+  }
+
+  .menu-item {
+    height: 108px;
+  }
+
+  .menu-item img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .counter-modal-content.slider-mode {
+    width: calc(100vw - 20px);
+  }
+
+  .memory-card {
+    flex-basis: 92%;
+  }
+}
+
+
+/* FINAL CLICK AND MOBILE STABILITY FIXES */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"],
+[onclick] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.page.active {
+  position: relative;
+  z-index: 2;
+}
+
+.theme-switcher {
+  isolation: isolate;
+}
+
+.envelope-wrapper,
+.menu-item,
+.love-counter-box,
+.album-card,
+.polaroid,
+.song-card,
+.music-player-vinyl,
+.btn-back,
+.btn-next,
+.btn-open-when,
+.btn-hug,
+.nav-btn,
+.slider-btn,
+.dot,
+.close-modal,
+.preview-close {
+  position: relative;
+  z-index: 3;
+}
+
+.modal {
+  touch-action: auto;
+}
+
+.modal.hidden {
+  display: none !important;
+}
+
+.modal.active {
+  display: flex !important;
+}
+
+.hug-overlay.hidden {
+  display: flex !important;
+}
+
+.diary-form-card input,
+.diary-form-card textarea,
+.diary-form-card button {
+  position: relative;
+  z-index: 4;
+}
+
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100dvh;
+    padding: 64px 12px 90px;
+    overflow: visible;
+  }
+
+  .title-script {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+    line-height: 1.1;
+  }
+
+  .menu-grid {
+    width: 100%;
+    max-width: 390px;
+    gap: 14px;
+  }
+
+  .menu-item {
+    width: 105px;
+    height: 125px;
+  }
+
+  .menu-item img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .journey-container,
+  .diary-container,
+  .moment-container,
+  .playlist-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .photo-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .polaroid {
+    max-width: 145px;
+  }
+
+  .album-cards-grid {
+    width: 100%;
+  }
+
+  .surprise-photos {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .modal {
+    padding: 12px;
+  }
+
+  .preview-content {
+    width: min(96vw, 650px);
+    max-width: 96vw;
+  }
+
+  .preview-image-wrapper {
+    max-width: calc(100vw - 70px);
+  }
+
+  .counter-modal-content {
+    width: min(94vw, 700px);
+    max-width: 94vw;
+  }
+
+  .cards-slider-track {
+    width: 100%;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .memory-card {
+    scroll-snap-align: center;
+  }
+
+  .btn-back {
+    top: 12px;
+    left: 12px;
+    min-height: 42px;
+  }
+
+  .theme-switcher {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 420px) {
+  .menu-grid {
+    gap: 8px;
+  }
+
+  .menu-item {
+    width: 92px;
+    height: 115px;
+  }
+
+  .menu-item img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .menu-item span {
+    font-size: 0.82rem;
+  }
+
+  .journey-header-title {
+    font-size: 2.15rem;
   }
 }
