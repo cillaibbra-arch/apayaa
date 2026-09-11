@@ -1601,3 +1601,154 @@ body {
   .prev-btn { left: 5px; }
   .next-btn { right: 5px; }
 }
+
+/* ==========================================
+   OPTIMASI RESPONSIF KHUSUS TAMPILAN HANDPHONE
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* Fix layout halaman dan pernapasan konten */
+  .page {
+    padding: 12px 8px;
+    padding-top: 55px; /* Ruang agar tidak tertutup tombol BACK */
+    padding-bottom: 70px; /* Ruang agar tidak tertutup Theme Switcher */
+    min-height: 100dvh;
+  }
+
+  .btn-back {
+    top: 12px;
+    left: 12px;
+    padding: 6px 14px;
+    font-size: 12px;
+    backdrop-filter: blur(15px);
+  }
+
+  .title-script {
+    font-size: 2.1rem;
+    margin-bottom: 12px;
+  }
+
+  /* Theme Switcher dipindah agar ramah jempol HP */
+  .theme-switcher {
+    bottom: 12px;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 6px 12px;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  /* Menu Utama Grid 2 Kolom Seimbang */
+  .menu-grid {
+    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .menu-item {
+    width: 100%;
+    height: 110px;
+  }
+
+  .menu-item img {
+    width: 55px;
+    height: 55px;
+  }
+
+  /* Galeri Polaroid (Journey) */
+  .photo-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 5px;
+  }
+
+  .polaroid {
+    max-width: 100%;
+  }
+
+  /* Halaman Moment */
+  .moment-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .name-title {
+    font-size: 2rem;
+    margin-left: 0;
+    text-align: center;
+    align-self: center;
+  }
+
+  .paper-letter {
+    width: 100%;
+    max-width: 100%;
+    transform: rotate(0deg);
+    padding: 18px 14px;
+    font-size: 0.82rem;
+  }
+
+  .gold-frame img {
+    max-width: 160px;
+  }
+
+  /* Halaman Playlist */
+  .playlist-container {
+    padding: 15px;
+  }
+
+  .playlist-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .playlist-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .song-card {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .song-card img {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Sembunyikan stiker yang menutupi layar HP */
+  .song-sticker.radio,
+  .song-sticker.tv,
+  .song-sticker.flower-right,
+  .sticker-rose-left, 
+  .sticker-rose-right {
+    display: none !important;
+  }
+
+  /* Modal Preview Foto & Card Slider */
+  .counter-modal-content.slider-mode {
+    width: 95%;
+    padding: 15px 5px;
+  }
+
+  .memory-card {
+    flex: 0 0 92%;
+  }
+
+  .prev-btn { left: 2px; }
+  .next-btn { right: 2px; }
+  
+  .preview-content img {
+    max-width: 92vw;
+    max-height: 65vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
