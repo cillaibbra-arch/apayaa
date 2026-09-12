@@ -2489,17 +2489,17 @@ async function saveFeelingLog() {
 
     const dateInput =
         document.getElementById(
-            'feelings-date'
+            'date'
         );
 
     const moodInput =
         document.getElementById(
-            'feelings-today'
+            'feeling'
         );
 
     const noteInput =
         document.getElementById(
-            'feelings-answer'
+            'answer'
         );
 
     const saveButton =
