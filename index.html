@@ -42,16 +42,20 @@
     </div>
 
     <!-- 2. HALAMAN MENU UTAMA -->
-    <div id="page-menu" class="page">
-        <h1 class="title-script">Choose the Surprise</h1>
+   <div id="page-menu" class="page">
+    <h1 class="title-script">Choose the Surprise</h1>
 
-       <div class="love-counter-box" onclick="openLoveCounterModal()">
-            <p class="counter-label">Together for</p>
-            <h2 id="days-count">0 Days</h2>
-            <p class="counter-sub">and counting every second</p>
-            <span class="tap-hint"> Tap to see our memory </span>
-        </div>
-        <div class="menu-grid">
+    <div class="love-counter-box" onclick="openLoveCounterModal()">
+        <p class="counter-label">Together for</p>
+        <h2 id="days-count">0 Days</h2>
+        <p class="counter-sub">and counting every second</p>
+        <span class="tap-hint">Tap to see our memory</span>
+    </div>
+
+    <div class="menu-grid">
+
+        <div class="menu-row menu-row-main">
+
             <div class="menu-item" onclick="showPage('page-journey')">
                 <img src="assets/journey.png" alt="Journey">
                 <span>Journey</span>
@@ -72,13 +76,24 @@
                 <span>Gift</span>
             </div>
 
-            <!-- MENU DIARY BOOK -->
+        </div>
+
+        <div class="menu-row menu-row-secondary">
+
             <div class="menu-item" onclick="showPage('page-diary')">
-                <img src="assets/bunga2.png" alt="Diary Book">
+                <img src="assets/DiaryBook.png" alt="Diary Book">
                 <span>Diary Book</span>
             </div>
+
+            <div class="menu-item" onclick="showPage('page-feelings')">
+                <img src="assets/feelings.png" alt="Feelings Log">
+                <span>Feelings Log</span>
+            </div>
+
         </div>
+
     </div>
+</div>
 
     <!-- 3. HALAMAN JOURNEY -->
     <div id="page-journey" class="page">
@@ -343,6 +358,115 @@
             </div>
         </div>
     </div>
+
+    <!-- 8. HALAMAN FEELINGS LOG -->
+<div id="page-feelings" class="page">
+    <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+
+    <div class="feelings-container">
+
+        <div class="feelings-title-box">
+            <h2>feelings log</h2>
+        </div>
+
+        <div class="feelings-paper">
+
+           <div class="feelings-photo">
+
+    <div class="feelings-photo-frame">
+        <img
+            id="feelings-photo-preview"
+            src="assets/foto1.jpeg"
+            alt="Foto Feelings Log"
+        >
+    </div>
+
+    <label
+        for="feelings-photo-input"
+        class="feelings-photo-btn"
+    >
+        Tambahkan Foto
+    </label>
+
+    <input
+        type="file"
+        id="feelings-photo-input"
+        accept="image/*"
+        onchange="handleFeelingPhotoUpload(event)"
+        hidden
+    >
+
+    <button
+        type="button"
+        class="feelings-remove-photo"
+        onclick="removeFeelingPhoto()"
+    >
+        Hapus Foto
+    </button>
+
+</div>
+
+            <div class="feelings-form">
+
+                <div class="feelings-row">
+                    <label for="feelings-date">date:</label>
+                    <input type="date" id="feelings-date">
+                </div>
+
+                <div class="feelings-divider"></div>
+
+                <div class="feelings-row rating-row">
+                    <label>feelings<br>rate:</label>
+
+                    <div class="feelings-stars" id="feelings-stars">
+                        <button type="button" data-rating="1" onclick="setFeelingRating(1)">☆</button>
+                        <button type="button" data-rating="2" onclick="setFeelingRating(2)">☆</button>
+                        <button type="button" data-rating="3" onclick="setFeelingRating(3)">☆</button>
+                        <button type="button" data-rating="4" onclick="setFeelingRating(4)">☆</button>
+                        <button type="button" data-rating="5" onclick="setFeelingRating(5)">☆</button>
+                    </div>
+                </div>
+
+                <div class="feelings-divider"></div>
+
+                <div class="feelings-question">
+                    <h3>today i feel:</h3>
+                    <input
+                        type="text"
+                        id="feelings-today"
+                        placeholder="contoh: happy"
+                    >
+                </div>
+
+                <div class="feelings-divider"></div>
+
+                <div class="feelings-question">
+                    <label for="feelings-answer">
+                        jawaban dari 'today i feel':
+                    </label>
+
+                    <textarea
+                        id="feelings-answer"
+                        rows="4"
+                        placeholder="Ceritakan kenapa kamu merasa seperti itu..."
+                    ></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="feelings-save-btn"
+            onclick="saveFeelingLog()"
+        >
+            Simpan Feelings
+        </button>
+
+        <div id="feelings-list" class="feelings-list"></div>
+
+    </div>
+</div>
 
     <div id="hug-overlay" class="hug-overlay hidden">
         <div class="hug-content">

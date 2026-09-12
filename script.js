@@ -2,10 +2,6 @@
 // CONFIG & DATA GLOBAL
 // ==========================================
 
-// ==========================================
-// CONFIG & DATA GLOBAL
-// ==========================================
-
 // Supabase
 window.SUPABASE_URL =
     window.SUPABASE_URL ||
@@ -32,7 +28,8 @@ var supabase =
 
 
 // Tanggal jadian
-const startDate = new Date('2026-05-14');
+const startDate =
+    new Date('2026-05-14');
 
 
 // Slider memory
@@ -44,48 +41,120 @@ const albumsData = [
     {
         title: 'Album 1',
         photos: [
-            { src: 'assets/foto6.jpeg', caption: 'Momen Indah 1.1' },
-            { src: 'assets/foto7.jpeg', caption: 'Momen Indah 1.2' },
-            { src: 'assets/foto8.jpeg', caption: 'Momen Indah 1.3' },
-            { src: 'assets/foto9.jpeg', caption: 'Momen Indah 1.4' },
-            { src: 'assets/foto10.jpeg', caption: 'Momen Indah 1.5' },
-            { src: 'assets/foto11.jpeg', caption: 'Momen Indah 1.6' }
+            {
+                src: 'assets/foto6.jpeg',
+                caption: 'Momen Indah 1.1'
+            },
+            {
+                src: 'assets/foto7.jpeg',
+                caption: 'Momen Indah 1.2'
+            },
+            {
+                src: 'assets/foto8.jpeg',
+                caption: 'Momen Indah 1.3'
+            },
+            {
+                src: 'assets/foto9.jpeg',
+                caption: 'Momen Indah 1.4'
+            },
+            {
+                src: 'assets/foto10.jpeg',
+                caption: 'Momen Indah 1.5'
+            },
+            {
+                src: 'assets/foto11.jpeg',
+                caption: 'Momen Indah 1.6'
+            }
         ]
     },
 
     {
         title: 'Album 2',
         photos: [
-            { src: 'assets/foto12.jpeg', caption: 'Momen Indah 2.1' },
-            { src: 'assets/foto13.jpeg', caption: 'Momen Indah 2.2' },
-            { src: 'assets/foto14.jpeg', caption: 'Momen Indah 2.3' },
-            { src: 'assets/foto15.jpeg', caption: 'Momen Indah 2.4' },
-            { src: 'assets/foto16.jpeg', caption: 'Momen Indah 2.5' },
-            { src: 'assets/foto17.jpeg', caption: 'Momen Indah 2.6' }
+            {
+                src: 'assets/foto12.jpeg',
+                caption: 'Momen Indah 2.1'
+            },
+            {
+                src: 'assets/foto13.jpeg',
+                caption: 'Momen Indah 2.2'
+            },
+            {
+                src: 'assets/foto14.jpeg',
+                caption: 'Momen Indah 2.3'
+            },
+            {
+                src: 'assets/foto15.jpeg',
+                caption: 'Momen Indah 2.4'
+            },
+            {
+                src: 'assets/foto16.jpeg',
+                caption: 'Momen Indah 2.5'
+            },
+            {
+                src: 'assets/foto17.jpeg',
+                caption: 'Momen Indah 2.6'
+            }
         ]
     },
 
     {
         title: 'Album 3',
         photos: [
-            { src: 'assets/foto18.jpeg', caption: 'Momen Indah 3.1' },
-            { src: 'assets/foto19.jpeg', caption: 'Momen Indah 3.2' },
-            { src: 'assets/foto20.jpeg', caption: 'Momen Indah 3.3' },
-            { src: 'assets/foto21.jpeg', caption: 'Momen Indah 3.4' },
-            { src: 'assets/foto22.jpeg', caption: 'Momen Indah 3.5' },
-            { src: 'assets/foto23.jpeg', caption: 'Momen Indah 3.6' }
+            {
+                src: 'assets/foto18.jpeg',
+                caption: 'Momen Indah 3.1'
+            },
+            {
+                src: 'assets/foto19.jpeg',
+                caption: 'Momen Indah 3.2'
+            },
+            {
+                src: 'assets/foto20.jpeg',
+                caption: 'Momen Indah 3.3'
+            },
+            {
+                src: 'assets/foto21.jpeg',
+                caption: 'Momen Indah 3.4'
+            },
+            {
+                src: 'assets/foto22.jpeg',
+                caption: 'Momen Indah 3.5'
+            },
+            {
+                src: 'assets/foto23.jpeg',
+                caption: 'Momen Indah 3.6'
+            }
         ]
     },
 
     {
         title: 'Album 4',
         photos: [
-            { src: 'assets/foto24.jpeg', caption: '4.1' },
-            { src: 'assets/foto25.jpeg', caption: '4.2' },
-            { src: 'assets/foto26.jpeg', caption: '4.3' },
-            { src: 'assets/foto27.jpeg', caption: '4.4' },
-            { src: 'assets/foto28.jpeg', caption: '4.5' },
-            { src: 'assets/foto29.jpeg', caption: '4.6' }
+            {
+                src: 'assets/foto24.jpeg',
+                caption: '4.1'
+            },
+            {
+                src: 'assets/foto25.jpeg',
+                caption: '4.2'
+            },
+            {
+                src: 'assets/foto26.jpeg',
+                caption: '4.3'
+            },
+            {
+                src: 'assets/foto27.jpeg',
+                caption: '4.4'
+            },
+            {
+                src: 'assets/foto28.jpeg',
+                caption: '4.5'
+            },
+            {
+                src: 'assets/foto29.jpeg',
+                caption: '4.6'
+            }
         ]
     }
 ];
@@ -96,7 +165,9 @@ let activePhotoList = [];
 
 
 // Suara klik
-const clickSound = new Audio('assets/click.mp3');
+const clickSound =
+    new Audio('assets/click.mp3');
+
 clickSound.preload = 'auto';
 
 
@@ -121,9 +192,13 @@ function playClickSound() {
     try {
         clickSound.currentTime = 0;
 
-        const promise = clickSound.play();
+        const promise =
+            clickSound.play();
 
-        if (promise && typeof promise.catch === 'function') {
+        if (
+            promise &&
+            typeof promise.catch === 'function'
+        ) {
             promise.catch(() => {});
         }
     } catch (error) {}
@@ -131,19 +206,25 @@ function playClickSound() {
 
 
 function escapeHtml(text) {
-    if (text === null || text === undefined) {
+    if (
+        text === null ||
+        text === undefined
+    ) {
         return '';
     }
 
-    return String(text).replace(/[&<>"']/g, function (character) {
-        return {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        }[character];
-    });
+    return String(text).replace(
+        /[&<>"']/g,
+        function (character) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[character];
+        }
+    );
 }
 
 
@@ -152,6 +233,7 @@ function escapeHtml(text) {
 // ==========================================
 
 function setTheme(themeName) {
+
     const validThemes = [
         'default',
         'cyberpunk',
@@ -159,7 +241,11 @@ function setTheme(themeName) {
         'pastel'
     ];
 
-    if (!validThemes.includes(themeName)) {
+    if (
+        !validThemes.includes(
+            themeName
+        )
+    ) {
         themeName = 'default';
     }
 
@@ -171,8 +257,12 @@ function setTheme(themeName) {
         'theme-pastel'
     );
 
-    if (themeName !== 'default') {
-        document.body.classList.add(`theme-${themeName}`);
+    if (
+        themeName !== 'default'
+    ) {
+        document.body.classList.add(
+            `theme-${themeName}`
+        );
     }
 
     try {
@@ -182,26 +272,38 @@ function setTheme(themeName) {
         );
     } catch (error) {}
 
-    document.querySelectorAll('.theme-btn').forEach(button => {
-        button.classList.remove('active');
-    });
+    document
+        .querySelectorAll('.theme-btn')
+        .forEach(button => {
+            button.classList.remove(
+                'active'
+            );
+        });
 
     const activeButton =
-        document.querySelector(`.theme-btn.${themeName}`);
+        document.querySelector(
+            `.theme-btn.${themeName}`
+        );
 
     if (activeButton) {
-        activeButton.classList.add('active');
+        activeButton.classList.add(
+            'active'
+        );
     }
 }
 
 
 function loadTheme() {
+
     let theme = 'default';
 
     try {
         theme =
-            localStorage.getItem('selectedTheme') ||
+            localStorage.getItem(
+                'selectedTheme'
+            ) ||
             'default';
+
     } catch (error) {
         theme = 'default';
     }
@@ -211,6 +313,7 @@ function loadTheme() {
 
 
 function setThemeWithoutSound(themeName) {
+
     const validThemes = [
         'default',
         'cyberpunk',
@@ -218,7 +321,11 @@ function setThemeWithoutSound(themeName) {
         'pastel'
     ];
 
-    if (!validThemes.includes(themeName)) {
+    if (
+        !validThemes.includes(
+            themeName
+        )
+    ) {
         themeName = 'default';
     }
 
@@ -228,15 +335,21 @@ function setThemeWithoutSound(themeName) {
         'theme-pastel'
     );
 
-    if (themeName !== 'default') {
+    if (
+        themeName !== 'default'
+    ) {
         document.body.classList.add(
             `theme-${themeName}`
         );
     }
 
-    document.querySelectorAll('.theme-btn').forEach(button => {
-        button.classList.remove('active');
-    });
+    document
+        .querySelectorAll('.theme-btn')
+        .forEach(button => {
+            button.classList.remove(
+                'active'
+            );
+        });
 
     const activeButton =
         document.querySelector(
@@ -244,7 +357,9 @@ function setThemeWithoutSound(themeName) {
         );
 
     if (activeButton) {
-        activeButton.classList.add('active');
+        activeButton.classList.add(
+            'active'
+        );
     }
 }
 
@@ -254,37 +369,60 @@ function setThemeWithoutSound(themeName) {
 // ==========================================
 
 function showPage(pageId) {
-    if (!pageId) return;
+
+    if (!pageId) {
+        return;
+    }
 
     playClickSound();
 
     const targetPage =
-        document.getElementById(pageId);
+        document.getElementById(
+            pageId
+        );
 
     if (!targetPage) {
+
         console.warn(
             'Halaman tidak ditemukan:',
             pageId
         );
+
         return;
     }
 
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
+    document
+        .querySelectorAll('.page')
+        .forEach(page => {
+            page.classList.remove(
+                'active'
+            );
+        });
 
-    targetPage.classList.add('active');
+    targetPage.classList.add(
+        'active'
+    );
 
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
 
-    if (pageId === 'page-diary') {
+    if (
+        pageId === 'page-diary'
+    ) {
         renderDiaryEntries();
     }
 
-    if (pageId === 'page-playlist') {
+    if (
+        pageId === 'page-feelings'
+    ) {
+        initFeelingsLog();
+    }
+
+    if (
+        pageId === 'page-playlist'
+    ) {
         updatePlaylistState();
     }
 }
@@ -295,7 +433,9 @@ function showPage(pageId) {
 // ==========================================
 
 function calculateDays() {
-    const now = new Date();
+
+    const now =
+        new Date();
 
     const diffTime =
         Math.max(
@@ -316,6 +456,7 @@ function calculateDays() {
         );
 
     if (daysElement) {
+
         daysElement.innerText =
             `${diffDays} Days`;
     }
@@ -332,37 +473,55 @@ function updateLoveCounter() {
 // ==========================================
 
 function createFloatingElements() {
+
     const container =
         document.getElementById(
             'heart-container'
         );
 
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
     setInterval(() => {
-        const img =
-            document.createElement('img');
 
-        img.src = 'assets/heart.png';
+        const img =
+            document.createElement(
+                'img'
+            );
+
+        img.src =
+            'assets/heart.png';
 
         img.className =
             'floating-element';
 
         img.style.left =
-            Math.random() * 100 + 'vw';
+            Math.random() * 100 +
+            'vw';
 
         img.style.animationDuration =
-            Math.random() * 3 + 3 + 's';
+            Math.random() * 3 +
+            3 +
+            's';
 
         img.style.width =
-            Math.random() * 15 + 15 + 'px';
+            Math.random() * 15 +
+            15 +
+            'px';
 
-        container.appendChild(img);
+        container.appendChild(
+            img
+        );
 
         setTimeout(() => {
-            if (img.parentNode) {
+
+            if (
+                img.parentNode
+            ) {
                 img.remove();
             }
+
         }, 6000);
 
     }, 800);
@@ -373,18 +532,19 @@ function createFloatingElements() {
 // DIARY - SUPABASE
 // ==========================================
 
-async function renderDiaryEntries() {
-    const diaryList =
-        document.getElementById(
-            'diary-list'
-        );
+let diaryCurrentPage = 1;
+const DIARY_ITEMS_PER_PAGE = 5;
 
-    if (!diaryList) return;
+async function renderDiaryEntries(page = diaryCurrentPage) {
+    const diaryList = document.getElementById('diary-list');
+
+    if (!diaryList) {
+        return;
+    }
 
     if (!supabase) {
         diaryList.innerHTML =
             '<p style="opacity:0.7; color:#ff75a0; font-size:0.85rem;">Supabase belum berhasil terhubung.</p>';
-
         return;
     }
 
@@ -398,12 +558,9 @@ async function renderDiaryEntries() {
         } = await supabase
             .from('diaries')
             .select('*')
-            .order(
-                'created_at',
-                {
-                    ascending: false
-                }
-            );
+            .order('created_at', {
+                ascending: false
+            });
 
         if (error) {
             throw error;
@@ -411,17 +568,38 @@ async function renderDiaryEntries() {
 
         diaryList.innerHTML = '';
 
-        if (
-            !data ||
-            data.length === 0
-        ) {
+        if (!data || data.length === 0) {
             diaryList.innerHTML =
                 '<p style="opacity:0.7; font-size:0.9rem;">Belum ada catatan diary di database.</p>';
 
+            removeDiaryPagination();
             return;
         }
 
-        data.forEach(entry => {
+        const totalPages = Math.ceil(
+            data.length / DIARY_ITEMS_PER_PAGE
+        );
+
+        diaryCurrentPage = Math.max(
+            1,
+            Math.min(page, totalPages)
+        );
+
+        const startIndex =
+            (diaryCurrentPage - 1) *
+            DIARY_ITEMS_PER_PAGE;
+
+        const endIndex =
+            startIndex +
+            DIARY_ITEMS_PER_PAGE;
+
+        const pageData =
+            data.slice(
+                startIndex,
+                endIndex
+            );
+
+        pageData.forEach(entry => {
             const dateValue =
                 entry.entry_date ||
                 entry.date ||
@@ -458,19 +636,35 @@ async function renderDiaryEntries() {
 
             card.innerHTML = `
                 <div class="diary-card-header">
-                    <h3>${escapeHtml(entry.title)}</h3>
-                    <span class="diary-card-date">${escapeHtml(dateFormatted)}</span>
+                    <h3>
+                        ${escapeHtml(
+                            entry.title || ''
+                        )}
+                    </h3>
+
+                    <span class="diary-card-date">
+                        ${escapeHtml(
+                            dateFormatted
+                        )}
+                    </span>
                 </div>
 
                 <div class="diary-card-body">
-                    ${escapeHtml(entry.content).replace(/\n/g, '<br>')}
+                    ${escapeHtml(
+                        entry.content || ''
+                    ).replace(
+                        /\n/g,
+                        '<br>'
+                    )}
                 </div>
 
                 <div class="diary-card-footer">
                     <button
                         type="button"
                         class="btn-diary-action"
-                        onclick="deleteDiaryEntry('${String(entry.id).replace(/'/g, "\\'")}')"
+                        onclick="deleteDiaryEntry('${String(
+                            entry.id
+                        )}')"
                     >
                         Hapus
                     </button>
@@ -480,19 +674,167 @@ async function renderDiaryEntries() {
             diaryList.appendChild(card);
         });
 
+        renderDiaryPagination(
+            data.length,
+            totalPages
+        );
+
     } catch (error) {
         console.error(
-            'Error fetching diary from Supabase:',
+            'Error loading diary from Supabase:',
             error
         );
 
         diaryList.innerHTML =
-            '<p style="opacity:0.7; color:#ff75a0; font-size:0.85rem;">Gagal memuat catatan dari Supabase. Periksa koneksi, URL, API key, tabel diaries, dan RLS Supabase.</p>';
+            '<p style="opacity:0.7; color:#ff75a0;">Gagal memuat catatan diary.</p>';
+
+        removeDiaryPagination();
+    }
+}
+
+function renderDiaryPagination(
+    totalItems,
+    totalPages
+) {
+    removeDiaryPagination();
+
+    if (totalPages <= 1) {
+        return;
+    }
+
+    const diaryList =
+        document.getElementById(
+            'diary-list'
+        );
+
+    if (!diaryList) {
+        return;
+    }
+
+    const pagination =
+        document.createElement('div');
+
+    pagination.id =
+        'diary-pagination';
+
+    pagination.className =
+        'diary-pagination';
+
+    const previousButton =
+        document.createElement('button');
+
+    previousButton.type =
+        'button';
+
+    previousButton.className =
+        'diary-page-button diary-page-prev';
+
+    previousButton.textContent =
+        'Sebelumnya';
+
+    previousButton.disabled =
+        diaryCurrentPage === 1;
+
+    previousButton.onclick =
+        function () {
+            if (
+                diaryCurrentPage > 1
+            ) {
+                renderDiaryEntries(
+                    diaryCurrentPage - 1
+                );
+            }
+        };
+
+    pagination.appendChild(
+        previousButton
+    );
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+        const pageButton =
+            document.createElement('button');
+
+        pageButton.type =
+            'button';
+
+        pageButton.className =
+            'diary-page-button';
+
+        pageButton.textContent =
+            String(page);
+
+        if (
+            page === diaryCurrentPage
+        ) {
+            pageButton.classList.add(
+                'active'
+            );
+        }
+
+        pageButton.onclick =
+            function () {
+                renderDiaryEntries(page);
+            };
+
+        pagination.appendChild(
+            pageButton
+        );
+    }
+
+    const nextButton =
+        document.createElement('button');
+
+    nextButton.type =
+        'button';
+
+    nextButton.className =
+        'diary-page-button diary-page-next';
+
+    nextButton.textContent =
+        'Berikutnya';
+
+    nextButton.disabled =
+        diaryCurrentPage === totalPages;
+
+    nextButton.onclick =
+        function () {
+            if (
+                diaryCurrentPage <
+                totalPages
+            ) {
+                renderDiaryEntries(
+                    diaryCurrentPage + 1
+                );
+            }
+        };
+
+    pagination.appendChild(
+        nextButton
+    );
+
+    diaryList.parentNode.appendChild(
+        pagination
+    );
+}
+
+function removeDiaryPagination() {
+    const pagination =
+        document.getElementById(
+            'diary-pagination'
+        );
+
+    if (pagination) {
+        pagination.remove();
     }
 }
 
 
 async function addDiaryEntry() {
+
     playClickSound();
 
     const titleInput =
@@ -532,6 +874,7 @@ async function addDiaryEntry() {
         !date ||
         !content
     ) {
+
         alert(
             'Mohon isi judul, tanggal, dan cerita kamu dengan lengkap.'
         );
@@ -540,6 +883,7 @@ async function addDiaryEntry() {
     }
 
     if (!supabase) {
+
         alert(
             'Supabase belum terhubung.'
         );
@@ -553,14 +897,18 @@ async function addDiaryEntry() {
         );
 
     if (button) {
+
         button.disabled = true;
+
         button.dataset.originalText =
             button.textContent;
+
         button.textContent =
             'Menyimpan...';
     }
 
     try {
+
         const {
             error
         } = await supabase
@@ -584,6 +932,7 @@ async function addDiaryEntry() {
         await renderDiaryEntries();
 
     } catch (error) {
+
         console.error(
             'Error adding diary to Supabase:',
             error
@@ -594,8 +943,11 @@ async function addDiaryEntry() {
         );
 
     } finally {
+
         if (button) {
+
             button.disabled = false;
+
             button.textContent =
                 button.dataset.originalText ||
                 'Simpan Catatan';
@@ -605,6 +957,7 @@ async function addDiaryEntry() {
 
 
 async function deleteDiaryEntry(id) {
+
     playClickSound();
 
     if (
@@ -616,6 +969,7 @@ async function deleteDiaryEntry(id) {
     }
 
     if (!supabase) {
+
         alert(
             'Supabase belum terhubung.'
         );
@@ -624,12 +978,16 @@ async function deleteDiaryEntry(id) {
     }
 
     try {
+
         const {
             error
         } = await supabase
             .from('diaries')
             .delete()
-            .eq('id', id);
+            .eq(
+                'id',
+                id
+            );
 
         if (error) {
             throw error;
@@ -638,6 +996,7 @@ async function deleteDiaryEntry(id) {
         await renderDiaryEntries();
 
     } catch (error) {
+
         console.error(
             'Error deleting diary from Supabase:',
             error
@@ -651,10 +1010,938 @@ async function deleteDiaryEntry(id) {
 
 
 // ==========================================
+// FEELINGS LOG
+// ==========================================
+
+let currentFeelingRating = 0;
+
+const FEELINGS_PHOTO_KEY =
+    'feelingsLogPhoto';
+
+const FEELINGS_LOG_KEY =
+    'feelingsLogs';
+
+
+// ==========================================
+// INIT FEELINGS LOG
+// ==========================================
+
+function initFeelingsLog() {
+
+    const dateInput =
+        document.getElementById(
+            'feelings-date'
+        );
+
+    if (
+        dateInput &&
+        !dateInput.value
+    ) {
+
+        const now =
+            new Date();
+
+        const year =
+            now.getFullYear();
+
+        const month =
+            String(
+                now.getMonth() + 1
+            ).padStart(
+                2,
+                '0'
+            );
+
+        const day =
+            String(
+                now.getDate()
+            ).padStart(
+                2,
+                '0'
+            );
+
+        dateInput.value =
+            `${year}-${month}-${day}`;
+    }
+
+    loadFeelingPhoto();
+
+    renderFeelingLogs();
+}
+
+
+// ==========================================
+// FEELING RATING
+// ==========================================
+
+function setFeelingRating(
+    rating
+) {
+
+    playClickSound();
+
+    const numericRating =
+        Number(rating);
+
+    if (
+        Number.isNaN(
+            numericRating
+        )
+    ) {
+        return;
+    }
+
+    currentFeelingRating =
+        Math.max(
+            1,
+            Math.min(
+                5,
+                numericRating
+            )
+        );
+
+    document
+        .querySelectorAll(
+            '#feelings-stars button'
+        )
+        .forEach(
+            (button, index) => {
+
+                const starNumber =
+                    index + 1;
+
+                if (
+                    starNumber <=
+                    currentFeelingRating
+                ) {
+
+                    button.textContent =
+                        '★';
+
+                    button.classList.add(
+                        'active'
+                    );
+
+                } else {
+
+                    button.textContent =
+                        '☆';
+
+                    button.classList.remove(
+                        'active'
+                    );
+                }
+            }
+        );
+}
+
+
+// ==========================================
+// GET FEELINGS LOGS
+// ==========================================
+
+function getFeelingLogs() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                FEELINGS_LOG_KEY
+            );
+
+        if (!saved) {
+            return [];
+        }
+
+        const logs =
+            JSON.parse(saved);
+
+        if (
+            !Array.isArray(logs)
+        ) {
+            return [];
+        }
+
+        return logs;
+
+    } catch (error) {
+
+        console.error(
+            'Gagal membaca feelings logs:',
+            error
+        );
+
+        return [];
+    }
+}
+
+
+// ==========================================
+// SAVE FEELINGS LOG
+// ==========================================
+
+function saveFeelingLog() {
+
+    playClickSound();
+
+    const dateInput =
+        document.getElementById(
+            'feelings-date'
+        );
+
+    const feelingInput =
+        document.getElementById(
+            'feelings-today'
+        );
+
+    const answerInput =
+        document.getElementById(
+            'feelings-answer'
+        );
+
+    if (
+        !dateInput ||
+        !feelingInput ||
+        !answerInput
+    ) {
+        return;
+    }
+
+    const date =
+        dateInput.value;
+
+    const feeling =
+        feelingInput.value.trim();
+
+    const answer =
+        answerInput.value.trim();
+
+    if (!date) {
+
+        alert(
+            'Silakan pilih tanggal terlebih dahulu.'
+        );
+
+        return;
+    }
+
+    if (
+        !currentFeelingRating
+    ) {
+
+        alert(
+            'Silakan pilih rating perasaan kamu.'
+        );
+
+        return;
+    }
+
+    if (!feeling) {
+
+        alert(
+            'Silakan isi today i feel.'
+        );
+
+        feelingInput.focus();
+
+        return;
+    }
+
+    if (!answer) {
+
+        alert(
+            'Silakan isi jawaban dari today i feel.'
+        );
+
+        answerInput.focus();
+
+        return;
+    }
+
+    const logs =
+        getFeelingLogs();
+
+    const newLog = {
+        id: Date.now(),
+        date: date,
+        rating:
+            currentFeelingRating,
+        feeling: feeling,
+        answer: answer
+    };
+
+    logs.unshift(
+        newLog
+    );
+
+    try {
+
+        localStorage.setItem(
+            FEELINGS_LOG_KEY,
+            JSON.stringify(logs)
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Gagal menyimpan feelings log:',
+            error
+        );
+
+        alert(
+            'Gagal menyimpan feelings log. Penyimpanan browser mungkin penuh.'
+        );
+
+        return;
+    }
+
+    feelingInput.value = '';
+    answerInput.value = '';
+
+    currentFeelingRating = 0;
+
+    document
+        .querySelectorAll(
+            '#feelings-stars button'
+        )
+        .forEach(button => {
+
+            button.textContent =
+                '☆';
+
+            button.classList.remove(
+                'active'
+            );
+        });
+
+    renderFeelingLogs();
+}
+
+
+// ==========================================
+// RENDER FEELINGS LOG
+// ==========================================
+
+let feelingsCurrentPage = 1;
+const FEELINGS_ITEMS_PER_PAGE = 5;
+
+function renderFeelingLogs(
+    page = feelingsCurrentPage
+) {
+    const list =
+        document.getElementById(
+            'feelings-list'
+        );
+
+    if (!list) {
+        return;
+    }
+
+    const logs =
+        getFeelingLogs();
+
+    list.innerHTML = '';
+
+    if (!logs.length) {
+        removeFeelingsPagination();
+        return;
+    }
+
+    const totalPages =
+        Math.ceil(
+            logs.length /
+            FEELINGS_ITEMS_PER_PAGE
+        );
+
+    feelingsCurrentPage =
+        Math.max(
+            1,
+            Math.min(
+                page,
+                totalPages
+            )
+        );
+
+    const startIndex =
+        (feelingsCurrentPage - 1) *
+        FEELINGS_ITEMS_PER_PAGE;
+
+    const endIndex =
+        startIndex +
+        FEELINGS_ITEMS_PER_PAGE;
+
+    const pageLogs =
+        logs.slice(
+            startIndex,
+            endIndex
+        );
+
+    pageLogs.forEach(log => {
+        const card =
+            document.createElement(
+                'div'
+            );
+
+        card.className =
+            'feeling-card';
+
+        const rating =
+            Math.max(
+                1,
+                Math.min(
+                    5,
+                    Number(log.rating) || 1
+                )
+            );
+
+        const stars =
+            '★'.repeat(rating) +
+            '☆'.repeat(
+                5 - rating
+            );
+
+        card.innerHTML = `
+            <div class="feeling-card-header">
+
+                <span class="feeling-card-date">
+                    ${escapeHtml(
+                        log.date || ''
+                    )}
+                </span>
+
+                <span class="feeling-card-rating">
+                    ${stars}
+                </span>
+
+            </div>
+
+            <div class="feeling-card-title">
+                Today I feel:
+                ${escapeHtml(
+                    log.feeling || ''
+                )}
+            </div>
+
+            <div class="feeling-card-text">
+                ${escapeHtml(
+                    log.answer || ''
+                ).replace(
+                    /\n/g,
+                    '<br>'
+                )}
+            </div>
+
+            <button
+                type="button"
+                class="feeling-card-delete"
+                onclick="deleteFeelingLog(${Number(
+                    log.id
+                )})"
+            >
+                Hapus
+            </button>
+        `;
+
+        list.appendChild(
+            card
+        );
+    });
+
+    renderFeelingsPagination(
+        logs.length,
+        totalPages
+    );
+}
+
+function renderFeelingsPagination(
+    totalItems,
+    totalPages
+) {
+    removeFeelingsPagination();
+
+    if (totalPages <= 1) {
+        return;
+    }
+
+    const list =
+        document.getElementById(
+            'feelings-list'
+        );
+
+    if (!list) {
+        return;
+    }
+
+    const pagination =
+        document.createElement(
+            'div'
+        );
+
+    pagination.id =
+        'feelings-pagination';
+
+    pagination.className =
+        'feelings-pagination';
+
+    const previousButton =
+        document.createElement(
+            'button'
+        );
+
+    previousButton.type =
+        'button';
+
+    previousButton.className =
+        'feelings-page-button';
+
+    previousButton.textContent =
+        'Sebelumnya';
+
+    previousButton.disabled =
+        feelingsCurrentPage === 1;
+
+    previousButton.onclick =
+        function () {
+            if (
+                feelingsCurrentPage > 1
+            ) {
+                renderFeelingLogs(
+                    feelingsCurrentPage - 1
+                );
+            }
+        };
+
+    pagination.appendChild(
+        previousButton
+    );
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+        const pageButton =
+            document.createElement(
+                'button'
+            );
+
+        pageButton.type =
+            'button';
+
+        pageButton.className =
+            'feelings-page-button';
+
+        pageButton.textContent =
+            String(page);
+
+        if (
+            page ===
+            feelingsCurrentPage
+        ) {
+            pageButton.classList.add(
+                'active'
+            );
+        }
+
+        pageButton.onclick =
+            function () {
+                renderFeelingLogs(
+                    page
+                );
+            };
+
+        pagination.appendChild(
+            pageButton
+        );
+    }
+
+    const nextButton =
+        document.createElement(
+            'button'
+        );
+
+    nextButton.type =
+        'button';
+
+    nextButton.className =
+        'feelings-page-button';
+
+    nextButton.textContent =
+        'Berikutnya';
+
+    nextButton.disabled =
+        feelingsCurrentPage ===
+        totalPages;
+
+    nextButton.onclick =
+        function () {
+            if (
+                feelingsCurrentPage <
+                totalPages
+            ) {
+                renderFeelingLogs(
+                    feelingsCurrentPage + 1
+                );
+            }
+        };
+
+    pagination.appendChild(
+        nextButton
+    );
+
+    list.parentNode.appendChild(
+        pagination
+    );
+}
+
+function removeFeelingsPagination() {
+    const pagination =
+        document.getElementById(
+            'feelings-pagination'
+        );
+
+    if (pagination) {
+        pagination.remove();
+    }
+}
+
+
+// ==========================================
+// DELETE FEELINGS LOG
+// ==========================================
+
+function deleteFeelingLog(id) {
+
+    playClickSound();
+
+    if (
+        !confirm(
+            'Yakin ingin menghapus feelings log ini?'
+        )
+    ) {
+        return;
+    }
+
+    let logs =
+        getFeelingLogs();
+
+    logs =
+        logs.filter(
+            log =>
+                Number(log.id) !==
+                Number(id)
+        );
+
+    try {
+
+        localStorage.setItem(
+            FEELINGS_LOG_KEY,
+            JSON.stringify(logs)
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Gagal menghapus feelings log:',
+            error
+        );
+
+        return;
+    }
+
+    renderFeelingLogs();
+}
+
+
+// ==========================================
+// FEELINGS PHOTO UPLOAD
+// ==========================================
+
+function handleFeelingPhotoUpload(
+    event
+) {
+
+    playClickSound();
+
+    if (
+        !event ||
+        !event.target ||
+        !event.target.files ||
+        !event.target.files.length
+    ) {
+        return;
+    }
+
+    const input =
+        event.target;
+
+    const file =
+        input.files[0];
+
+    if (
+        !file.type.startsWith(
+            'image/'
+        )
+    ) {
+
+        alert(
+            'File yang dipilih harus berupa gambar.'
+        );
+
+        input.value = '';
+
+        return;
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function (loadEvent) {
+
+            const image =
+                new Image();
+
+            image.onload =
+                function () {
+
+                    const maxWidth = 1000;
+                    const maxHeight = 1000;
+
+                    let width =
+                        image.width;
+
+                    let height =
+                        image.height;
+
+                    if (
+                        width >
+                        maxWidth ||
+                        height >
+                        maxHeight
+                    ) {
+
+                        const ratio =
+                            Math.min(
+                                maxWidth /
+                                    width,
+                                maxHeight /
+                                    height
+                            );
+
+                        width =
+                            Math.round(
+                                width *
+                                ratio
+                            );
+
+                        height =
+                            Math.round(
+                                height *
+                                ratio
+                            );
+                    }
+
+                    const canvas =
+                        document.createElement(
+                            'canvas'
+                        );
+
+                    canvas.width =
+                        width;
+
+                    canvas.height =
+                        height;
+
+                    const context =
+                        canvas.getContext(
+                            '2d'
+                        );
+
+                    if (!context) {
+
+                        alert(
+                            'Foto tidak dapat diproses.'
+                        );
+
+                        return;
+                    }
+
+                    context.drawImage(
+                        image,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+
+                    const compressedImage =
+                        canvas.toDataURL(
+                            'image/jpeg',
+                            0.82
+                        );
+
+                    const preview =
+                        document.getElementById(
+                            'feelings-photo-preview'
+                        );
+
+                    if (preview) {
+
+                        preview.src =
+                            compressedImage;
+
+                        preview.classList.remove(
+                            'image-error'
+                        );
+                    }
+
+                    try {
+
+                        localStorage.setItem(
+                            FEELINGS_PHOTO_KEY,
+                            compressedImage
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            'Gagal menyimpan foto:',
+                            error
+                        );
+
+                        alert(
+                            'Foto terlalu besar untuk disimpan di browser. Silakan pilih foto yang lebih kecil.'
+                        );
+                    }
+                };
+
+            image.onerror =
+                function () {
+
+                    alert(
+                        'Foto tidak dapat dibaca.'
+                    );
+                };
+
+            image.src =
+                loadEvent.target.result;
+        };
+
+    reader.onerror =
+        function () {
+
+            alert(
+                'Gagal membaca foto.'
+            );
+        };
+
+    reader.readAsDataURL(
+        file
+    );
+}
+
+
+// ==========================================
+// LOAD FEELINGS PHOTO
+// ==========================================
+
+function loadFeelingPhoto() {
+
+    const preview =
+        document.getElementById(
+            'feelings-photo-preview'
+        );
+
+    if (!preview) {
+        return;
+    }
+
+    try {
+
+        const savedPhoto =
+            localStorage.getItem(
+                FEELINGS_PHOTO_KEY
+            );
+
+        if (savedPhoto) {
+
+            preview.src =
+                savedPhoto;
+        }
+
+    } catch (error) {
+
+        console.error(
+            'Gagal memuat foto feelings:',
+            error
+        );
+    }
+}
+
+
+// ==========================================
+// REMOVE FEELINGS PHOTO
+// ==========================================
+
+function removeFeelingPhoto() {
+
+    playClickSound();
+
+    if (
+        !confirm(
+            'Yakin ingin menghapus foto Feelings Log?'
+        )
+    ) {
+        return;
+    }
+
+    try {
+
+        localStorage.removeItem(
+            FEELINGS_PHOTO_KEY
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Gagal menghapus foto feelings:',
+            error
+        );
+    }
+
+    const preview =
+        document.getElementById(
+            'feelings-photo-preview'
+        );
+
+    if (preview) {
+
+        preview.src =
+            'assets/foto1.jpeg';
+
+        preview.classList.remove(
+            'image-error'
+        );
+    }
+
+    const input =
+        document.getElementById(
+            'feelings-photo-input'
+        );
+
+    if (input) {
+        input.value = '';
+    }
+}
+
+
+// ==========================================
 // LOVE COUNTER MODAL
 // ==========================================
 
 function openLoveCounterModal() {
+
     playClickSound();
 
     const modal =
@@ -662,9 +1949,13 @@ function openLoveCounterModal() {
             'counter-modal'
         );
 
-    if (!modal) return;
+    if (!modal) {
+        return;
+    }
 
-    modal.classList.remove('hidden');
+    modal.classList.remove(
+        'hidden'
+    );
 
     currentCardIndex = 0;
 
@@ -675,6 +1966,7 @@ function openLoveCounterModal() {
 
 
 function closeLoveCounterModal() {
+
     playClickSound();
 
     const modal =
@@ -682,9 +1974,13 @@ function closeLoveCounterModal() {
             'counter-modal'
         );
 
-    if (!modal) return;
+    if (!modal) {
+        return;
+    }
 
-    modal.classList.add('hidden');
+    modal.classList.add(
+        'hidden'
+    );
 }
 
 
@@ -693,6 +1989,7 @@ function closeLoveCounterModal() {
 // ==========================================
 
 function updateSliderPosition() {
+
     const wrapper =
         document.querySelector(
             '.cards-slider-wrapper'
@@ -724,20 +2021,26 @@ function updateSliderPosition() {
     if (
         currentCardIndex < 0
     ) {
+
         currentCardIndex =
             cards.length - 1;
     }
 
     if (
-        currentCardIndex >= cards.length
+        currentCardIndex >=
+        cards.length
     ) {
+
         currentCardIndex = 0;
     }
 
     const card =
-        cards[currentCardIndex];
+        cards[
+            currentCardIndex
+        ];
 
     if (card) {
+
         const wrapperRect =
             wrapper.getBoundingClientRect();
 
@@ -746,8 +2049,10 @@ function updateSliderPosition() {
 
         const targetLeft =
             wrapper.scrollLeft +
-            (cardRect.left -
-            wrapperRect.left) -
+            (
+                cardRect.left -
+                wrapperRect.left
+            ) -
             (
                 wrapper.clientWidth -
                 cardRect.width
@@ -763,17 +2068,25 @@ function updateSliderPosition() {
     }
 
     dots.forEach(
-        (dot, index) => {
+        (
+            dot,
+            index
+        ) => {
+
             dot.classList.toggle(
                 'active',
-                index === currentCardIndex
+                index ===
+                currentCardIndex
             );
         }
     );
 }
 
 
-function moveCard(direction) {
+function moveCard(
+    direction
+) {
+
     playClickSound();
 
     const cards =
@@ -802,13 +2115,16 @@ function moveCard(direction) {
     if (
         currentCardIndex < 0
     ) {
+
         currentCardIndex =
             cards.length - 1;
     }
 
     if (
-        currentCardIndex >= cards.length
+        currentCardIndex >=
+        cards.length
     ) {
+
         currentCardIndex = 0;
     }
 
@@ -817,6 +2133,7 @@ function moveCard(direction) {
 
 
 function goToCard(index) {
+
     playClickSound();
 
     const cards =
@@ -857,9 +2174,12 @@ function goToCard(index) {
 // ==========================================
 
 function openImagePreview(src) {
+
     playClickSound();
 
-    if (!src) return;
+    if (!src) {
+        return;
+    }
 
     activePhotoList = [
         {
@@ -878,6 +2198,7 @@ function openImagePreview(src) {
         );
 
     if (modal) {
+
         modal.classList.remove(
             'hidden'
         );
@@ -889,7 +2210,10 @@ function openImagePreview(src) {
 }
 
 
-function openAlbum(albumIndex) {
+function openAlbum(
+    albumIndex
+) {
+
     playClickSound();
 
     const index =
@@ -902,7 +2226,8 @@ function openAlbum(albumIndex) {
         return;
     }
 
-    currentAlbumIndex = index;
+    currentAlbumIndex =
+        index;
 
     activePhotoList =
         albumsData[index].photos;
@@ -917,6 +2242,7 @@ function openAlbum(albumIndex) {
         );
 
     if (modal) {
+
         modal.classList.remove(
             'hidden'
         );
@@ -929,6 +2255,7 @@ function openAlbum(albumIndex) {
 
 
 function updateLightboxImage() {
+
     const image =
         document.getElementById(
             'preview-image'
@@ -959,6 +2286,7 @@ function updateLightboxImage() {
     if (
         currentPhotoIndex < 0
     ) {
+
         currentPhotoIndex =
             activePhotoList.length - 1;
     }
@@ -967,6 +2295,7 @@ function updateLightboxImage() {
         currentPhotoIndex >=
         activePhotoList.length
     ) {
+
         currentPhotoIndex = 0;
     }
 
@@ -983,6 +2312,7 @@ function updateLightboxImage() {
         'Pratinjau Foto';
 
     if (caption) {
+
         caption.textContent =
             item.caption || '';
 
@@ -995,6 +2325,7 @@ function updateLightboxImage() {
     if (
         activePhotoList.length <= 1
     ) {
+
         if (prevButton) {
             prevButton.style.display =
                 'none';
@@ -1004,7 +2335,9 @@ function updateLightboxImage() {
             nextButton.style.display =
                 'none';
         }
+
     } else {
+
         if (prevButton) {
             prevButton.style.display =
                 'flex';
@@ -1019,6 +2352,7 @@ function updateLightboxImage() {
 
 
 function nextSlide() {
+
     playClickSound();
 
     if (
@@ -1038,6 +2372,7 @@ function nextSlide() {
 
 
 function prevSlide() {
+
     playClickSound();
 
     if (
@@ -1058,6 +2393,7 @@ function prevSlide() {
 
 
 function closeImagePreview() {
+
     playClickSound();
 
     const modal =
@@ -1066,6 +2402,7 @@ function closeImagePreview() {
         );
 
     if (modal) {
+
         modal.classList.add(
             'hidden'
         );
@@ -1082,6 +2419,7 @@ function closeImagePreview() {
 // ==========================================
 
 function togglePlayMusic() {
+
     playClickSound();
 
     const music =
@@ -1094,27 +2432,37 @@ function togglePlayMusic() {
             'vinyl-img'
         );
 
-    if (!music) return;
+    if (!music) {
+        return;
+    }
 
     if (music.paused) {
+
         const promise =
             music.play();
 
         if (
             promise &&
-            typeof promise.then === 'function'
+            typeof promise.then ===
+                'function'
         ) {
+
             promise
                 .then(() => {
+
                     if (vinyl) {
+
                         vinyl.classList.add(
                             'spin'
                         );
                     }
                 })
                 .catch(() => {});
+
         } else {
+
             if (vinyl) {
+
                 vinyl.classList.add(
                     'spin'
                 );
@@ -1122,9 +2470,11 @@ function togglePlayMusic() {
         }
 
     } else {
+
         music.pause();
 
         if (vinyl) {
+
             vinyl.classList.remove(
                 'spin'
             );
@@ -1134,6 +2484,7 @@ function togglePlayMusic() {
 
 
 function autoPlayMusic() {
+
     const music =
         document.getElementById(
             'bg-music'
@@ -1144,33 +2495,13 @@ function autoPlayMusic() {
             'vinyl-img'
         );
 
-    if (!music) return;
-
-    const tryPlay =
-        () => {
-            const promise =
-                music.play();
-
-            if (
-                promise &&
-                typeof promise.then === 'function'
-            ) {
-                promise
-                    .then(() => {
-                        if (vinyl) {
-                            vinyl.classList.add(
-                                'spin'
-                            );
-                        }
-
-                        removeMusicUnlock();
-                    })
-                    .catch(() => {});
-            }
-        };
+    if (!music) {
+        return;
+    }
 
     const removeMusicUnlock =
         () => {
+
             document.removeEventListener(
                 'click',
                 tryPlay
@@ -1187,22 +2518,66 @@ function autoPlayMusic() {
             );
         };
 
+    const tryPlay =
+        () => {
+
+            const promise =
+                music.play();
+
+            if (
+                promise &&
+                typeof promise.then ===
+                    'function'
+            ) {
+
+                promise
+                    .then(() => {
+
+                        if (vinyl) {
+
+                            vinyl.classList.add(
+                                'spin'
+                            );
+                        }
+
+                        removeMusicUnlock();
+                    })
+                    .catch(() => {});
+
+            } else {
+
+                if (vinyl) {
+
+                    vinyl.classList.add(
+                        'spin'
+                    );
+                }
+
+                removeMusicUnlock();
+            }
+        };
+
     const promise =
         music.play();
 
     if (
         promise &&
-        typeof promise.then === 'function'
+        typeof promise.then ===
+            'function'
     ) {
+
         promise
             .then(() => {
+
                 if (vinyl) {
+
                     vinyl.classList.add(
                         'spin'
                     );
                 }
             })
             .catch(() => {
+
                 document.addEventListener(
                     'click',
                     tryPlay,
@@ -1233,23 +2608,28 @@ function autoPlayMusic() {
 
 
 function updatePlaylistState() {
+
     const iframe =
         document.getElementById(
             'youtube-player'
         );
 
-    if (!iframe) return;
+    if (!iframe) {
+        return;
+    }
 
-    if (
-        !iframe.src
-    ) {
+    if (!iframe.src) {
+
         iframe.src =
             'https://www.youtube.com/embed/d90e0b3V8w4?enablejsapi=1';
     }
 }
 
 
-function playSong(youtubeUrl) {
+function playSong(
+    youtubeUrl
+) {
+
     playClickSound();
 
     if (!youtubeUrl) {
@@ -1268,6 +2648,7 @@ function playSong(youtubeUrl) {
     let videoId = '';
 
     try {
+
         const url =
             new URL(
                 youtubeUrl,
@@ -1279,6 +2660,7 @@ function playSong(youtubeUrl) {
                 'youtu.be'
             )
         ) {
+
             videoId =
                 url.pathname
                     .replace(
@@ -1292,6 +2674,7 @@ function playSong(youtubeUrl) {
                 'youtube.com'
             )
         ) {
+
             videoId =
                 url.searchParams.get(
                     'v'
@@ -1303,24 +2686,32 @@ function playSong(youtubeUrl) {
                     '/embed/'
                 )
             ) {
+
                 videoId =
                     url.pathname
-                        .split('/embed/')[1]
+                        .split(
+                            '/embed/'
+                        )[1]
                         .split('/')[0];
             }
         }
 
     } catch (error) {
+
         videoId = '';
     }
 
     if (!videoId) {
+
         const match =
-            String(youtubeUrl).match(
+            String(
+                youtubeUrl
+            ).match(
                 /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&/]+)/
             );
 
         if (match) {
+
             videoId =
                 match[1];
         }
@@ -1331,15 +2722,20 @@ function playSong(youtubeUrl) {
     }
 
     iframe.src =
-        `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=1&enablejsapi=1&rel=0`;
+        `https://www.youtube.com/embed/${encodeURIComponent(
+            videoId
+        )}?autoplay=1&enablejsapi=1&rel=0`;
 
-    document.querySelectorAll(
-        '.song-card'
-    ).forEach(card => {
-        card.classList.remove(
-            'active'
-        );
-    });
+    document
+        .querySelectorAll(
+            '.song-card'
+        )
+        .forEach(card => {
+
+            card.classList.remove(
+                'active'
+            );
+        });
 
     const cards =
         Array.from(
@@ -1350,6 +2746,7 @@ function playSong(youtubeUrl) {
 
     const currentCard =
         cards.find(card => {
+
             const handler =
                 card.getAttribute(
                     'onclick'
@@ -1361,6 +2758,7 @@ function playSong(youtubeUrl) {
         });
 
     if (currentCard) {
+
         currentCard.classList.add(
             'active'
         );
@@ -1373,6 +2771,7 @@ function playSong(youtubeUrl) {
 // ==========================================
 
 function showNote(type) {
+
     playClickSound();
 
     const modal =
@@ -1390,7 +2789,9 @@ function showNote(type) {
             'modal-text'
         );
 
-    if (!modal) return;
+    if (!modal) {
+        return;
+    }
 
     const titles = {
         capek: 'Saat Kamu Capek',
@@ -1398,19 +2799,19 @@ function showNote(type) {
         sedih: 'Saat Kamu Sedih'
     };
 
-    if (
-        !notes[type]
-    ) {
+    if (!notes[type]) {
         return;
     }
 
     if (modalTitle) {
+
         modalTitle.innerText =
             titles[type] ||
             'Pesan untuk kamu';
     }
 
     if (modalText) {
+
         modalText.innerText =
             notes[type];
     }
@@ -1426,6 +2827,7 @@ function showNote(type) {
 
 
 function closeNote() {
+
     playClickSound();
 
     const modal =
@@ -1434,6 +2836,7 @@ function closeNote() {
         );
 
     if (modal) {
+
         modal.classList.add(
             'hidden'
         );
@@ -1450,6 +2853,7 @@ function closeNote() {
 // ==========================================
 
 function openEnvelope() {
+
     playClickSound();
 
     const envelope =
@@ -1468,16 +2872,25 @@ function openEnvelope() {
         );
 
     if (envelope) {
-        envelope.style.display = 'none';
+
+        envelope.style.display =
+            'none';
     }
 
     if (subtitle) {
-        subtitle.style.display = 'none';
+
+        subtitle.style.display =
+            'none';
     }
 
     if (surpriseBox) {
-        surpriseBox.classList.remove('hidden');
-        surpriseBox.style.display = 'block';
+
+        surpriseBox.classList.remove(
+            'hidden'
+        );
+
+        surpriseBox.style.display =
+            'block';
     }
 }
 
@@ -1487,6 +2900,7 @@ function openEnvelope() {
 // ==========================================
 
 function openGift() {
+
     playClickSound();
 
     const giftWrapper =
@@ -1505,16 +2919,19 @@ function openGift() {
         );
 
     if (giftWrapper) {
+
         giftWrapper.style.display =
             'none';
     }
 
     if (giftSubtitle) {
+
         giftSubtitle.style.display =
             'none';
     }
 
     if (surpriseBox) {
+
         surpriseBox.classList.remove(
             'hidden'
         );
@@ -1530,6 +2947,7 @@ function openGift() {
 // ==========================================
 
 function initHugFeature() {
+
     const hugButton =
         document.getElementById(
             'hug-btn'
@@ -1550,6 +2968,7 @@ function initHugFeature() {
     let holding = false;
 
     function startHug(event) {
+
         if (holding) {
             return;
         }
@@ -1560,6 +2979,7 @@ function initHugFeature() {
             event &&
             event.cancelable
         ) {
+
             event.preventDefault();
         }
 
@@ -1576,15 +2996,23 @@ function initHugFeature() {
         if (
             navigator.vibrate
         ) {
+
             try {
+
                 navigator.vibrate(
-                    [100, 50, 100]
+                    [
+                        100,
+                        50,
+                        100
+                    ]
                 );
+
             } catch (error) {}
         }
     }
 
     function endHug() {
+
         if (!holding) {
             return;
         }
@@ -1627,17 +3055,21 @@ function initHugFeature() {
 // ==========================================
 
 function closeAllModals() {
-    document.querySelectorAll(
-        '.modal'
-    ).forEach(modal => {
-        modal.classList.add(
-            'hidden'
-        );
 
-        modal.classList.remove(
-            'active'
-        );
-    });
+    document
+        .querySelectorAll(
+            '.modal'
+        )
+        .forEach(modal => {
+
+            modal.classList.add(
+                'hidden'
+            );
+
+            modal.classList.remove(
+                'active'
+            );
+        });
 
     const overlay =
         document.getElementById(
@@ -1645,6 +3077,7 @@ function closeAllModals() {
         );
 
     if (overlay) {
+
         overlay.classList.add(
             'hidden'
         );
@@ -1663,6 +3096,7 @@ function closeAllModals() {
 document.addEventListener(
     'click',
     function (event) {
+
         const target =
             event.target;
 
@@ -1673,6 +3107,7 @@ document.addEventListener(
                 'modal'
             )
         ) {
+
             target.classList.add(
                 'hidden'
             );
@@ -1694,6 +3129,7 @@ document.addEventListener(
 // ==========================================
 
 function initMemoryTouch() {
+
     const wrapper =
         document.querySelector(
             '.cards-slider-wrapper'
@@ -1709,6 +3145,7 @@ function initMemoryTouch() {
     wrapper.addEventListener(
         'touchstart',
         function (event) {
+
             if (
                 !event.touches ||
                 !event.touches.length
@@ -1717,10 +3154,12 @@ function initMemoryTouch() {
             }
 
             startX =
-                event.touches[0].clientX;
+                event.touches[0]
+                    .clientX;
 
             startY =
-                event.touches[0].clientY;
+                event.touches[0]
+                    .clientY;
         },
         {
             passive: true
@@ -1730,6 +3169,7 @@ function initMemoryTouch() {
     wrapper.addEventListener(
         'touchend',
         function (event) {
+
             if (
                 !event.changedTouches ||
                 !event.changedTouches.length
@@ -1738,10 +3178,12 @@ function initMemoryTouch() {
             }
 
             const endX =
-                event.changedTouches[0].clientX;
+                event.changedTouches[0]
+                    .clientX;
 
             const endY =
-                event.changedTouches[0].clientY;
+                event.changedTouches[0]
+                    .clientY;
 
             const diffX =
                 endX - startX;
@@ -1763,8 +3205,11 @@ function initMemoryTouch() {
             }
 
             if (diffX < 0) {
+
                 moveCard(1);
+
             } else {
+
                 moveCard(-1);
             }
         },
@@ -1780,6 +3225,7 @@ function initMemoryTouch() {
 // ==========================================
 
 function initPreviewTouch() {
+
     const content =
         document.querySelector(
             '.preview-content'
@@ -1795,6 +3241,7 @@ function initPreviewTouch() {
     content.addEventListener(
         'touchstart',
         function (event) {
+
             if (
                 !event.changedTouches ||
                 !event.changedTouches.length
@@ -1803,10 +3250,12 @@ function initPreviewTouch() {
             }
 
             startX =
-                event.changedTouches[0].clientX;
+                event.changedTouches[0]
+                    .clientX;
 
             startY =
-                event.changedTouches[0].clientY;
+                event.changedTouches[0]
+                    .clientY;
         },
         {
             passive: true
@@ -1816,6 +3265,7 @@ function initPreviewTouch() {
     content.addEventListener(
         'touchend',
         function (event) {
+
             if (
                 !event.changedTouches ||
                 !event.changedTouches.length
@@ -1824,10 +3274,12 @@ function initPreviewTouch() {
             }
 
             const endX =
-                event.changedTouches[0].clientX;
+                event.changedTouches[0]
+                    .clientX;
 
             const endY =
-                event.changedTouches[0].clientY;
+                event.changedTouches[0]
+                    .clientY;
 
             const diffX =
                 endX - startX;
@@ -1849,8 +3301,11 @@ function initPreviewTouch() {
             }
 
             if (diffX < 0) {
+
                 nextSlide();
+
             } else {
+
                 prevSlide();
             }
         },
@@ -1866,9 +3321,11 @@ function initPreviewTouch() {
 // ==========================================
 
 function initKeyboard() {
+
     document.addEventListener(
         'keydown',
         function (event) {
+
             const preview =
                 document.getElementById(
                     'image-preview-modal'
@@ -1880,10 +3337,12 @@ function initKeyboard() {
                     'hidden'
                 )
             ) {
+
                 if (
                     event.key ===
                     'ArrowRight'
                 ) {
+
                     nextSlide();
                 }
 
@@ -1891,6 +3350,7 @@ function initKeyboard() {
                     event.key ===
                     'ArrowLeft'
                 ) {
+
                     prevSlide();
                 }
 
@@ -1898,6 +3358,7 @@ function initKeyboard() {
                     event.key ===
                     'Escape'
                 ) {
+
                     closeImagePreview();
                 }
 
@@ -1908,6 +3369,7 @@ function initKeyboard() {
                 event.key ===
                 'Escape'
             ) {
+
                 closeAllModals();
             }
         }
@@ -1920,74 +3382,85 @@ function initKeyboard() {
 // ==========================================
 
 function initMobileClickFix() {
+
     const elements =
         document.querySelectorAll(
-            'button, .menu-item, .album-card, .song-card, .polaroid, .love-counter-box, .envelope-wrapper, .btn-next, .btn-back, .btn-open-when, .btn-hug, .nav-btn, .slider-btn, .dot, .theme-btn, .close-modal, .preview-close, [onclick]'
+            'button, label, .menu-item, .album-card, .song-card, .polaroid, .love-counter-box, .envelope-wrapper, .btn-next, .btn-back, .btn-open-when, .btn-hug, .nav-btn, .slider-btn, .dot, .theme-btn, .close-modal, .preview-close, [onclick]'
         );
 
-    elements.forEach(element => {
-        element.style.touchAction =
-            'manipulation';
+    elements.forEach(
+        element => {
 
-        if (
-            element.tagName ===
-            'BUTTON' ||
-            element.hasAttribute(
-                'onclick'
-            ) ||
-            element.classList.contains(
-                'menu-item'
-            ) ||
-            element.classList.contains(
-                'album-card'
-            ) ||
-            element.classList.contains(
-                'song-card'
-            ) ||
-            element.classList.contains(
-                'polaroid'
-            )
-        ) {
-            element.style.cursor =
-                'pointer';
+            element.style.touchAction =
+                'manipulation';
+
+            if (
+                element.tagName ===
+                'BUTTON' ||
+                element.tagName ===
+                'LABEL' ||
+                element.hasAttribute(
+                    'onclick'
+                ) ||
+                element.classList.contains(
+                    'menu-item'
+                ) ||
+                element.classList.contains(
+                    'album-card'
+                ) ||
+                element.classList.contains(
+                    'song-card'
+                ) ||
+                element.classList.contains(
+                    'polaroid'
+                )
+            ) {
+
+                element.style.cursor =
+                    'pointer';
+            }
+
+            element.addEventListener(
+                'pointerdown',
+                function () {
+
+                    this.classList.add(
+                        'pressed'
+                    );
+                }
+            );
+
+            element.addEventListener(
+                'pointerup',
+                function () {
+
+                    this.classList.remove(
+                        'pressed'
+                    );
+                }
+            );
+
+            element.addEventListener(
+                'pointercancel',
+                function () {
+
+                    this.classList.remove(
+                        'pressed'
+                    );
+                }
+            );
+
+            element.addEventListener(
+                'pointerleave',
+                function () {
+
+                    this.classList.remove(
+                        'pressed'
+                    );
+                }
+            );
         }
-
-        element.addEventListener(
-            'pointerdown',
-            function () {
-                this.classList.add(
-                    'pressed'
-                );
-            }
-        );
-
-        element.addEventListener(
-            'pointerup',
-            function () {
-                this.classList.remove(
-                    'pressed'
-                );
-            }
-        );
-
-        element.addEventListener(
-            'pointercancel',
-            function () {
-                this.classList.remove(
-                    'pressed'
-                );
-            }
-        );
-
-        element.addEventListener(
-            'pointerleave',
-            function () {
-                this.classList.remove(
-                    'pressed'
-                );
-            }
-        );
-    });
+    );
 }
 
 
@@ -1996,6 +3469,7 @@ function initMobileClickFix() {
 // ==========================================
 
 function initSliderScroll() {
+
     const wrapper =
         document.querySelector(
             '.cards-slider-wrapper'
@@ -2010,81 +3484,95 @@ function initSliderScroll() {
     wrapper.addEventListener(
         'scroll',
         function () {
+
             clearTimeout(
                 scrollTimer
             );
 
             scrollTimer =
-                setTimeout(() => {
-                    const cards =
-                        document.querySelectorAll(
-                            '#slider-track .memory-card'
-                        );
+                setTimeout(
+                    () => {
 
-                    if (!cards.length) {
-                        return;
-                    }
+                        const cards =
+                            document.querySelectorAll(
+                                '#slider-track .memory-card'
+                            );
 
-                    const wrapperRect =
-                        wrapper.getBoundingClientRect();
-
-                    let closestIndex = 0;
-                    let closestDistance =
-                        Infinity;
-
-                    cards.forEach(
-                        (card, index) => {
-                            const rect =
-                                card.getBoundingClientRect();
-
-                            const cardCenter =
-                                rect.left +
-                                rect.width / 2;
-
-                            const wrapperCenter =
-                                wrapperRect.left +
-                                wrapperRect.width / 2;
-
-                            const distance =
-                                Math.abs(
-                                    cardCenter -
-                                    wrapperCenter
-                                );
-
-                            if (
-                                distance <
-                                closestDistance
-                            ) {
-                                closestDistance =
-                                    distance;
-
-                                closestIndex =
-                                    index;
-                            }
+                        if (!cards.length) {
+                            return;
                         }
-                    );
 
-                    currentCardIndex =
-                        closestIndex;
+                        const wrapperRect =
+                            wrapper.getBoundingClientRect();
 
-                    document
-                        .querySelectorAll(
-                            '#slider-dots .dot'
-                        )
-                        .forEach(
+                        let closestIndex = 0;
+
+                        let closestDistance =
+                            Infinity;
+
+                        cards.forEach(
                             (
-                                dot,
+                                card,
                                 index
                             ) => {
-                                dot.classList.toggle(
-                                    'active',
-                                    index ===
-                                    closestIndex
-                                );
+
+                                const rect =
+                                    card.getBoundingClientRect();
+
+                                const cardCenter =
+                                    rect.left +
+                                    rect.width /
+                                        2;
+
+                                const wrapperCenter =
+                                    wrapperRect.left +
+                                    wrapperRect.width /
+                                        2;
+
+                                const distance =
+                                    Math.abs(
+                                        cardCenter -
+                                        wrapperCenter
+                                    );
+
+                                if (
+                                    distance <
+                                    closestDistance
+                                ) {
+
+                                    closestDistance =
+                                        distance;
+
+                                    closestIndex =
+                                        index;
+                                }
                             }
                         );
 
-                }, 80);
+                        currentCardIndex =
+                            closestIndex;
+
+                        document
+                            .querySelectorAll(
+                                '#slider-dots .dot'
+                            )
+                            .forEach(
+                                (
+                                    dot,
+                                    index
+                                ) => {
+
+                                    dot.classList.toggle(
+                                        'active',
+                                        index ===
+                                        closestIndex
+                                    );
+                                }
+                            );
+
+                    },
+                    80
+                );
         },
         {
             passive: true
@@ -2098,18 +3586,25 @@ function initSliderScroll() {
 // ==========================================
 
 function initImageHandling() {
-    document.querySelectorAll(
-        'img'
-    ).forEach(image => {
-        image.addEventListener(
-            'error',
-            function () {
-                this.classList.add(
-                    'image-error'
+
+    document
+        .querySelectorAll(
+            'img'
+        )
+        .forEach(
+            image => {
+
+                image.addEventListener(
+                    'error',
+                    function () {
+
+                        this.classList.add(
+                            'image-error'
+                        );
+                    }
                 );
             }
         );
-    });
 }
 
 
@@ -2118,6 +3613,7 @@ function initImageHandling() {
 // ==========================================
 
 function initDiaryDate() {
+
     const input =
         document.getElementById(
             'diary-date'
@@ -2127,6 +3623,51 @@ function initDiaryDate() {
         input &&
         !input.value
     ) {
+
+        const now =
+            new Date();
+
+        const year =
+            now.getFullYear();
+
+        const month =
+            String(
+                now.getMonth() + 1
+            ).padStart(
+                2,
+                '0'
+            );
+
+        const day =
+            String(
+                now.getDate()
+            ).padStart(
+                2,
+                '0'
+            );
+
+        input.value =
+            `${year}-${month}-${day}`;
+    }
+}
+
+
+// ==========================================
+// FEELINGS DATE
+// ==========================================
+
+function initFeelingsDate() {
+
+    const input =
+        document.getElementById(
+            'feelings-date'
+        );
+
+    if (
+        input &&
+        !input.value
+    ) {
+
         const now =
             new Date();
 
@@ -2160,11 +3701,13 @@ function initDiaryDate() {
 // ==========================================
 
 function initTouchOptimization() {
+
     let lastTouchEnd = 0;
 
     document.addEventListener(
         'touchend',
         function (event) {
+
             const now =
                 Date.now();
 
@@ -2172,14 +3715,17 @@ function initTouchOptimization() {
                 now - lastTouchEnd <=
                 300
             ) {
+
                 if (
                     event.cancelable
                 ) {
+
                     event.preventDefault();
                 }
             }
 
-            lastTouchEnd = now;
+            lastTouchEnd =
+                now;
         },
         {
             passive: false
@@ -2193,7 +3739,9 @@ function initTouchOptimization() {
 // ==========================================
 
 function checkSupabaseConnection() {
+
     if (!supabase) {
+
         console.warn(
             'Supabase client tidak tersedia.'
         );
@@ -2235,6 +3783,10 @@ document.addEventListener(
 
         initDiaryDate();
 
+        initFeelingsDate();
+
+        initFeelingsLog();
+
         initTouchOptimization();
 
         checkSupabaseConnection();
@@ -2247,9 +3799,15 @@ document.addEventListener(
             );
 
         if (wrapper) {
-            setTimeout(() => {
-                updateSliderPosition();
-            }, 150);
+
+            setTimeout(
+                () => {
+
+                    updateSliderPosition();
+
+                },
+                150
+            );
         }
 
         setInterval(
@@ -2260,6 +3818,7 @@ document.addEventListener(
         window.addEventListener(
             'resize',
             function () {
+
                 clearTimeout(
                     window.__sliderResizeTimer
                 );
@@ -2267,7 +3826,9 @@ document.addEventListener(
                 window.__sliderResizeTimer =
                     setTimeout(
                         function () {
+
                             updateSliderPosition();
+
                         },
                         150
                     );
@@ -2347,3 +3908,35 @@ window.calculateDays =
 
 window.updateLoveCounter =
     updateLoveCounter;
+
+
+// ==========================================
+// FEELINGS LOG EXPORT
+// ==========================================
+
+window.initFeelingsLog =
+    initFeelingsLog;
+
+window.setFeelingRating =
+    setFeelingRating;
+
+window.saveFeelingLog =
+    saveFeelingLog;
+
+window.renderFeelingLogs =
+    renderFeelingLogs;
+
+window.deleteFeelingLog =
+    deleteFeelingLog;
+
+window.handleFeelingPhotoUpload =
+    handleFeelingPhotoUpload;
+
+window.loadFeelingPhoto =
+    loadFeelingPhoto;
+
+window.removeFeelingPhoto =
+    removeFeelingPhoto;
+
+window.initFeelingsDate =
+    initFeelingsDate;
