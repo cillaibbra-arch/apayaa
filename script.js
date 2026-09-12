@@ -1361,14 +1361,11 @@ function openEnvelope() {
 
     setTimeout(function () {
 
-        // Hilangkan amplop sepenuhnya
         envelope.style.display = 'none';
 
-        // Tampilkan surprise
         message.classList.remove('hidden');
         message.classList.add('active');
 
-        // Hilangkan tulisan tap to lanjut
         if (subtitle) {
             subtitle.style.display = 'none';
         }
@@ -2456,7 +2453,7 @@ async function getFeelingLogs() {
         .from('feelings_logs')
         .select('*')
         .order(
-            'feeling_date',
+            'date',
             {
                 ascending: false
             }
@@ -2497,7 +2494,7 @@ async function saveFeelingLog() {
             'feeling'
         );
 
-    const noteInput =
+    const answerInput =
         document.getElementById(
             'answer'
         );
@@ -2510,7 +2507,7 @@ async function saveFeelingLog() {
     if (
         !dateInput ||
         !moodInput ||
-        !noteInput
+        !answerInput
     ) {
         alert(
             'Form Feelings Log tidak ditemukan.'
@@ -2522,11 +2519,11 @@ async function saveFeelingLog() {
     const feelingDate =
         dateInput.value;
 
-    const mood =
+    const feeling =
         moodInput.value.trim();
 
-    const note =
-        noteInput.value.trim();
+    const answer =
+        answerInput.value.trim();
 
     const rating =
         Number(
@@ -2541,7 +2538,7 @@ async function saveFeelingLog() {
         return;
     }
 
-    if (!mood) {
+    if (!feeling) {
         alert(
             'Perasaan kamu harus diisi.'
         );
@@ -2574,14 +2571,14 @@ async function saveFeelingLog() {
 
     try {
         const payload = {
-            feeling_date:
+            date:
                 feelingDate,
 
-            mood:
-                mood,
+            feeling:
+                feeling,
 
-            note:
-                note,
+            answer:
+                answer,
 
             rating:
                 rating
@@ -2619,7 +2616,7 @@ async function saveFeelingLog() {
 
         moodInput.value = '';
 
-        noteInput.value = '';
+        answerInput.value = '';
 
         currentFeelingRating =
             0;
@@ -2850,17 +2847,17 @@ async function renderFeelingLogs(
 
                 const dateText =
                     getFeelingDateText(
-                        log.feeling_date
+                        log.date
                     );
 
-                const mood =
+                const feeling =
                     escapeHtml(
-                        log.mood || ''
+                        log.feeling || ''
                     );
 
-                const note =
+                const answer =
                     escapeHtml(
-                        log.note || ''
+                        log.answer || ''
                     ).replace(
                         /\n/g,
                         '<br>'
@@ -2907,7 +2904,7 @@ async function renderFeelingLogs(
                             </div>
 
                             <h3 class="feeling-log-mood">
-                                ${mood}
+                                ${feeling}
                             </h3>
                         </div>
 
@@ -2917,10 +2914,10 @@ async function renderFeelingLogs(
                     </div>
 
                     ${
-                        note
+                        answer
                             ? `
                         <div class="feeling-log-note">
-                            ${note}
+                            ${answer}
                         </div>
                     `
                             : ''
