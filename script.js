@@ -2473,30 +2473,31 @@ async function getFeelingLogs() {
 }
 
 
+
 async function saveFeelingLog() {
+
     playClickSound();
 
     if (!supabase) {
         alert(
             'Supabase belum terhubung.'
         );
-
         return;
     }
 
     const dateInput =
         document.getElementById(
-            'date'
+            'feelings-date'
         );
 
-    const moodInput =
+    const feelingInput =
         document.getElementById(
-            'feeling'
+            'feelings-today'
         );
 
     const answerInput =
         document.getElementById(
-            'answer'
+            'feelings-answer'
         );
 
     const saveButton =
@@ -2506,21 +2507,20 @@ async function saveFeelingLog() {
 
     if (
         !dateInput ||
-        !moodInput ||
+        !feelingInput ||
         !answerInput
     ) {
         alert(
             'Form Feelings Log tidak ditemukan.'
         );
-
         return;
     }
 
-    const feelingDate =
+    const date =
         dateInput.value;
 
     const feeling =
-        moodInput.value.trim();
+        feelingInput.value.trim();
 
     const answer =
         answerInput.value.trim();
@@ -2530,11 +2530,22 @@ async function saveFeelingLog() {
             currentFeelingRating || 0
         );
 
-    if (!feelingDate) {
+    if (!date) {
         alert(
             'Tanggal perasaan harus diisi.'
         );
+        dateInput.focus();
+        return;
+    }
 
+    if (
+        !rating ||
+        rating < 1 ||
+        rating > 5
+    ) {
+        alert(
+            'Silakan pilih rating perasaan 1 sampai 5.'
+        );
         return;
     }
 
@@ -2542,25 +2553,20 @@ async function saveFeelingLog() {
         alert(
             'Perasaan kamu harus diisi.'
         );
-
+        feelingInput.focus();
         return;
     }
 
-    if (
-        !Number.isFinite(rating) ||
-        rating < 0 ||
-        rating > 5
-    ) {
+    if (!answer) {
         alert(
-            'Rating harus berada antara 0 sampai 5.'
+            'Jawaban dari today i feel harus diisi.'
         );
-
+        answerInput.focus();
         return;
     }
 
     if (saveButton) {
-        saveButton.disabled =
-            true;
+        saveButton.disabled = true;
 
         saveButton.dataset.originalText =
             saveButton.textContent;
@@ -2570,9 +2576,13 @@ async function saveFeelingLog() {
     }
 
     try {
+
         const payload = {
             date:
-                feelingDate,
+                date,
+
+            rating:
+                rating,
 
             feeling:
                 feeling,
@@ -2580,16 +2590,10 @@ async function saveFeelingLog() {
             answer:
                 answer,
 
-            rating:
-                rating
+            photo_url:
+                currentFeelingPhotoUrl ||
+                null
         };
-
-        if (
-            currentFeelingPhotoUrl
-        ) {
-            payload.photo_url =
-                currentFeelingPhotoUrl;
-        }
 
         if (
             currentFeelingPhotoPath
@@ -2599,6 +2603,7 @@ async function saveFeelingLog() {
         }
 
         const {
+            data,
             error
         } = await supabase
             .from(
@@ -2606,15 +2611,22 @@ async function saveFeelingLog() {
             )
             .insert([
                 payload
-            ]);
+            ])
+            .select()
+            .single();
 
         if (error) {
             throw error;
         }
 
+        console.log(
+            'Feelings Log berhasil disimpan:',
+            data
+        );
+
         dateInput.value = '';
 
-        moodInput.value = '';
+        feelingInput.value = '';
 
         answerInput.value = '';
 
@@ -2627,9 +2639,7 @@ async function saveFeelingLog() {
         currentFeelingPhotoPath =
             '';
 
-        setFeelingRating(
-            0
-        );
+        setFeelingRating(0);
 
         const photoInput =
             document.getElementById(
@@ -2637,28 +2647,24 @@ async function saveFeelingLog() {
             );
 
         if (photoInput) {
-            photoInput.value =
-                '';
+            photoInput.value = '';
         }
 
-        showFeelingPhotoPreview(
-            ''
-        );
+        showFeelingPhotoPreview('');
 
         initFeelingsDate();
 
         feelingsCurrentPage =
             1;
 
-        await renderFeelingLogs(
-            1
-        );
+        await renderFeelingLogs(1);
 
         alert(
-            'Feelings berhasil disimpan.'
+            'Feelings Log berhasil disimpan.'
         );
 
     } catch (error) {
+
         console.error(
             'Error saving feeling log:',
             error
@@ -2668,11 +2674,13 @@ async function saveFeelingLog() {
             error &&
             error.message
                 ? error.message
-                : 'Gagal menyimpan feelings log.'
+                : 'Gagal menyimpan Feelings Log.'
         );
 
     } finally {
+
         if (saveButton) {
+
             saveButton.disabled =
                 false;
 
