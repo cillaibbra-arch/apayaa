@@ -2440,10 +2440,9 @@ async function removeFeelingPhoto() {
 // ==========================================
 
 async function getFeelingLogs() {
+
     if (!supabase) {
-        throw new Error(
-            'Supabase belum terhubung.'
-        );
+        return [];
     }
 
     const {
@@ -2452,21 +2451,20 @@ async function getFeelingLogs() {
     } = await supabase
         .from('feelings_logs')
         .select('*')
-        .order(
-            'date',
-            {
-                ascending: false
-            }
-        )
-        .order(
-            'created_at',
-            {
-                ascending: false
-            }
-        );
+        .order('date', {
+            ascending: false
+        })
+        .order('created_at', {
+            ascending: false
+        });
 
     if (error) {
-        throw error;
+        console.error(
+            'Error getting feeling logs:',
+            error
+        );
+
+        return [];
     }
 
     return data || [];
@@ -2479,40 +2477,28 @@ async function saveFeelingLog() {
     playClickSound();
 
     if (!supabase) {
-        alert(
-            'Supabase belum terhubung.'
-        );
+        alert('Supabase belum terhubung.');
         return;
     }
 
     const dateInput =
-        document.getElementById(
-            'feelings-date'
-        );
+        document.getElementById('feelings-date');
 
     const feelingInput =
-        document.getElementById(
-            'feelings-today'
-        );
+        document.getElementById('feelings-today');
 
     const answerInput =
-        document.getElementById(
-            'feelings-answer'
-        );
+        document.getElementById('feelings-answer');
 
     const saveButton =
-        document.querySelector(
-            '.feelings-save-btn'
-        );
+        document.querySelector('.feelings-save-btn');
 
     if (
         !dateInput ||
         !feelingInput ||
         !answerInput
     ) {
-        alert(
-            'Form Feelings Log tidak ditemukan.'
-        );
+        alert('Form Feelings Log tidak ditemukan.');
         return;
     }
 
@@ -2526,14 +2512,10 @@ async function saveFeelingLog() {
         answerInput.value.trim();
 
     const rating =
-        Number(
-            currentFeelingRating || 0
-        );
+        Number(currentFeelingRating || 0);
 
     if (!date) {
-        alert(
-            'Tanggal perasaan harus diisi.'
-        );
+        alert('Tanggal perasaan harus diisi.');
         dateInput.focus();
         return;
     }
@@ -2543,24 +2525,18 @@ async function saveFeelingLog() {
         rating < 1 ||
         rating > 5
     ) {
-        alert(
-            'Silakan pilih rating perasaan 1 sampai 5.'
-        );
+        alert('Silakan pilih rating perasaan 1 sampai 5.');
         return;
     }
 
     if (!feeling) {
-        alert(
-            'Perasaan kamu harus diisi.'
-        );
+        alert('Perasaan kamu harus diisi.');
         feelingInput.focus();
         return;
     }
 
     if (!answer) {
-        alert(
-            'Jawaban dari today i feel harus diisi.'
-        );
+        alert('Jawaban dari today i feel harus diisi.');
         answerInput.focus();
         return;
     }
@@ -2578,40 +2554,20 @@ async function saveFeelingLog() {
     try {
 
         const payload = {
-            date:
-                date,
-
-            rating:
-                rating,
-
-            feeling:
-                feeling,
-
-            answer:
-                answer,
-
+            date: date,
+            rating: rating,
+            feeling: feeling,
+            answer: answer,
             photo_url:
-                currentFeelingPhotoUrl ||
-                null
+                currentFeelingPhotoUrl || null
         };
-
-        if (
-            currentFeelingPhotoPath
-        ) {
-            payload.photo_path =
-                currentFeelingPhotoPath;
-        }
 
         const {
             data,
             error
         } = await supabase
-            .from(
-                'feelings_logs'
-            )
-            .insert([
-                payload
-            ])
+            .from('feelings_logs')
+            .insert([payload])
             .select()
             .single();
 
@@ -2625,19 +2581,12 @@ async function saveFeelingLog() {
         );
 
         dateInput.value = '';
-
         feelingInput.value = '';
-
         answerInput.value = '';
 
-        currentFeelingRating =
-            0;
-
-        currentFeelingPhotoUrl =
-            '';
-
-        currentFeelingPhotoPath =
-            '';
+        currentFeelingRating = 0;
+        currentFeelingPhotoUrl = '';
+        currentFeelingPhotoPath = '';
 
         setFeelingRating(0);
 
@@ -2654,14 +2603,11 @@ async function saveFeelingLog() {
 
         initFeelingsDate();
 
-        feelingsCurrentPage =
-            1;
+        feelingsCurrentPage = 1;
 
         await renderFeelingLogs(1);
 
-        alert(
-            'Feelings Log berhasil disimpan.'
-        );
+        alert('Feelings Log berhasil disimpan.');
 
     } catch (error) {
 
@@ -2671,8 +2617,7 @@ async function saveFeelingLog() {
         );
 
         alert(
-            error &&
-            error.message
+            error && error.message
                 ? error.message
                 : 'Gagal menyimpan Feelings Log.'
         );
@@ -2680,9 +2625,7 @@ async function saveFeelingLog() {
     } finally {
 
         if (saveButton) {
-
-            saveButton.disabled =
-                false;
+            saveButton.disabled = false;
 
             saveButton.textContent =
                 saveButton.dataset.originalText ||
@@ -3160,9 +3103,8 @@ function removeFeelingsPagination() {
 // DELETE FEELING
 // ==========================================
 
-async function deleteFeelingLog(
-    id
-) {
+async function deleteFeelingLog(id) {
+
     playClickSound();
 
     if (!id) {
@@ -3178,90 +3120,72 @@ async function deleteFeelingLog(
     }
 
     if (!supabase) {
-        alert(
-            'Supabase belum terhubung.'
-        );
-
+        alert('Supabase belum terhubung.');
         return;
     }
 
     try {
+
         const {
             data,
             error
         } = await supabase
-            .from(
-                'feelings_logs'
-            )
-            .select(
-                'photo_path'
-            )
-            .eq(
-                'id',
-                id
-            )
+            .from('feelings_logs')
+            .select('photo_url')
+            .eq('id', id)
             .maybeSingle();
 
         if (error) {
             throw error;
         }
 
-        if (
-            data &&
-            data.photo_path
-        ) {
-            try {
-                await supabase.storage
-                    .from(
-                        FEELINGS_PHOTO_BUCKET
-                    )
-                    .remove([
-                        data.photo_path
-                    ]);
-            } catch (
-                storageError
-            ) {
-                console.warn(
-                    'Foto gagal dihapus dari storage:',
-                    storageError
-                );
-            }
-        }
-
         const {
             error: deleteError
         } = await supabase
-            .from(
-                'feelings_logs'
-            )
+            .from('feelings_logs')
             .delete()
-            .eq(
-                'id',
-                id
-            );
+            .eq('id', id);
 
         if (deleteError) {
             throw deleteError;
         }
 
-        const remainingLogs =
-            await getFeelingLogs();
-
-        const totalPages =
-            Math.max(
-                1,
-                Math.ceil(
-                    remainingLogs.length /
-                    FEELINGS_ITEMS_PER_PAGE
-                )
-            );
-
         if (
-            feelingsCurrentPage >
-            totalPages
+            data &&
+            data.photo_url
         ) {
-            feelingsCurrentPage =
-                totalPages;
+
+            try {
+
+                const marker =
+                    `/storage/v1/object/public/${FEELINGS_PHOTO_BUCKET}/`;
+
+                const index =
+                    data.photo_url.indexOf(marker);
+
+                if (index !== -1) {
+
+                    const path =
+                        data.photo_url.substring(
+                            index + marker.length
+                        );
+
+                    if (path) {
+
+                        await supabase
+                            .storage
+                            .from(FEELINGS_PHOTO_BUCKET)
+                            .remove([path]);
+                    }
+                }
+
+            } catch (storageError) {
+
+                console.warn(
+                    'Data berhasil dihapus, tetapi foto Storage gagal dihapus:',
+                    storageError
+                );
+            }
         }
 
         await renderFeelingLogs(
@@ -3269,14 +3193,14 @@ async function deleteFeelingLog(
         );
 
     } catch (error) {
+
         console.error(
             'Error deleting feeling log:',
             error
         );
 
         alert(
-            error &&
-            error.message
+            error && error.message
                 ? error.message
                 : 'Gagal menghapus feelings log.'
         );
