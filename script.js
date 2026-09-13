@@ -658,7 +658,7 @@ function goToCard(index) {
 // DIARY
 // ==========================================
 
-let diaryCurrentPage = 5;
+let diaryCurrentPage = 1;
 let diaryIsFlipping = false;
 
 const DIARY_ITEMS_PER_PAGE = 1;
