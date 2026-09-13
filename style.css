@@ -5001,3 +5001,2118 @@ button,
 .feeling-log-photo img:hover {
   transform: scale(1.04);
 }
+
+/* =========================================================
+   FEELINGS LOG CARD
+   FOTO KIRI - ISI KANAN
+   DESKTOP DAN HP SAMA
+   ========================================================= */
+
+#feelings-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+/* CARD UTAMA */
+
+.feeling-log-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    gap: 16px;
+
+    padding: 16px;
+
+    background: var(--card-bg);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.25);
+
+    text-align: left;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.feeling-log-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        var(--accent-color);
+
+    box-shadow:
+        0 12px 28px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   FOTO
+   ========================================================= */
+
+.feeling-log-card .feeling-log-photo {
+    flex: 0 0 90px;
+
+    width: 90px;
+    height: 160px;
+
+    margin: 0;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background:
+        rgba(0, 0, 0, 0.2);
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.25);
+
+    align-self: flex-start;
+}
+
+.feeling-log-card .feeling-log-photo img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.feeling-log-card .feeling-log-photo img:hover {
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   CONTENT KANAN
+   ========================================================= */
+
+.feeling-log-content {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    justify-content: flex-start;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.feeling-log-header {
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin: 0;
+
+    padding: 0 0 10px 0;
+
+    border-bottom:
+        1px dashed
+        var(--border-color);
+}
+
+.feeling-log-main {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+/* =========================================================
+   TANGGAL
+   ========================================================= */
+
+.feeling-log-date {
+    font-size: 0.72rem;
+
+    line-height: 1.3;
+
+    opacity: 0.75;
+
+    margin-bottom: 5px;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   FEELING / MOOD
+   ========================================================= */
+
+.feeling-log-mood {
+    margin: 0;
+
+    padding: 0;
+
+    color:
+        var(--accent-color);
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   RATING
+   ========================================================= */
+
+.feeling-log-rating {
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 1px;
+
+    white-space: nowrap;
+
+    padding-top: 2px;
+}
+
+.feeling-log-rating span {
+    display: inline-block;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+    padding: 0;
+
+    font-size: 1.05rem;
+
+    line-height: 1;
+
+    color:
+        var(--text-color);
+}
+
+.feeling-log-rating span.active {
+    color:
+        var(--accent-color);
+
+    opacity: 1;
+}
+
+.feeling-log-rating span:not(.active) {
+    color:
+        var(--text-color);
+
+    opacity: 0.3;
+}
+
+
+/* =========================================================
+   JAWABAN
+   ========================================================= */
+
+.feeling-log-note {
+    width: 100%;
+
+    margin: 12px 0 0;
+
+    padding: 0;
+
+    font-size: 0.82rem;
+
+    line-height: 1.65;
+
+    color:
+        var(--text-color);
+
+    opacity: 0.9;
+
+    word-break: break-word;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TOMBOL HAPUS
+   ========================================================= */
+
+.feeling-log-actions {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    margin-top: auto;
+
+    padding-top: 12px;
+}
+
+.delete-feeling-btn {
+    border: none;
+
+    background: transparent;
+
+    color:
+        var(--text-color);
+
+    opacity: 0.7;
+
+    padding: 5px 8px;
+
+    margin: 0;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 0.72rem;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.delete-feeling-btn:hover {
+    color: #ff4d4d;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   TANPA FOTO
+   ========================================================= */
+
+.feeling-log-card:not(:has(.feeling-log-photo)) {
+    display: block;
+}
+
+.feeling-log-card:not(:has(.feeling-log-photo))
+.feeling-log-content {
+    width: 100%;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    #feelings-list {
+        gap: 12px;
+    }
+
+    .feeling-log-card {
+        gap: 12px;
+
+        padding: 14px;
+
+        border-radius: 16px;
+    }
+
+    .feeling-log-card .feeling-log-photo {
+        flex: 0 0 78px;
+
+        width: 78px;
+        height: 139px;
+
+        border-radius: 11px;
+    }
+
+    .feeling-log-date {
+        font-size: 0.66rem;
+    }
+
+    .feeling-log-mood {
+        font-size: 0.95rem;
+    }
+
+    .feeling-log-rating span {
+        font-size: 0.95rem;
+    }
+
+    .feeling-log-note {
+        font-size: 0.76rem;
+
+        line-height: 1.6;
+    }
+
+    .delete-feeling-btn {
+        font-size: 0.68rem;
+    }
+}
+
+
+/* =========================================================
+   HP
+   FOTO TETAP DI KIRI
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .feeling-log-card {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: stretch;
+
+        gap: 9px;
+
+        padding: 11px;
+
+        border-radius: 14px;
+    }
+
+    .feeling-log-card .feeling-log-photo {
+        flex: 0 0 62px;
+
+        width: 62px;
+        height: 110px;
+
+        margin: 0;
+
+        border-radius: 9px;
+
+        align-self: flex-start;
+    }
+
+    .feeling-log-content {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+    .feeling-log-header {
+        gap: 5px;
+
+        padding-bottom: 7px;
+    }
+
+    .feeling-log-date {
+        font-size: 0.58rem;
+
+        margin-bottom: 3px;
+    }
+
+    .feeling-log-mood {
+        font-size: 0.82rem;
+
+        line-height: 1.3;
+    }
+
+    .feeling-log-rating {
+        gap: 0;
+    }
+
+    .feeling-log-rating span {
+        font-size: 0.78rem;
+    }
+
+    .feeling-log-note {
+        margin-top: 8px;
+
+        font-size: 0.66rem;
+
+        line-height: 1.5;
+    }
+
+    .feeling-log-actions {
+        padding-top: 7px;
+    }
+
+    .delete-feeling-btn {
+        padding: 4px 6px;
+
+        font-size: 0.58rem;
+    }
+}
+
+
+/* =========================================================
+   HP SANGAT KECIL
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .feeling-log-card {
+        gap: 8px;
+
+        padding: 9px;
+    }
+
+    .feeling-log-card .feeling-log-photo {
+        flex: 0 0 56px;
+
+        width: 56px;
+        height: 100px;
+
+        border-radius: 8px;
+    }
+
+    .feeling-log-date {
+        font-size: 0.53rem;
+    }
+
+    .feeling-log-mood {
+        font-size: 0.76rem;
+    }
+
+    .feeling-log-rating span {
+        font-size: 0.7rem;
+    }
+
+    .feeling-log-note {
+        font-size: 0.61rem;
+    }
+
+    .delete-feeling-btn {
+        font-size: 0.54rem;
+    }
+}
+
+/* ==========================================
+   SKY BLUE THEME
+   ========================================== */
+
+/* ==========================================
+   TOMBOL TEMA BIRU LANGIT
+   ========================================== */
+
+.theme-switcher .theme-btn.sky {
+    background-color: #87ceeb !important;
+    border: 2px solid #5bb9df !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.theme-switcher .theme-btn.sky:hover {
+    background-color: #6fc4e8 !important;
+    border-color: #42a9d4 !important;
+}
+
+body.theme-sky .theme-switcher .theme-btn.sky {
+    background-color: #4aaee8 !important;
+    border-color: #258fc9 !important;
+}
+
+body.theme-sky .theme-switcher .theme-btn.sky.active {
+    background-color: #258fc9 !important;
+    border-color: #1d7fb5 !important;
+}
+
+
+/* ==========================================
+   VARIABEL TEMA
+   ========================================== */
+
+body.theme-sky {
+    --bg-color: #dff3ff;
+    --card-bg: rgba(255, 255, 255, 0.82);
+    --text-color: #21445c;
+    --accent-color: #4aaee8;
+    --secondary-color: #8bd3f7;
+    --border-color: rgba(74, 174, 232, 0.35);
+}
+
+
+/* ==========================================
+   BACKGROUND
+   ========================================== */
+
+body.theme-sky {
+    background:
+        linear-gradient(
+            180deg,
+            #bfe9ff 0%,
+            #dff5ff 45%,
+            #eefaff 100%
+        );
+
+    color: var(--text-color);
+}
+
+
+/* ==========================================
+   BACKGROUND DECORATION
+   ========================================== */
+
+body.theme-sky::before {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 255, 255, 0.75),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(255, 255, 255, 0.55),
+            transparent 28%
+        );
+}
+
+
+/* ==========================================
+   CARD
+   ========================================== */
+
+body.theme-sky .card,
+body.theme-sky .memory-card,
+body.theme-sky .album-card,
+body.theme-sky .playlist-card,
+body.theme-sky .gift-card,
+body.theme-sky .diary-card,
+body.theme-sky .feeling-log-card {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(74, 174, 232, 0.30);
+    box-shadow:
+        0 8px 25px rgba(74, 174, 232, 0.16);
+}
+
+
+/* ==========================================
+   TEXT
+   ========================================== */
+
+body.theme-sky h1,
+body.theme-sky h2,
+body.theme-sky h3,
+body.theme-sky h4 {
+    color: #267eaf;
+}
+
+body.theme-sky p,
+body.theme-sky span,
+body.theme-sky label {
+    color: var(--text-color);
+}
+
+
+/* ==========================================
+   BUTTON
+   ========================================== */
+
+body.theme-sky button:not(.theme-btn) {
+    border-color: rgba(74, 174, 232, 0.45);
+}
+
+body.theme-sky button:not(.theme-btn):hover {
+    border-color: #4aaee8;
+}
+
+
+/* ==========================================
+   INPUT
+   ========================================== */
+
+body.theme-sky input,
+body.theme-sky textarea,
+body.theme-sky select {
+    background: rgba(255, 255, 255, 0.80);
+    color: #21445c;
+    border-color: rgba(74, 174, 232, 0.35);
+}
+
+body.theme-sky input:focus,
+body.theme-sky textarea:focus,
+body.theme-sky select:focus {
+    border-color: #4aaee8;
+    box-shadow:
+        0 0 0 3px rgba(74, 174, 232, 0.15);
+    outline: none;
+}
+
+body.theme-sky input::placeholder,
+body.theme-sky textarea::placeholder {
+    color: #6f9db4;
+}
+
+
+/* ==========================================
+   FEELINGS LOG
+   ========================================== */
+
+body.theme-sky .feelings-divider {
+    border-color: rgba(74, 174, 232, 0.25);
+}
+
+body.theme-sky .feelings-save-btn {
+    background: #4aaee8;
+    color: #ffffff;
+    border-color: #4aaee8;
+}
+
+body.theme-sky .feelings-save-btn:hover {
+    background: #258fc9;
+    border-color: #258fc9;
+}
+
+
+/* ==========================================
+   FEELINGS CARD
+   ========================================== */
+
+body.theme-sky .feeling-log-card {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(74, 174, 232, 0.30);
+    box-shadow:
+        0 8px 25px rgba(74, 174, 232, 0.16);
+}
+
+body.theme-sky .feeling-log-card:hover {
+    border-color: #4aaee8;
+    box-shadow:
+        0 12px 30px rgba(74, 174, 232, 0.22);
+}
+
+
+/* ==========================================
+   FEELINGS DATE
+   ========================================== */
+
+body.theme-sky .feeling-log-date {
+    color: #5c8ca5;
+}
+
+
+/* ==========================================
+   FEELINGS MOOD
+   ========================================== */
+
+body.theme-sky .feeling-log-mood {
+    color: #258fc9;
+}
+
+
+/* ==========================================
+   FEELINGS RATING
+   ========================================== */
+
+body.theme-sky .feeling-log-rating span.active {
+    color: #2fa8e5;
+}
+
+body.theme-sky .feeling-log-rating span:not(.active) {
+    color: #6fa8c4;
+    opacity: 0.35;
+}
+
+
+/* ==========================================
+   FEELINGS NOTE
+   ========================================== */
+
+body.theme-sky .feeling-log-note {
+    color: #315d73;
+}
+
+
+/* ==========================================
+   FEELINGS PHOTO
+   ========================================== */
+
+body.theme-sky .feeling-log-photo {
+    background: rgba(74, 174, 232, 0.08);
+
+    box-shadow:
+        0 5px 15px rgba(74, 174, 232, 0.20);
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+   ========================================== */
+
+body.theme-sky .delete-feeling-btn {
+    color: #527f96;
+}
+
+body.theme-sky .delete-feeling-btn:hover {
+    color: #258fc9;
+}
+
+
+/* ==========================================
+   PAGINATION
+   ========================================== */
+
+body.theme-sky .feelings-page-button {
+    border-color: rgba(74, 174, 232, 0.40);
+    color: #267eaf;
+    background: rgba(255, 255, 255, 0.60);
+}
+
+body.theme-sky .feelings-page-button:hover {
+    background: rgba(74, 174, 232, 0.12);
+    border-color: #4aaee8;
+}
+
+body.theme-sky .feelings-page-button.active {
+    background: #4aaee8;
+    color: #ffffff;
+    border-color: #4aaee8;
+}
+
+
+/* ==========================================
+   LINK
+   ========================================== */
+
+body.theme-sky a {
+    color: #258fc9;
+}
+
+body.theme-sky a:hover {
+    color: #176d9d;
+}
+
+
+/* ==========================================
+   SELECTION
+   ========================================== */
+
+body.theme-sky ::selection {
+    background: #8bd3f7;
+    color: #21445c;
+}
+
+
+/* ==========================================
+   SCROLLBAR
+   ========================================== */
+
+body.theme-sky::-webkit-scrollbar {
+    width: 10px;
+}
+
+body.theme-sky::-webkit-scrollbar-track {
+    background: #dff3ff;
+}
+
+body.theme-sky::-webkit-scrollbar-thumb {
+    background: #87ceeb;
+    border-radius: 10px;
+}
+
+body.theme-sky::-webkit-scrollbar-thumb:hover {
+    background: #4aaee8;
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    body.theme-sky .card,
+    body.theme-sky .memory-card,
+    body.theme-sky .album-card,
+    body.theme-sky .playlist-card,
+    body.theme-sky .gift-card,
+    body.theme-sky .diary-card,
+    body.theme-sky .feeling-log-card {
+        box-shadow:
+            0 6px 18px rgba(74, 174, 232, 0.14);
+    }
+
+    body.theme-sky .feeling-log-card:hover {
+        transform: none;
+    }
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 480px) {
+
+    body.theme-sky {
+        background:
+            linear-gradient(
+                180deg,
+                #c7edff 0%,
+                #e4f7ff 50%,
+                #f2fbff 100%
+            );
+    }
+
+    body.theme-sky .feeling-log-card {
+        background: rgba(255, 255, 255, 0.90);
+    }
+}
+
+/* ==========================================
+   RED THEME
+   ========================================== */
+
+.theme-btn.red {
+    background: #e53935;
+}
+
+body.theme-red {
+    --bg-color: #fff0f0;
+    --card-bg: rgba(255, 255, 255, 0.88);
+    --text-color: #5c2525;
+    --accent-color: #e53935;
+    --secondary-color: #ff8a80;
+    --border-color: rgba(229, 57, 53, 0.3);
+}
+
+body.theme-red {
+    background:
+        linear-gradient(
+            180deg,
+            #ffd6d6 0%,
+            #fff0f0 50%,
+            #fff8f8 100%
+        );
+
+    color: var(--text-color);
+}
+
+body.theme-red .theme-btn.red {
+    background: #c62828;
+}
+
+body.theme-red .theme-btn.red.active {
+    background: #a51f1f;
+    box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.25);
+}
+
+body.theme-red h1,
+body.theme-red h2,
+body.theme-red h3,
+body.theme-red h4 {
+    color: #c62828;
+}
+
+body.theme-red .card,
+body.theme-red .memory-card,
+body.theme-red .album-card,
+body.theme-red .playlist-card,
+body.theme-red .gift-card,
+body.theme-red .diary-card,
+body.theme-red .feeling-log-card {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(229, 57, 53, 0.25);
+    box-shadow: 0 8px 25px rgba(198, 40, 40, 0.12);
+}
+
+body.theme-red input,
+body.theme-red textarea,
+body.theme-red select {
+    background: rgba(255, 255, 255, 0.9);
+    color: #5c2525;
+    border-color: rgba(229, 57, 53, 0.3);
+}
+
+body.theme-red input::placeholder,
+body.theme-red textarea::placeholder {
+    color: #a86b6b;
+}
+
+body.theme-red button:not(.theme-btn) {
+    border-color: rgba(229, 57, 53, 0.35);
+}
+
+body.theme-red .feeling-log-mood {
+    color: #c62828;
+}
+
+body.theme-red .feeling-log-rating span.active {
+    color: #e53935;
+}
+
+body.theme-red .feeling-log-rating span:not(.active) {
+    color: #a86b6b;
+    opacity: 0.35;
+}
+
+body.theme-red .feelings-save-btn {
+    background: #e53935;
+    color: #ffffff;
+}
+
+body.theme-red .feelings-save-btn:hover {
+    background: #c62828;
+}
+
+body.theme-red .feelings-page-button {
+    border-color: rgba(229, 57, 53, 0.35);
+    color: #c62828;
+}
+
+body.theme-red .feelings-page-button.active {
+    background: #e53935;
+    color: #ffffff;
+    border-color: #e53935;
+}
+
+body.theme-red .delete-feeling-btn:hover {
+    color: #e53935;
+}
+
+/* =========================================================
+   DIARY BOOK
+   1 CARD = 1 HALAMAN
+   REALISTIC BOOK PAGE FLIP
+   ========================================================= */
+
+
+/* =========================================================
+   CONTAINER BUKU
+   ========================================================= */
+
+#page-diary .diary-container {
+    position: relative;
+    width: 100%;
+    perspective: 1800px;
+    perspective-origin: center center;
+    overflow: visible !important;
+}
+
+
+/* =========================================================
+   AREA HALAMAN
+   ========================================================= */
+
+#page-diary .diary-list {
+    position: relative;
+    width: 100%;
+    min-height: 180px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: visible !important;
+
+    transform-style: preserve-3d;
+    perspective: 1800px;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CARD = SATU HALAMAN
+   ========================================================= */
+
+#page-diary .diary-card {
+    position: relative;
+
+    width: 100%;
+
+    margin: 0 !important;
+
+    transform-style: preserve-3d;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    z-index: 2;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HALAMAN SAAT NEXT
+   TITIK PUTAR DI SISI KIRI
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-next {
+    transform-origin: left center;
+
+    animation:
+        diaryBookFlipNext
+        520ms
+        cubic-bezier(.55, .08, .35, 1)
+        forwards !important;
+}
+
+
+/* =========================================================
+   HALAMAN SAAT PREVIOUS
+   TITIK PUTAR DI SISI KANAN
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-prev {
+    transform-origin: right center;
+
+    animation:
+        diaryBookFlipPrev
+        520ms
+        cubic-bezier(.55, .08, .35, 1)
+        forwards !important;
+}
+
+
+/* =========================================================
+   HALAMAN BARU SETELAH NEXT
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-new-next {
+    transform-origin: right center;
+
+    animation:
+        diaryBookNewNext
+        360ms
+        cubic-bezier(.25, .75, .35, 1)
+        both !important;
+}
+
+
+/* =========================================================
+   HALAMAN BARU SETELAH PREVIOUS
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-new-prev {
+    transform-origin: left center;
+
+    animation:
+        diaryBookNewPrev
+        360ms
+        cubic-bezier(.25, .75, .35, 1)
+        both !important;
+}
+
+
+/* =========================================================
+   BAYANGAN HALAMAN
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-next::after,
+#page-diary .diary-card.diary-book-flip-prev::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    z-index: 50;
+
+    opacity: 0;
+
+    transform: translateZ(2px);
+}
+
+
+/* =========================================================
+   SHADOW NEXT
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-next::after {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, .025) 20%,
+            rgba(0, 0, 0, .08) 42%,
+            rgba(0, 0, 0, .18) 62%,
+            rgba(0, 0, 0, .34) 100%
+        );
+
+    animation:
+        diaryBookShadowNext
+        520ms
+        ease-in-out
+        forwards;
+}
+
+
+/* =========================================================
+   SHADOW PREVIOUS
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-prev::after {
+    background:
+        linear-gradient(
+            270deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, .025) 20%,
+            rgba(0, 0, 0, .08) 42%,
+            rgba(0, 0, 0, .18) 62%,
+            rgba(0, 0, 0, .34) 100%
+        );
+
+    animation:
+        diaryBookShadowPrev
+        520ms
+        ease-in-out
+        forwards;
+}
+
+
+/* =========================================================
+   GARIS BAYANGAN DI PINGGIR HALAMAN
+   ========================================================= */
+
+#page-diary .diary-card.diary-book-flip-next::before,
+#page-diary .diary-card.diary-book-flip-prev::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    pointer-events: none;
+
+    z-index: 51;
+
+    opacity: 0;
+}
+
+
+#page-diary .diary-card.diary-book-flip-next::before {
+    left: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, .16),
+            rgba(0, 0, 0, 0)
+        );
+
+    animation:
+        diaryBookEdgeNext
+        520ms
+        ease-in-out
+        forwards;
+}
+
+
+#page-diary .diary-card.diary-book-flip-prev::before {
+    right: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, .16),
+            rgba(0, 0, 0, 0)
+        );
+
+    animation:
+        diaryBookEdgePrev
+        520ms
+        ease-in-out
+        forwards;
+}
+
+
+/* =========================================================
+   ANIMASI MEMBALIK KE DEPAN
+   ========================================================= */
+
+@keyframes diaryBookFlipNext {
+
+    0% {
+        transform:
+            perspective(1800px)
+            rotateY(0deg)
+            translateX(0)
+            translateZ(0);
+
+        opacity: 1;
+
+        filter:
+            brightness(1)
+            drop-shadow(
+                0 4px 8px
+                rgba(0, 0, 0, .08)
+            );
+    }
+
+
+    10% {
+        transform:
+            perspective(1800px)
+            rotateY(-12deg)
+            translateX(-1%)
+            translateZ(5px);
+
+        opacity: 1;
+
+        filter:
+            brightness(.99)
+            drop-shadow(
+                0 6px 10px
+                rgba(0, 0, 0, .10)
+            );
+    }
+
+
+    25% {
+        transform:
+            perspective(1800px)
+            rotateY(-38deg)
+            translateX(-2%)
+            translateZ(12px);
+
+        opacity: 1;
+
+        filter:
+            brightness(.95)
+            drop-shadow(
+                0 8px 15px
+                rgba(0, 0, 0, .13)
+            );
+    }
+
+
+    45% {
+        transform:
+            perspective(1800px)
+            rotateY(-72deg)
+            translateX(-4%)
+            translateZ(18px);
+
+        opacity: .98;
+
+        filter:
+            brightness(.86)
+            drop-shadow(
+                0 10px 20px
+                rgba(0, 0, 0, .17)
+            );
+    }
+
+
+    60% {
+        transform:
+            perspective(1800px)
+            rotateY(-105deg)
+            translateX(-5%)
+            translateZ(18px);
+
+        opacity: .86;
+
+        filter:
+            brightness(.76)
+            drop-shadow(
+                0 10px 20px
+                rgba(0, 0, 0, .18)
+            );
+    }
+
+
+    78% {
+        transform:
+            perspective(1800px)
+            rotateY(-140deg)
+            translateX(-6%)
+            translateZ(12px);
+
+        opacity: .55;
+
+        filter:
+            brightness(.66)
+            drop-shadow(
+                0 8px 16px
+                rgba(0, 0, 0, .14)
+            );
+    }
+
+
+    92% {
+        transform:
+            perspective(1800px)
+            rotateY(-168deg)
+            translateX(-7%)
+            translateZ(5px);
+
+        opacity: .20;
+
+        filter:
+            brightness(.59);
+    }
+
+
+    100% {
+        transform:
+            perspective(1800px)
+            rotateY(-180deg)
+            translateX(-8%)
+            translateZ(0);
+
+        opacity: 0;
+
+        filter:
+            brightness(.55);
+    }
+}
+
+
+/* =========================================================
+   ANIMASI MEMBALIK KE BELAKANG
+   ========================================================= */
+
+@keyframes diaryBookFlipPrev {
+
+    0% {
+        transform:
+            perspective(1800px)
+            rotateY(0deg)
+            translateX(0)
+            translateZ(0);
+
+        opacity: 1;
+
+        filter:
+            brightness(1)
+            drop-shadow(
+                0 4px 8px
+                rgba(0, 0, 0, .08)
+            );
+    }
+
+
+    10% {
+        transform:
+            perspective(1800px)
+            rotateY(12deg)
+            translateX(1%)
+            translateZ(5px);
+
+        opacity: 1;
+
+        filter:
+            brightness(.99)
+            drop-shadow(
+                0 6px 10px
+                rgba(0, 0, 0, .10)
+            );
+    }
+
+
+    25% {
+        transform:
+            perspective(1800px)
+            rotateY(38deg)
+            translateX(2%)
+            translateZ(12px);
+
+        opacity: 1;
+
+        filter:
+            brightness(.95)
+            drop-shadow(
+                0 8px 15px
+                rgba(0, 0, 0, .13)
+            );
+    }
+
+
+    45% {
+        transform:
+            perspective(1800px)
+            rotateY(72deg)
+            translateX(4%)
+            translateZ(18px);
+
+        opacity: .98;
+
+        filter:
+            brightness(.86)
+            drop-shadow(
+                0 10px 20px
+                rgba(0, 0, 0, .17)
+            );
+    }
+
+
+    60% {
+        transform:
+            perspective(1800px)
+            rotateY(105deg)
+            translateX(5%)
+            translateZ(18px);
+
+        opacity: .86;
+
+        filter:
+            brightness(.76)
+            drop-shadow(
+                0 10px 20px
+                rgba(0, 0, 0, .18)
+            );
+    }
+
+
+    78% {
+        transform:
+            perspective(1800px)
+            rotateY(140deg)
+            translateX(6%)
+            translateZ(12px);
+
+        opacity: .55;
+
+        filter:
+            brightness(.66)
+            drop-shadow(
+                0 8px 16px
+                rgba(0, 0, 0, .14)
+            );
+    }
+
+
+    92% {
+        transform:
+            perspective(1800px)
+            rotateY(168deg)
+            translateX(7%)
+            translateZ(5px);
+
+        opacity: .20;
+
+        filter:
+            brightness(.59);
+    }
+
+
+    100% {
+        transform:
+            perspective(1800px)
+            rotateY(180deg)
+            translateX(8%)
+            translateZ(0);
+
+        opacity: 0;
+
+        filter:
+            brightness(.55);
+    }
+}
+
+
+/* =========================================================
+   HALAMAN BARU - NEXT
+   ========================================================= */
+
+@keyframes diaryBookNewNext {
+
+    0% {
+        transform:
+            perspective(1800px)
+            rotateY(90deg)
+            translateX(8%)
+            translateZ(10px);
+
+        opacity: 0;
+
+        filter:
+            brightness(.62);
+    }
+
+
+    20% {
+        transform:
+            perspective(1800px)
+            rotateY(68deg)
+            translateX(6%)
+            translateZ(10px);
+
+        opacity: .25;
+
+        filter:
+            brightness(.70);
+    }
+
+
+    45% {
+        transform:
+            perspective(1800px)
+            rotateY(38deg)
+            translateX(4%)
+            translateZ(8px);
+
+        opacity: .68;
+
+        filter:
+            brightness(.82);
+    }
+
+
+    70% {
+        transform:
+            perspective(1800px)
+            rotateY(15deg)
+            translateX(2%)
+            translateZ(4px);
+
+        opacity: .92;
+
+        filter:
+            brightness(.94);
+    }
+
+
+    88% {
+        transform:
+            perspective(1800px)
+            rotateY(5deg)
+            translateX(.5%)
+            translateZ(1px);
+
+        opacity: .98;
+
+        filter:
+            brightness(.98);
+    }
+
+
+    100% {
+        transform:
+            perspective(1800px)
+            rotateY(0deg)
+            translateX(0)
+            translateZ(0);
+
+        opacity: 1;
+
+        filter:
+            brightness(1);
+    }
+}
+
+
+/* =========================================================
+   HALAMAN BARU - PREVIOUS
+   ========================================================= */
+
+@keyframes diaryBookNewPrev {
+
+    0% {
+        transform:
+            perspective(1800px)
+            rotateY(-90deg)
+            translateX(-8%)
+            translateZ(10px);
+
+        opacity: 0;
+
+        filter:
+            brightness(.62);
+    }
+
+
+    20% {
+        transform:
+            perspective(1800px)
+            rotateY(-68deg)
+            translateX(-6%)
+            translateZ(10px);
+
+        opacity: .25;
+
+        filter:
+            brightness(.70);
+    }
+
+
+    45% {
+        transform:
+            perspective(1800px)
+            rotateY(-38deg)
+            translateX(-4%)
+            translateZ(8px);
+
+        opacity: .68;
+
+        filter:
+            brightness(.82);
+    }
+
+
+    70% {
+        transform:
+            perspective(1800px)
+            rotateY(-15deg)
+            translateX(-2%)
+            translateZ(4px);
+
+        opacity: .92;
+
+        filter:
+            brightness(.94);
+    }
+
+
+    88% {
+        transform:
+            perspective(1800px)
+            rotateY(-5deg)
+            translateX(-.5%)
+            translateZ(1px);
+
+        opacity: .98;
+
+        filter:
+            brightness(.98);
+    }
+
+
+    100% {
+        transform:
+            perspective(1800px)
+            rotateY(0deg)
+            translateX(0)
+            translateZ(0);
+
+        opacity: 1;
+
+        filter:
+            brightness(1);
+    }
+}
+
+
+/* =========================================================
+   BAYANGAN NEXT
+   ========================================================= */
+
+@keyframes diaryBookShadowNext {
+
+    0% {
+        opacity: 0;
+    }
+
+
+    15% {
+        opacity: .04;
+    }
+
+
+    30% {
+        opacity: .12;
+    }
+
+
+    45% {
+        opacity: .26;
+    }
+
+
+    60% {
+        opacity: .42;
+    }
+
+
+    75% {
+        opacity: .28;
+    }
+
+
+    90% {
+        opacity: .08;
+    }
+
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   BAYANGAN PREVIOUS
+   ========================================================= */
+
+@keyframes diaryBookShadowPrev {
+
+    0% {
+        opacity: 0;
+    }
+
+
+    15% {
+        opacity: .04;
+    }
+
+
+    30% {
+        opacity: .12;
+    }
+
+
+    45% {
+        opacity: .26;
+    }
+
+
+    60% {
+        opacity: .42;
+    }
+
+
+    75% {
+        opacity: .28;
+    }
+
+
+    90% {
+        opacity: .08;
+    }
+
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   EDGE NEXT
+   ========================================================= */
+
+@keyframes diaryBookEdgeNext {
+
+    0% {
+        opacity: 0;
+    }
+
+
+    25% {
+        opacity: .10;
+    }
+
+
+    45% {
+        opacity: .25;
+    }
+
+
+    65% {
+        opacity: .38;
+    }
+
+
+    85% {
+        opacity: .12;
+    }
+
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   EDGE PREVIOUS
+   ========================================================= */
+
+@keyframes diaryBookEdgePrev {
+
+    0% {
+        opacity: 0;
+    }
+
+
+    25% {
+        opacity: .10;
+    }
+
+
+    45% {
+        opacity: .25;
+    }
+
+
+    65% {
+        opacity: .38;
+    }
+
+
+    85% {
+        opacity: .12;
+    }
+
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   PAGINATION
+   BENAR-BENAR TERPISAH DARI HALAMAN BUKU
+   ========================================================= */
+
+#page-diary #diary-pagination {
+    position: relative !important;
+
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    float: none !important;
+
+    width: 100% !important;
+    height: auto !important;
+    min-height: 45px !important;
+
+    margin-top: 30px !important;
+    margin-right: 0 !important;
+    margin-bottom: 10px !important;
+    margin-left: 0 !important;
+
+    padding: 10px 5px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 8px !important;
+
+    transform: none !important;
+
+    perspective: none !important;
+    transform-style: flat !important;
+
+    clear: both !important;
+
+    overflow: visible !important;
+
+    z-index: 1000 !important;
+
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   SEMUA TOMBOL PAGINATION
+   ========================================================= */
+
+#page-diary #diary-pagination button {
+    position: relative !important;
+
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    float: none !important;
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+
+    min-width: 38px !important;
+    min-height: 36px !important;
+
+    margin: 0 !important;
+    padding: 7px 10px !important;
+
+    transform: none !important;
+
+    z-index: 1001 !important;
+
+    pointer-events: auto !important;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HALAMAN TIDAK BOLEH MENUTUP PAGINATION
+   ========================================================= */
+
+#page-diary .diary-list {
+    z-index: 1 !important;
+}
+
+
+#page-diary .diary-card {
+    z-index: 2 !important;
+}
+
+
+#page-diary #diary-pagination {
+    z-index: 1000 !important;
+}
+
+
+/* =========================================================
+   CONTAINER TIDAK MEMOTONG PAGINATION
+   ========================================================= */
+
+#page-diary .diary-container {
+    overflow: visible !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #page-diary .diary-container {
+        perspective: 1100px;
+        perspective-origin: center center;
+
+        padding-bottom: 10px;
+    }
+
+
+    #page-diary .diary-list {
+        min-height: 160px;
+    }
+
+
+    #page-diary .diary-card.diary-book-flip-next,
+    #page-diary .diary-card.diary-book-flip-prev {
+        animation-duration: 460ms !important;
+    }
+
+
+    #page-diary #diary-pagination {
+        position: relative !important;
+
+        width: 100% !important;
+
+        min-height: 44px !important;
+
+        margin-top: 25px !important;
+        margin-bottom: 10px !important;
+
+        padding:
+            8px
+            4px
+            8px
+            4px !important;
+
+        gap: 5px !important;
+
+        flex-wrap: wrap !important;
+
+        z-index: 1000 !important;
+    }
+
+
+    #page-diary #diary-pagination button {
+        min-width: 34px !important;
+        min-height: 34px !important;
+
+        padding:
+            6px
+            9px !important;
+
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 601px) and (max-width: 900px) {
+
+    #page-diary .diary-container {
+        perspective: 1400px;
+    }
+
+
+    #page-diary #diary-pagination {
+        margin-top: 28px !important;
+
+        gap: 7px !important;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #page-diary .diary-card.diary-book-flip-next,
+    #page-diary .diary-card.diary-book-flip-prev,
+    #page-diary .diary-card.diary-book-new-next,
+    #page-diary .diary-card.diary-book-new-prev,
+    #page-diary .diary-card.diary-book-flip-next::after,
+    #page-diary .diary-card.diary-book-flip-prev::after,
+    #page-diary .diary-card.diary-book-flip-next::before,
+    #page-diary .diary-card.diary-book-flip-prev::before {
+        animation-duration: 1ms !important;
+    }
+}

@@ -234,7 +234,9 @@ function setTheme(themeName) {
         'default',
         'cyberpunk',
         'vintage',
-        'pastel'
+        'pastel',
+        'sky',
+        'red'
     ];
 
     if (
@@ -248,7 +250,9 @@ function setTheme(themeName) {
     document.body.classList.remove(
         'theme-cyberpunk',
         'theme-vintage',
-        'theme-pastel'
+        'theme-pastel',
+        'theme-sky',
+        'theme-red'
     );
 
     if (themeName !== 'default') {
@@ -286,7 +290,9 @@ function setThemeWithoutSound(themeName) {
         'default',
         'cyberpunk',
         'vintage',
-        'pastel'
+        'pastel',
+        'sky',
+        'red'
     ];
 
     if (
@@ -298,7 +304,9 @@ function setThemeWithoutSound(themeName) {
     document.body.classList.remove(
         'theme-cyberpunk',
         'theme-vintage',
-        'theme-pastel'
+        'theme-pastel',
+        'theme-sky',
+        'theme-red'
     );
 
     if (themeName !== 'default') {
@@ -650,9 +658,90 @@ function goToCard(index) {
 // DIARY
 // ==========================================
 
-let diaryCurrentPage = 1;
+let diaryCurrentPage = 5;
+let diaryIsFlipping = false;
 
-const DIARY_ITEMS_PER_PAGE = 5;
+const DIARY_ITEMS_PER_PAGE = 1;
+const DIARY_FLIP_DURATION = 520;
+
+async function flipDiaryPage(targetPage, direction = 'next') {
+    const diaryList = document.getElementById('diary-list');
+
+    if (!diaryList || diaryIsFlipping) {
+        return;
+    }
+
+    const numericPage = Number(targetPage);
+
+    if (!Number.isInteger(numericPage) || numericPage < 1) {
+        return;
+    }
+
+    if (numericPage === diaryCurrentPage) {
+        return;
+    }
+
+    const currentCard = diaryList.querySelector('.diary-card');
+
+    if (!currentCard) {
+        diaryCurrentPage = numericPage;
+        await renderDiaryEntries(numericPage);
+        return;
+    }
+
+    diaryIsFlipping = true;
+
+    playClickSound();
+
+    const safeDirection =
+        direction === 'prev'
+            ? 'prev'
+            : 'next';
+
+    currentCard.classList.remove(
+        'diary-book-flip-next',
+        'diary-book-flip-prev',
+        'diary-book-new-next',
+        'diary-book-new-prev'
+    );
+
+    void currentCard.offsetWidth;
+
+    currentCard.classList.add(
+        safeDirection === 'next'
+            ? 'diary-book-flip-next'
+            : 'diary-book-flip-prev'
+    );
+
+    await new Promise(resolve => {
+        setTimeout(resolve, 500);
+    });
+
+    diaryCurrentPage = numericPage;
+
+    await renderDiaryEntries(numericPage);
+
+    const newCard = diaryList.querySelector('.diary-card');
+
+    if (newCard) {
+        newCard.classList.add(
+            safeDirection === 'next'
+                ? 'diary-book-new-next'
+                : 'diary-book-new-prev'
+        );
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                newCard.classList.remove(
+                    'diary-book-new-next',
+                    'diary-book-new-prev'
+                );
+            });
+        });
+    }
+
+    diaryIsFlipping = false;
+}
 
 
 async function renderDiaryEntries(
@@ -2814,97 +2903,96 @@ async function renderFeelingLogs(
                         '<br>'
                     );
 
-                const rating =
-                    Math.max(
-                        0,
-                        Math.min(
-                            5,
-                            Number(
-                                log.rating || 0
-                            )
-                        )
-                    );
+               const ratingValue =
+    Number(log.rating);
 
-                const stars =
-                    Array.from(
-                        {
-                            length: 5
-                        },
-                        (
-                            _,
-                            index
-                        ) =>
-                            `<span class="${
-                                index < rating
-                                    ? 'active'
-                                    : ''
-                            }">★</span>`
-                    ).join('');
+const rating =
+    Number.isFinite(ratingValue)
+        ? Math.max(
+            0,
+            Math.min(
+                5,
+                Math.round(ratingValue)
+            )
+        )
+        : 0;
+
+                let stars = '';
+
+for (let i = 1; i <= 5; i++) {
+    stars += `
+        <span class="${i <= rating ? 'active' : ''}">
+            ${i <= rating ? '★' : '☆'}
+        </span>
+    `;
+}
 
                 const photoUrl =
                     log.photo_url ||
                     '';
 
                 card.innerHTML = `
-                    <div class="feeling-log-header">
-                        <div>
-                            <div class="feeling-log-date">
-                                ${escapeHtml(
-                                    dateText
-                                )}
-                            </div>
+    ${
+        photoUrl
+            ? `
+        <div class="feeling-log-photo">
+            <img
+                src="${escapeHtml(photoUrl)}"
+                alt="Foto feelings"
+                loading="lazy"
+                onclick="openFeelingPhoto('${escapeHtml(photoUrl)}')"
+            >
+        </div>
+        `
+            : ''
+    }
 
-                            <h3 class="feeling-log-mood">
-                                ${feeling}
-                            </h3>
-                        </div>
+    <div class="feeling-log-content">
 
-                        <div class="feeling-log-rating">
-                            ${stars}
-                        </div>
-                    </div>
+        <div class="feeling-log-header">
 
-                    ${
-                        answer
-                            ? `
-                        <div class="feeling-log-note">
-                            ${answer}
-                        </div>
-                    `
-                            : ''
-                    }
+            <div class="feeling-log-main">
 
-                    ${
-                        photoUrl
-                            ? `
-                        <div class="feeling-log-photo">
-                            <img
-                                src="${escapeHtml(
-                                    photoUrl
-                                )}"
-                                alt="Foto feelings"
-                                loading="lazy"
-                                onclick="openFeelingPhoto('${escapeHtml(
-                                    photoUrl
-                                )}')"
-                            >
-                        </div>
-                    `
-                            : ''
-                    }
+                <div class="feeling-log-date">
+                    ${escapeHtml(dateText)}
+                </div>
 
-                    <div class="feeling-log-actions">
-                        <button
-                            type="button"
-                            class="delete-feeling-btn"
-                            onclick="deleteFeelingLog('${String(
-                                log.id
-                            )}')"
-                        >
-                            Hapus
-                        </button>
-                    </div>
-                `;
+                <h3 class="feeling-log-mood">
+                    ${feeling}
+                </h3>
+
+            </div>
+
+            <div class="feeling-log-rating">
+                ${stars}
+            </div>
+
+        </div>
+
+        ${
+            answer
+                ? `
+            <div class="feeling-log-note">
+                ${answer}
+            </div>
+            `
+                : ''
+        }
+
+        <div class="feeling-log-actions">
+
+            <button
+                type="button"
+                class="delete-feeling-btn"
+                onclick="deleteFeelingLog('${String(log.id)}')"
+            >
+                Hapus
+            </button>
+
+        </div>
+
+    </div>
+`;
 
                 list.appendChild(
                     card
