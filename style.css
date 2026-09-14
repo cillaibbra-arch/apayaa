@@ -7116,3 +7116,1047 @@ body.theme-red .delete-feeling-btn:hover {
         animation-duration: 1ms !important;
     }
 }
+
+/* =========================================================
+   DIARY CARD ACTIONS
+   ========================================================= */
+
+#page-diary .diary-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+#page-diary .diary-card-actions button {
+    appearance: none;
+    -webkit-appearance: none;
+
+    border: 1px solid currentColor;
+    background: transparent;
+
+    padding: 8px 16px;
+    min-height: 38px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+
+    touch-action: manipulation;
+}
+
+/* =========================================================
+   EDIT
+   ========================================================= */
+
+#page-diary .diary-edit-btn {
+    color: var(--primary-color, #333);
+    border-color: var(--primary-color, #333);
+}
+
+#page-diary .diary-edit-btn:hover {
+    background: var(--primary-color, #333);
+    color: var(--button-text-color, #fff);
+    transform: translateY(-1px);
+}
+
+#page-diary .diary-edit-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   HAPUS
+   ========================================================= */
+
+#page-diary .diary-delete-btn {
+    color: var(--danger-color, #b00020);
+    border-color: var(--danger-color, #b00020);
+}
+
+#page-diary .diary-delete-btn:hover {
+    background: var(--danger-color, #b00020);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+#page-diary .diary-delete-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   DEFAULT
+   ========================================================= */
+
+body:not(
+    .theme-cyberpunk,
+    .theme-vintage,
+    .theme-pastel,
+    .theme-sky,
+    .theme-red
+) #page-diary .diary-edit-btn {
+    color: #7b3f51;
+    border-color: #7b3f51;
+}
+
+body:not(
+    .theme-cyberpunk,
+    .theme-vintage,
+    .theme-pastel,
+    .theme-sky,
+    .theme-red
+) #page-diary .diary-delete-btn {
+    color: #a33a3a;
+    border-color: #a33a3a;
+}
+
+/* =========================================================
+   CYBERPUNK
+   ========================================================= */
+
+body.theme-cyberpunk #page-diary .diary-edit-btn {
+    color: #00ffff;
+    border-color: #00ffff;
+    text-shadow: 0 0 5px currentColor;
+}
+
+body.theme-cyberpunk #page-diary .diary-edit-btn:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow:
+        0 0 8px #00ffff,
+        0 0 18px rgba(0, 255, 255, 0.6);
+}
+
+body.theme-cyberpunk #page-diary .diary-delete-btn {
+    color: #ff2bd6;
+    border-color: #ff2bd6;
+    text-shadow: 0 0 5px currentColor;
+}
+
+body.theme-cyberpunk #page-diary .diary-delete-btn:hover {
+    background: #ff2bd6;
+    color: #000;
+    box-shadow:
+        0 0 8px #ff2bd6,
+        0 0 18px rgba(255, 43, 214, 0.6);
+}
+
+/* =========================================================
+   VINTAGE
+   ========================================================= */
+
+body.theme-vintage #page-diary .diary-edit-btn {
+    color: #725b3d;
+    border-color: #725b3d;
+}
+
+body.theme-vintage #page-diary .diary-edit-btn:hover {
+    background: #725b3d;
+    color: #f5ead7;
+}
+
+body.theme-vintage #page-diary .diary-delete-btn {
+    color: #8b493f;
+    border-color: #8b493f;
+}
+
+body.theme-vintage #page-diary .diary-delete-btn:hover {
+    background: #8b493f;
+    color: #f5ead7;
+}
+
+/* =========================================================
+   PASTEL
+   ========================================================= */
+
+body.theme-pastel #page-diary .diary-edit-btn {
+    color: #8b6f8f;
+    border-color: #8b6f8f;
+}
+
+body.theme-pastel #page-diary .diary-edit-btn:hover {
+    background: #8b6f8f;
+    color: #fff;
+}
+
+body.theme-pastel #page-diary .diary-delete-btn {
+    color: #c77b8a;
+    border-color: #c77b8a;
+}
+
+body.theme-pastel #page-diary .diary-delete-btn:hover {
+    background: #c77b8a;
+    color: #fff;
+}
+
+/* =========================================================
+   SKY
+   ========================================================= */
+
+body.theme-sky #page-diary .diary-edit-btn {
+    color: #3182ce;
+    border-color: #3182ce;
+}
+
+body.theme-sky #page-diary .diary-edit-btn:hover {
+    background: #3182ce;
+    color: #fff;
+}
+
+body.theme-sky #page-diary .diary-delete-btn {
+    color: #d9534f;
+    border-color: #d9534f;
+}
+
+body.theme-sky #page-diary .diary-delete-btn:hover {
+    background: #d9534f;
+    color: #fff;
+}
+
+/* =========================================================
+   RED
+   ========================================================= */
+
+body.theme-red #page-diary .diary-edit-btn {
+    color: #b91c3c;
+    border-color: #b91c3c;
+}
+
+body.theme-red #page-diary .diary-edit-btn:hover {
+    background: #b91c3c;
+    color: #fff;
+}
+
+body.theme-red #page-diary .diary-delete-btn {
+    color: #7f1d1d;
+    border-color: #7f1d1d;
+}
+
+body.theme-red #page-diary .diary-delete-btn:hover {
+    background: #7f1d1d;
+    color: #fff;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #page-diary .diary-card-actions {
+        justify-content: stretch;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    #page-diary .diary-card-actions button {
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 40px;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+}
+
+/* =========================================================
+   DIARY BOOK FINAL OVERRIDES
+   ========================================================= */
+#page-diary .diary-container {
+    width: min(900px, calc(100% - 40px));
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 0 50px;
+    box-sizing: border-box;
+    perspective: 1800px;
+}
+
+#page-diary .diary-form-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 20;
+}
+
+#page-diary .diary-list {
+    position: relative;
+    width: 100%;
+    min-height: 330px;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+    transform-style: preserve-3d;
+    overflow: visible;
+}
+
+#page-diary .diary-card {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    min-height: 330px;
+    margin: 0 auto;
+    padding: 34px 40px;
+    box-sizing: border-box;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    overflow: hidden;
+    z-index: 5;
+}
+
+#page-diary .diary-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#page-diary .diary-title {
+    margin: 0;
+    flex: 1;
+    word-break: break-word;
+}
+
+#page-diary .diary-date {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+#page-diary .diary-content {
+    min-height: 150px;
+    width: 100%;
+    line-height: 1.8;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+#page-diary .diary-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 16px;
+}
+
+#page-diary .diary-card-actions button {
+    min-width: 90px;
+    min-height: 38px;
+    padding: 8px 16px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform .2s ease, background-color .2s ease, color .2s ease, opacity .2s ease;
+}
+
+#page-diary .diary-card-actions button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+#page-diary .diary-pagination {
+    position: relative !important;
+    z-index: 100 !important;
+    width: 100%;
+    margin: 24px auto 10px;
+    padding: 6px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-sizing: border-box;
+    clear: both;
+}
+
+#page-diary .diary-pagination button {
+    position: relative !important;
+    z-index: 101 !important;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 13px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+#page-diary .diary-pagination button.active {
+    background: currentColor;
+    color: var(--button-text-color, #fff);
+}
+
+#page-diary .diary-pagination button:disabled {
+    cursor: default;
+    opacity: .55;
+}
+
+#page-diary .diary-book-flip-next {
+    animation: diaryFinalFlipNext 520ms cubic-bezier(.65,.05,.36,1) forwards !important;
+}
+
+#page-diary .diary-book-flip-prev {
+    transform-origin: right center !important;
+    animation: diaryFinalFlipPrev 520ms cubic-bezier(.65,.05,.36,1) forwards !important;
+}
+
+#page-diary .diary-book-new-next {
+    animation: diaryFinalNewNext 300ms ease-out both !important;
+}
+
+#page-diary .diary-book-new-prev {
+    animation: diaryFinalNewPrev 300ms ease-out both !important;
+}
+
+@keyframes diaryFinalFlipNext {
+    from { transform: rotateY(0deg); opacity: 1; }
+    to { transform: rotateY(-100deg); opacity: 0; }
+}
+
+@keyframes diaryFinalFlipPrev {
+    from { transform: rotateY(0deg); opacity: 1; }
+    to { transform: rotateY(100deg); opacity: 0; }
+}
+
+@keyframes diaryFinalNewNext {
+    from { transform: rotateY(-70deg); opacity: 0; }
+    to { transform: rotateY(0deg); opacity: 1; }
+}
+
+@keyframes diaryFinalNewPrev {
+    from { transform: rotateY(70deg); opacity: 0; }
+    to { transform: rotateY(0deg); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    #page-diary .diary-container {
+        width: calc(100% - 24px);
+        padding: 20px 0 40px;
+    }
+    #page-diary .diary-card {
+        min-height: 300px;
+        padding: 22px 18px;
+        border-radius: 12px;
+    }
+    #page-diary .diary-card-header {
+        display: block;
+        margin-bottom: 16px;
+    }
+    #page-diary .diary-title {
+        margin-bottom: 8px;
+        font-size: 20px;
+    }
+    #page-diary .diary-date {
+        display: block;
+        white-space: normal;
+    }
+    #page-diary .diary-content {
+        min-height: 120px;
+        line-height: 1.7;
+    }
+    #page-diary .diary-card-actions {
+        justify-content: stretch;
+        gap: 8px;
+    }
+    #page-diary .diary-card-actions button {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+    #page-diary .diary-pagination {
+        gap: 6px;
+        margin-top: 18px;
+    }
+    #page-diary .diary-pagination button {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 7px 10px;
+    }
+}
+
+
+/* =========================================================
+   FINAL FIX — PAGINATION TIDAK MENIMPA DIARY CARD
+   ========================================================= */
+
+#page-diary #diary-list {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    clear: both !important;
+}
+
+#page-diary #diary-list .diary-card {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 330px !important;
+    margin: 0 auto !important;
+    float: none !important;
+    clear: both !important;
+    display: block !important;
+}
+
+#page-diary #diary-list + #diary-pagination {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 50px !important;
+    margin: 35px auto 20px !important;
+    padding: 10px 5px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    float: none !important;
+    clear: both !important;
+    overflow: visible !important;
+    transform: none !important;
+    z-index: 9999 !important;
+    box-sizing: border-box !important;
+}
+
+#page-diary #diary-list + #diary-pagination button {
+    position: relative !important;
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    margin: 0 !important;
+    z-index: 10000 !important;
+    transform: none !important;
+}
+
+@media (max-width: 600px) {
+    #page-diary #diary-list .diary-card {
+        min-height: 300px !important;
+    }
+
+    #page-diary #diary-list + #diary-pagination {
+        margin-top: 40px !important;
+        margin-bottom: 20px !important;
+        padding: 10px 4px !important;
+        gap: 6px !important;
+    }
+
+    #page-diary #diary-list + #diary-pagination button {
+        min-width: 36px !important;
+        min-height: 36px !important;
+        padding: 7px 10px !important;
+        font-size: 12px !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL DIARY FIX
+   - Pagination tidak menimpa kartu diary
+   - Tombol Edit/Hapus dibuat lebih jelas
+   ========================================================= */
+
+#page-diary .diary-container {
+    position: relative;
+    width: min(900px, calc(100% - 40px));
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 0 70px;
+    box-sizing: border-box;
+}
+
+#page-diary .diary-list {
+    position: relative;
+    width: 100%;
+    min-height: 360px;
+    margin: 0 auto 0;
+    padding: 0 0 10px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+#page-diary .diary-card {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    min-height: 360px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Beri ruang khusus agar pagination tidak pernah menimpa card */
+#page-diary #diary-pagination {
+    position: relative !important;
+    z-index: 100 !important;
+    display: flex !important;
+    width: 100%;
+    min-height: 52px;
+    margin: 34px auto 20px !important;
+    padding: 8px 0;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    clear: both;
+}
+
+/* Pagination button */
+#page-diary #diary-pagination .diary-page-button {
+    position: relative;
+    z-index: 101;
+    min-width: 42px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 2px solid currentColor;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    box-sizing: border-box;
+}
+
+#page-diary #diary-pagination .diary-page-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+#page-diary #diary-pagination .diary-page-button:disabled {
+    cursor: default;
+    opacity: .55;
+}
+
+#page-diary #diary-pagination .diary-page-button.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* Tombol Edit dan Hapus */
+#page-diary .diary-card-actions {
+    position: relative;
+    z-index: 30;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+#page-diary .diary-card-actions button {
+    position: relative;
+    z-index: 31;
+    min-width: 92px;
+    min-height: 42px;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    border-radius: 9px;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,.20);
+    transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+    box-sizing: border-box;
+}
+
+#page-diary .diary-card-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: 0 5px 13px rgba(0,0,0,.28);
+}
+
+#page-diary .diary-card-actions button:active {
+    transform: translateY(0);
+}
+
+#page-diary .diary-edit-btn {
+    background: #7b3f51 !important;
+    border-color: #5d2d3c !important;
+}
+
+#page-diary .diary-delete-btn {
+    background: #b32626 !important;
+    border-color: #7f1515 !important;
+}
+
+/* Theme: Cyberpunk */
+body.theme-cyberpunk #page-diary .diary-edit-btn {
+    background: #00c8ff !important;
+    border-color: #007fa3 !important;
+    color: #00151c !important;
+    box-shadow: 0 0 12px rgba(0,200,255,.55);
+}
+
+body.theme-cyberpunk #page-diary .diary-delete-btn {
+    background: #ff2b9a !important;
+    border-color: #b40062 !important;
+    color: #fff !important;
+    box-shadow: 0 0 12px rgba(255,43,154,.55);
+}
+
+/* Theme: Vintage */
+body.theme-vintage #page-diary .diary-edit-btn {
+    background: #8a5a2b !important;
+    border-color: #5d3b1c !important;
+}
+
+body.theme-vintage #page-diary .diary-delete-btn {
+    background: #9b3f32 !important;
+    border-color: #68271f !important;
+}
+
+/* Theme: Pastel */
+body.theme-pastel #page-diary .diary-edit-btn {
+    background: #8b6fb3 !important;
+    border-color: #644b87 !important;
+}
+
+body.theme-pastel #page-diary .diary-delete-btn {
+    background: #d45b78 !important;
+    border-color: #9d3853 !important;
+}
+
+/* Theme: Sky */
+body.theme-sky #page-diary .diary-edit-btn {
+    background: #1976d2 !important;
+    border-color: #0d4f91 !important;
+}
+
+body.theme-sky #page-diary .diary-delete-btn {
+    background: #d32f2f !important;
+    border-color: #8e1c1c !important;
+}
+
+/* Theme: Red */
+body.theme-red #page-diary .diary-edit-btn {
+    background: #d62828 !important;
+    border-color: #941818 !important;
+}
+
+body.theme-red #page-diary .diary-delete-btn {
+    background: #7f0000 !important;
+    border-color: #4d0000 !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #page-diary .diary-container {
+        width: calc(100% - 24px);
+        padding-top: 20px;
+        padding-bottom: 55px;
+    }
+
+    #page-diary .diary-list {
+        min-height: 390px;
+        padding-bottom: 5px;
+    }
+
+    #page-diary .diary-card {
+        min-height: 390px;
+        padding: 24px 20px;
+    }
+
+    #page-diary #diary-pagination {
+        margin-top: 30px !important;
+        gap: 6px;
+    }
+
+    #page-diary #diary-pagination .diary-page-button {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    #page-diary .diary-card-actions {
+        justify-content: stretch;
+        gap: 8px;
+    }
+
+    #page-diary .diary-card-actions button {
+        flex: 1;
+        min-width: 0;
+        min-height: 44px;
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   DIARY PAGINATION - HARD LAYOUT FIX
+   Pagination dibuat sebagai blok terpisah di bawah diary card.
+   ========================================================= */
+
+#page-diary .diary-container {
+    display: block !important;
+    overflow: visible !important;
+}
+
+#page-diary .diary-list {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* Card tidak boleh keluar dari alur layout */
+#page-diary .diary-list .diary-card {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    float: none !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 360px !important;
+    margin: 0 auto !important;
+    transform-origin: left center;
+}
+
+/* Pagination selalu berada SETELAH diary-list */
+#page-diary #diary-pagination {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    float: none !important;
+    clear: both !important;
+    display: flex !important;
+    visibility: visible !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 50px !important;
+    margin: 45px auto 25px !important;
+    padding: 10px 0 !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    z-index: 999 !important;
+}
+
+/* Jangan izinkan elemen parent lama menggeser pagination */
+#page-diary .diary-list + #diary-pagination {
+    margin-top: 45px !important;
+    clear: both !important;
+}
+
+/* Loading/empty juga tidak boleh membuat pagination naik */
+#page-diary .diary-loading,
+#page-diary .diary-empty {
+    position: relative !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* Pagination buttons */
+#page-diary #diary-pagination .diary-page-button {
+    position: relative !important;
+    flex: 0 0 auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 42px !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 8px 14px !important;
+    box-sizing: border-box !important;
+}
+
+/* Mobile: jarak lebih besar supaya tidak menyentuh card */
+@media (max-width: 600px) {
+    #page-diary .diary-list .diary-card {
+        min-height: 390px !important;
+    }
+
+    #page-diary #diary-pagination,
+    #page-diary .diary-list + #diary-pagination {
+        margin-top: 55px !important;
+        margin-bottom: 20px !important;
+        padding: 10px 0 !important;
+    }
+}
+
+
+/* =========================================================
+   DIARY EDIT & HAPUS - MENYESUAIKAN SEMUA THEME
+   ========================================================= */
+
+/* Default */
+#page-diary .diary-card-actions .diary-edit-btn,
+#page-diary .diary-card-actions .diary-delete-btn {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 100px !important;
+    min-height: 42px !important;
+    padding: 10px 18px !important;
+    border-radius: 8px !important;
+    border: 2px solid transparent !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    letter-spacing: .4px !important;
+    cursor: pointer !important;
+    transition: all .2s ease !important;
+}
+
+#page-diary .diary-card-actions .diary-edit-btn {
+    background: #8b4d63 !important;
+    color: #fff !important;
+    border-color: #633247 !important;
+}
+
+#page-diary .diary-card-actions .diary-delete-btn {
+    background: #c62828 !important;
+    color: #fff !important;
+    border-color: #8e1b1b !important;
+}
+
+#page-diary .diary-card-actions .diary-edit-btn:hover,
+#page-diary .diary-card-actions .diary-delete-btn:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.12) !important;
+}
+
+/* Cyberpunk */
+body.theme-cyberpunk #page-diary .diary-card-actions .diary-edit-btn {
+    background: #00d9ff !important;
+    color: #00151b !important;
+    border-color: #00a4c7 !important;
+    box-shadow: 0 0 12px rgba(0,217,255,.65) !important;
+}
+
+body.theme-cyberpunk #page-diary .diary-card-actions .diary-delete-btn {
+    background: #ff287d !important;
+    color: #fff !important;
+    border-color: #c00050 !important;
+    box-shadow: 0 0 12px rgba(255,40,125,.65) !important;
+}
+
+/* Vintage */
+body.theme-vintage #page-diary .diary-card-actions .diary-edit-btn {
+    background: #916333 !important;
+    color: #fff !important;
+    border-color: #65421f !important;
+}
+
+body.theme-vintage #page-diary .diary-card-actions .diary-delete-btn {
+    background: #a4473b !important;
+    color: #fff !important;
+    border-color: #722b24 !important;
+}
+
+/* Pastel */
+body.theme-pastel #page-diary .diary-card-actions .diary-edit-btn {
+    background: #9575b8 !important;
+    color: #fff !important;
+    border-color: #705291 !important;
+}
+
+body.theme-pastel #page-diary .diary-card-actions .diary-delete-btn {
+    background: #d65f7d !important;
+    color: #fff !important;
+    border-color: #a63d59 !important;
+}
+
+/* Sky */
+body.theme-sky #page-diary .diary-card-actions .diary-edit-btn {
+    background: #2585d8 !important;
+    color: #fff !important;
+    border-color: #145c9d !important;
+}
+
+body.theme-sky #page-diary .diary-card-actions .diary-delete-btn {
+    background: #d93636 !important;
+    color: #fff !important;
+    border-color: #991f1f !important;
+}
+
+/* Red */
+body.theme-red #page-diary .diary-card-actions .diary-edit-btn {
+    background: #e02b2b !important;
+    color: #fff !important;
+    border-color: #a91515 !important;
+}
+
+body.theme-red #page-diary .diary-card-actions .diary-delete-btn {
+    background: #8f1010 !important;
+    color: #fff !important;
+    border-color: #5d0707 !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #page-diary .diary-card-actions {
+        display: flex !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    #page-diary .diary-card-actions .diary-edit-btn,
+    #page-diary .diary-card-actions .diary-delete-btn {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        min-height: 44px !important;
+    }
+}

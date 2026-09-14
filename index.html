@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love from Me</title>
+    <title>Our Love Story</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -368,27 +368,79 @@
     </div>
 
     <!-- 7. HALAMAN DIARY BOOK (DENGAN DATABASE INTEGRATION) -->
-    <div id="page-diary" class="page">
-        <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
-        
-        <div class="diary-container">
-            <h2 class="journey-header-title">Our Diary Book</h2>
-            <p class="counter-sub" style="margin-bottom: 20px;">Tuliskan cerita dan kenangan manismu di sini...</p>
+<div id="page-diary" class="page">
+    <button class="btn-back" onclick="showPage('page-menu')">BACK</button>
+    
+    <div class="diary-container">
+        <h2 class="journey-header-title">Our Diary Book</h2>
 
-            <!-- Form Tambah Catatan -->
-            <div class="diary-form-card">
-                <input type="text" id="diary-title" placeholder="Judul Catatan..." required>
-                <input type="date" id="diary-date" required>
-                <textarea id="diary-content" rows="4" placeholder="Tuliskan cerita kamu di sini..." required></textarea>
-                <button class="btn-next" onclick="addDiaryEntry()" style="margin-top: 10px; width: 100%;">Simpan Catatan</button>
-            </div>
+        <p class="counter-sub" style="margin-bottom: 20px;">
+            Tuliskan cerita dan kenangan manismu di sini...
+        </p>
 
-            <!-- Tempat Menampilkan Catatan dari Database -->
-            <div id="diary-list" class="diary-list">
-                <!-- Data diary akan dirender otomatis dari database JS -->
-            </div>
+        <!-- Form Tambah / Edit Catatan -->
+        <div class="diary-form-card">
+
+            <input
+                type="text"
+                id="diary-title"
+                placeholder="Judul Catatan..."
+                required
+            >
+
+            <input
+                type="date"
+                id="diary-date"
+                required
+            >
+
+            <textarea
+                id="diary-content"
+                rows="4"
+                placeholder="Tuliskan cerita kamu di sini..."
+                required
+            ></textarea>
+
+            <!-- TOMBOL SIMPAN / UPDATE -->
+            <button
+                type="button"
+                id="diary-save-btn"
+                class="btn-next"
+                onclick="saveDiaryEntry()"
+                style="margin-top: 10px; width: 100%;"
+            >
+                SIMPAN CATATAN
+            </button>
+
+            <!-- TOMBOL BATAL UPDATE -->
+            <button
+                type="button"
+                id="diary-cancel-update"
+                class="btn-back"
+                onclick="cancelDiaryUpdate()"
+                style="display: none; margin-top: 10px; width: 100%;"
+            >
+                BATAL UPDATE
+            </button>
+
         </div>
+
+        <!-- Tempat Menampilkan Catatan dari Database -->
+        <div
+            id="diary-list"
+            class="diary-list"
+        >
+            <!-- Data diary akan dirender otomatis dari database JS -->
+        </div>
+
+        <!-- PAGINATION -->
+        <div
+            id="diary-pagination"
+            class="diary-pagination"
+        ></div>
+
     </div>
+</div>
 
     <!-- 8. HALAMAN FEELINGS LOG -->
 <div id="page-feelings" class="page">

@@ -662,11 +662,10 @@ function goToCard(index) {
 
 let diaryCurrentPage = 1;
 let diaryIsFlipping = false;
+let diaryEditingId = null;
 
 const DIARY_ITEMS_PER_PAGE = 1;
 const DIARY_FLIP_DURATION = 520;
-
-let diaryEditingId = null;
 
 
 /* =========================================================
@@ -750,106 +749,60 @@ function getDiaryDateText(entry) {
    1 CARD = 1 HALAMAN
    ========================================================= */
 
-async function renderDiaryEntries(
-    page = diaryCurrentPage
-) {
-    const diaryList =
-        document.getElementById(
-            'diary-list'
-        );
+ async function renderDiaryEntries(page = 1) {
+    const diaryList = document.getElementById('diary-list');
 
-    if (!diaryList) {
-        return;
-    }
+    if (!diaryList) return;
 
     if (!supabase) {
-        diaryList.innerHTML = `
-            <div class="diary-empty">
-                Supabase belum berhasil terhubung.
-            </div>
-        `;
+        diaryList.innerHTML =
+            '<div class="diary-empty">Supabase belum berhasil terhubung.</div>';
 
-        const pagination =
-            document.getElementById(
-                'diary-pagination'
-            );
-
-        if (pagination) {
-            pagination.innerHTML = '';
-        }
-
+        renderDiaryPagination(0);
         return;
     }
 
-    diaryList.innerHTML = `
-        <div class="diary-loading">
-            Memuat catatan...
-        </div>
-    `;
+    diaryList.innerHTML =
+        '<div class="diary-loading">Memuat catatan...</div>';
 
-    const {
-        data,
-        error
-    } = await getDiaryEntries();
+    const { data, error } = await getDiaryEntries();
 
     if (error) {
-        console.error(
-            'Gagal memuat diary:',
-            error
-        );
+        console.error('Gagal memuat diary:', error);
 
-        diaryList.innerHTML = `
-            <div class="diary-empty">
-                Gagal memuat catatan diary.
-            </div>
-        `;
+        diaryList.innerHTML =
+            '<div class="diary-empty">Gagal memuat catatan diary.</div>';
 
-        const pagination =
-            document.getElementById(
-                'diary-pagination'
-            );
-
-        if (pagination) {
-            pagination.innerHTML = '';
-        }
-
+        renderDiaryPagination(0);
         return;
     }
 
-    const entries =
-        Array.isArray(data)
-            ? data
-            : [];
+    const entries = Array.isArray(data) ? data : [];
 
     if (entries.length === 0) {
         diaryCurrentPage = 1;
 
-        diaryList.innerHTML = `
-            <div class="diary-empty">
-                Belum ada catatan diary di database.
-            </div>
-        `;
+        diaryList.innerHTML =
+            '<div class="diary-empty">Belum ada catatan diary di database.</div>';
 
-        renderDiaryPagination(
-            0
-        );
-
+        renderDiaryPagination(0);
         return;
     }
 
-    const totalPages =
-        Math.ceil(
-            entries.length /
-            DIARY_ITEMS_PER_PAGE
-        );
+    /*
+     * 1 DIARY = 1 HALAMAN
+     */
+    const totalPages = Math.ceil(
+        entries.length / DIARY_ITEMS_PER_PAGE
+    );
 
-    let safePage =
-        Number(page);
+    let safePage = Number(page);
 
-    if (
-        !Number.isInteger(safePage) ||
-        safePage < 1
-    ) {
+    if (!Number.isInteger(safePage)) {
+        safePage = 1;
+    }
+
+    if (safePage < 1) {
         safePage = 1;
     }
 
@@ -857,182 +810,132 @@ async function renderDiaryEntries(
         safePage = totalPages;
     }
 
-    diaryCurrentPage =
-        safePage;
+    diaryCurrentPage = safePage;
 
     const startIndex =
-        (
-            safePage - 1
-        ) *
-        DIARY_ITEMS_PER_PAGE;
+        (safePage - 1) * DIARY_ITEMS_PER_PAGE;
 
-    const pageEntries =
-        entries.slice(
-            startIndex,
-            startIndex +
-            DIARY_ITEMS_PER_PAGE
+    const pageEntries = entries.slice(
+        startIndex,
+        startIndex + DIARY_ITEMS_PER_PAGE
+    );
+
+    diaryList.innerHTML = pageEntries.map(entry => {
+
+        const title = escapeDiaryHtml(
+            entry.title || 'Diary'
         );
 
-    /*
-       Karena DIARY_ITEMS_PER_PAGE = 1,
-       hanya satu card yang dibuat.
-    */
+        const content = escapeDiaryHtml(
+            entry.content || ''
+        ).replace(/\n/g, '<br>');
 
-    diaryList.innerHTML =
-        pageEntries
-            .map(entry => {
+        const dateText = escapeDiaryHtml(
+            getDiaryDateText(entry)
+        );
 
-                const title =
-                    escapeDiaryHtml(
-                        entry.title ||
-                        'diary'
-                    );
+        const safeId = String(entry.id)
+            .replace(/\\/g, '\\\\')
+            .replace(/'/g, "\\'");
 
-                const content =
-                    escapeDiaryHtml(
-                        entry.content ||
-                        ''
-                    ).replace(
-                        /\n/g,
-                        '<br>'
-                    );
+        return `
+            <article
+                class="diary-card"
+                data-diary-id="${escapeDiaryHtml(entry.id)}"
+            >
 
-                const dateText =
-                    escapeDiaryHtml(
-                        getDiaryDateText(
-                            entry
-                        )
-                    );
+                <div class="diary-card-header">
 
-                return `
-                    <article
-                        class="diary-card"
-                        data-diary-id="${escapeDiaryHtml(entry.id)}"
+                    <h3 class="diary-title">
+                        ${title}
+                    </h3>
+
+                    <span class="diary-date">
+                        ${dateText}
+                    </span>
+
+                </div>
+
+                <div class="diary-content">
+                    ${content}
+                </div>
+
+                <div class="diary-card-actions">
+
+                    <button
+                        type="button"
+                        class="diary-edit-btn"
+                        onclick="editDiaryEntry('${safeId}')"
                     >
+                        Edit
+                    </button>
 
-                        <div class="diary-card-header">
+                    <button
+                        type="button"
+                        class="diary-delete-btn"
+                        onclick="deleteDiaryEntry('${safeId}')"
+                    >
+                        Hapus
+                    </button>
 
-                            <h3 class="diary-title">
-                                ${title}
-                            </h3>
+                </div>
 
-                            <span class="diary-date">
-                                ${dateText}
-                            </span>
+            </article>
+        `;
+    }).join('');
 
-                        </div>
-
-
-                        <div class="diary-content">
-                            ${content}
-                        </div>
-
-
-                        <div class="diary-card-actions">
-
-                            <button
-                                type="button"
-                                class="diary-edit-btn"
-                                onclick="editDiaryEntry('${String(entry.id).replace(/'/g, "\\'")}')"
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                type="button"
-                                class="diary-delete-btn"
-                                onclick="deleteDiaryEntry('${String(entry.id).replace(/'/g, "\\'")}')"
-                            >
-                                Hapus
-                            </button>
-
-                        </div>
-
-                    </article>
-                `;
-            })
-            .join('');
-
-    renderDiaryPagination(
-        totalPages
-    );
+    renderDiaryPagination(totalPages);
 }
 
 
-/* =========================================================
-   PAGINATION
-   ========================================================= */
+function renderDiaryPagination(totalPages) {
 
-function renderDiaryPagination(
-    totalPages
-) {
     const pagination =
-        document.getElementById(
-            'diary-pagination'
-        );
+        document.getElementById('diary-pagination');
 
-    if (!pagination) {
-        return;
-    }
-
-    if (
-        !totalPages ||
-        totalPages <= 1
-    ) {
-        pagination.innerHTML = '';
-
-        return;
-    }
+    if (!pagination) return;
 
     pagination.innerHTML = '';
 
+    if (!totalPages || totalPages <= 1) {
+        return;
+    }
+
     /*
-       TOMBOL SEBELUMNYA
-    */
-
+     * TOMBOL SEBELUMNYA
+     */
     const previousButton =
-        document.createElement(
-            'button'
-        );
+        document.createElement('button');
 
-    previousButton.type =
-        'button';
-
-    previousButton.textContent =
-        'Sebelumnya';
+    previousButton.type = 'button';
+    previousButton.className = 'diary-page-btn';
+    previousButton.textContent = 'Sebelumnya';
 
     previousButton.disabled =
         diaryCurrentPage <= 1 ||
         diaryIsFlipping;
 
-    previousButton.addEventListener(
-        'click',
-        function () {
+    previousButton.addEventListener('click', function (event) {
 
-            if (
-                diaryCurrentPage > 1 &&
-                !diaryIsFlipping
-            ) {
+        event.preventDefault();
+        event.stopPropagation();
 
-                flipDiaryPage(
-                    diaryCurrentPage - 1,
-                    'prev'
-                );
+        if (diaryIsFlipping) return;
 
-            }
+        if (diaryCurrentPage <= 1) return;
 
-        }
-    );
+        flipDiaryPage(
+            diaryCurrentPage - 1,
+            'prev'
+        );
+    });
 
-    pagination.appendChild(
-        previousButton
-    );
+    pagination.appendChild(previousButton);
 
 
     /*
-       NOMOR HALAMAN
-    */
-
+     * NOMOR HALAMAN
+     */
     for (
         let page = 1;
         page <= totalPages;
@@ -1040,152 +943,121 @@ function renderDiaryPagination(
     ) {
 
         const pageButton =
-            document.createElement(
-                'button'
-            );
+            document.createElement('button');
 
-        pageButton.type =
-            'button';
+        pageButton.type = 'button';
+        pageButton.className = 'diary-page-btn';
 
-        pageButton.textContent =
-            page;
+        if (page === diaryCurrentPage) {
+            pageButton.classList.add('active');
+        }
 
-        pageButton.classList.toggle(
-            'active',
-            page === diaryCurrentPage
-        );
+        pageButton.textContent = String(page);
 
         pageButton.disabled =
-            diaryIsFlipping;
+            diaryIsFlipping ||
+            page === diaryCurrentPage;
 
         pageButton.addEventListener(
             'click',
-            function () {
+            function (event) {
 
-                if (
-                    page ===
-                    diaryCurrentPage
-                ) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (diaryIsFlipping) return;
+
+                if (page === diaryCurrentPage) {
                     return;
                 }
 
-                if (
-                    diaryIsFlipping
-                ) {
-                    return;
-                }
+                const direction =
+                    page > diaryCurrentPage
+                        ? 'next'
+                        : 'prev';
 
                 flipDiaryPage(
                     page,
-                    page <
-                    diaryCurrentPage
-                        ? 'prev'
-                        : 'next'
+                    direction
                 );
-
             }
         );
 
-        pagination.appendChild(
-            pageButton
-        );
+        pagination.appendChild(pageButton);
     }
 
 
     /*
-       TOMBOL BERIKUTNYA
-    */
-
+     * TOMBOL BERIKUTNYA
+     */
     const nextButton =
-        document.createElement(
-            'button'
-        );
+        document.createElement('button');
 
-    nextButton.type =
-        'button';
-
-    nextButton.textContent =
-        'Berikutnya';
+    nextButton.type = 'button';
+    nextButton.className = 'diary-page-btn';
+    nextButton.textContent = 'Berikutnya';
 
     nextButton.disabled =
-        diaryCurrentPage >=
-            totalPages ||
+        diaryCurrentPage >= totalPages ||
         diaryIsFlipping;
 
-    nextButton.addEventListener(
-        'click',
-        function () {
+    nextButton.addEventListener('click', function (event) {
 
-            if (
-                diaryCurrentPage <
-                    totalPages &&
-                !diaryIsFlipping
-            ) {
+        event.preventDefault();
+        event.stopPropagation();
 
-                flipDiaryPage(
-                    diaryCurrentPage + 1,
-                    'next'
-                );
+        if (diaryIsFlipping) return;
 
-            }
-
+        if (diaryCurrentPage >= totalPages) {
+            return;
         }
-    );
 
-    pagination.appendChild(
-        nextButton
-    );
+        flipDiaryPage(
+            diaryCurrentPage + 1,
+            'next'
+        );
+    });
+
+    pagination.appendChild(nextButton);
 }
 
-
-/* =========================================================
-   ANIMASI FLIP HALAMAN
-   ========================================================= */
 
 async function flipDiaryPage(
     targetPage,
     direction = 'next'
 ) {
-    const diaryList =
-        document.getElementById(
-            'diary-list'
-        );
 
-    if (
-        !diaryList ||
-        diaryIsFlipping
-    ) {
-        return;
-    }
+    const diaryList =
+        document.getElementById('diary-list');
+
+    if (!diaryList) return;
+
+    if (diaryIsFlipping) return;
 
     const numericPage =
         Number(targetPage);
 
     if (
-        !Number.isInteger(
-            numericPage
-        ) ||
+        !Number.isInteger(numericPage) ||
         numericPage < 1
     ) {
         return;
     }
 
-    if (
-        numericPage ===
-        diaryCurrentPage
-    ) {
+    if (numericPage === diaryCurrentPage) {
         return;
     }
 
     const currentCard =
-        diaryList.querySelector(
-            '.diary-card'
-        );
+        diaryList.querySelector('.diary-card');
 
+    /*
+     * Kalau card belum ada,
+     * langsung render halaman.
+     */
     if (!currentCard) {
 
-        diaryCurrentPage =
-            numericPage;
+        diaryCurrentPage = numericPage;
 
         await renderDiaryEntries(
             numericPage
@@ -1194,8 +1066,7 @@ async function flipDiaryPage(
         return;
     }
 
-    diaryIsFlipping =
-        true;
+    diaryIsFlipping = true;
 
     playClickSound();
 
@@ -1204,11 +1075,9 @@ async function flipDiaryPage(
             ? 'prev'
             : 'next';
 
-
     /*
-       MATIKAN TOMBOL PAGINATION
-    */
-
+     * Matikan semua tombol selama animasi.
+     */
     const pagination =
         document.getElementById(
             'diary-pagination'
@@ -1217,21 +1086,16 @@ async function flipDiaryPage(
     if (pagination) {
 
         pagination
-            .querySelectorAll(
-                'button'
-            )
+            .querySelectorAll('button')
             .forEach(button => {
-                button.disabled =
-                    true;
+                button.disabled = true;
             });
-
     }
 
 
     /*
-       ANIMASI HALAMAN LAMA
-    */
-
+     * Bersihkan class animasi lama.
+     */
     currentCard.classList.remove(
         'diary-book-flip-next',
         'diary-book-flip-prev',
@@ -1241,6 +1105,10 @@ async function flipDiaryPage(
 
     void currentCard.offsetWidth;
 
+
+    /*
+     * Jalankan animasi halaman lama.
+     */
     currentCard.classList.add(
         safeDirection === 'next'
             ? 'diary-book-flip-next'
@@ -1248,22 +1116,23 @@ async function flipDiaryPage(
     );
 
 
-    await new Promise(
-        resolve => {
-            setTimeout(
-                resolve,
-                DIARY_FLIP_DURATION
-            );
-        }
-    );
+    /*
+     * Tunggu animasi selesai.
+     */
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            DIARY_FLIP_DURATION
+        );
+
+    });
 
 
     /*
-       PINDAH HALAMAN
-    */
-
-    diaryCurrentPage =
-        numericPage;
+     * Render halaman baru.
+     */
+    diaryCurrentPage = numericPage;
 
     await renderDiaryEntries(
         numericPage
@@ -1271,13 +1140,10 @@ async function flipDiaryPage(
 
 
     /*
-       ANIMASI HALAMAN BARU
-    */
-
+     * Animasi halaman baru.
+     */
     const newCard =
-        diaryList.querySelector(
-            '.diary-card'
-        );
+        diaryList.querySelector('.diary-card');
 
     if (newCard) {
 
@@ -1287,28 +1153,68 @@ async function flipDiaryPage(
                 : 'diary-book-new-prev'
         );
 
-        requestAnimationFrame(
-            () => {
+        requestAnimationFrame(() => {
 
-                requestAnimationFrame(
-                    () => {
+            requestAnimationFrame(() => {
 
-                        newCard.classList.remove(
-                            'diary-book-new-next',
-                            'diary-book-new-prev'
-                        );
-
-                    }
+                newCard.classList.remove(
+                    'diary-book-new-next',
+                    'diary-book-new-prev'
                 );
 
-            }
-        );
+            });
 
+        });
     }
 
 
-    diaryIsFlipping =
-        false;
+    /*
+     * Buka kembali pagination.
+     */
+    diaryIsFlipping = false;
+
+    /*
+     * Pastikan tombol pagination
+     * mendapatkan status terbaru.
+     */
+    const refreshedPagination =
+        document.getElementById(
+            'diary-pagination'
+        );
+
+    if (refreshedPagination) {
+
+        refreshedPagination
+            .querySelectorAll('button')
+            .forEach(button => {
+
+                button.disabled = false;
+
+            });
+    }
+
+    /*
+     * Render ulang agar nomor halaman
+     * aktif dan tombol sebelumnya/berikutnya
+     * benar-benar sesuai halaman saat ini.
+     */
+    const { data } =
+        await getDiaryEntries();
+
+    const entries =
+        Array.isArray(data)
+            ? data
+            : [];
+
+    const totalPages =
+        Math.ceil(
+            entries.length /
+            DIARY_ITEMS_PER_PAGE
+        );
+
+    renderDiaryPagination(
+        totalPages
+    );
 }
 
 
@@ -1320,6 +1226,7 @@ async function editDiaryEntry(
     id
 ) {
     if (!supabase) {
+
         alert(
             'Supabase belum berhasil terhubung.'
         );
@@ -1341,7 +1248,10 @@ async function editDiaryEntry(
     } = await supabase
         .from('diaries')
         .select('*')
-        .eq('id', id)
+        .eq(
+            'id',
+            id
+        )
         .single();
 
     if (error) {
@@ -1359,12 +1269,18 @@ async function editDiaryEntry(
     }
 
     if (!data) {
+
         alert(
             'Catatan diary tidak ditemukan.'
         );
 
         return;
     }
+
+
+    /* =====================================================
+       AMBIL FORM
+       ===================================================== */
 
     const titleInput =
         document.getElementById(
@@ -1382,17 +1298,23 @@ async function editDiaryEntry(
         );
 
 
+    /* =====================================================
+       MASUKKAN DATA KE FORM
+       ===================================================== */
+
     if (titleInput) {
+
         titleInput.value =
             data.title || '';
-    }
 
+    }
 
     if (contentInput) {
+
         contentInput.value =
             data.content || '';
-    }
 
+    }
 
     if (dateInput) {
 
@@ -1401,104 +1323,92 @@ async function editDiaryEntry(
             data.date ||
             '';
 
-        if (rawDate) {
-
-            dateInput.value =
-                String(
+        dateInput.value =
+            rawDate
+                ? String(
                     rawDate
                 ).slice(
                     0,
                     10
-                );
-
-        } else {
-
-            dateInput.value =
-                '';
-
-        }
+                )
+                : '';
 
     }
 
 
-    /*
-       SIMPAN ID YANG SEDANG DIEDIT
-    */
+    /* =====================================================
+       SIMPAN ID YANG SEDANG DI-EDIT
+       ===================================================== */
 
     diaryEditingId =
         data.id;
 
 
-    /*
-       UBAH TOMBOL SIMPAN
-    */
+    /* =====================================================
+       CARI TOMBOL SIMPAN
+       ===================================================== */
 
-    const saveButton =
-        document.querySelector(
-            '#page-diary button[onclick*="saveDiary"]'
+    const diaryPage =
+        document.getElementById(
+            'page-diary'
         );
 
-    if (saveButton) {
+    if (diaryPage) {
 
-        saveButton.textContent =
-            'UPDATE CATATAN';
-
-    }
-
-
-    /*
-       FALLBACK:
-       CARI TOMBOL SIMPAN DI AREA DIARY
-    */
-
-    if (!saveButton) {
-
-        const diaryPage =
-            document.getElementById(
-                'page-diary'
+        const buttons =
+            diaryPage.querySelectorAll(
+                'button'
             );
 
-        if (diaryPage) {
+        buttons.forEach(
+            button => {
 
-            const buttons =
-                diaryPage.querySelectorAll(
-                    'button'
-                );
+                const text =
+                    (
+                        button.textContent ||
+                        ''
+                    )
+                        .trim()
+                        .toLowerCase();
 
-            buttons.forEach(
-                button => {
+                if (
+                    text ===
+                        'simpan catatan' ||
+                    text ===
+                        'update catatan'
+                ) {
 
-                    const text =
-                        (
-                            button.textContent ||
-                            ''
-                        )
-                            .trim()
-                            .toLowerCase();
-
-                    if (
-                        text ===
-                            'simpan catatan' ||
-                        text ===
-                            'simpan diary'
-                    ) {
-
-                        button.textContent =
-                            'UPDATE CATATAN';
-
-                    }
+                    button.textContent =
+                        'UPDATE CATATAN';
 
                 }
-            );
 
-        }
+            }
+        );
 
     }
 
 
-    /*
+    /* =====================================================
+       TAMPILKAN BATAL UPDATE
+       ===================================================== */
+
+    const cancelButton =
+        document.getElementById(
+            'diary-cancel-update'
+        );
+
+    if (cancelButton) {
+
+        cancelButton.style.display =
+            'block';
+
+    }
+
+
+    /* =====================================================
        SCROLL KE FORM
-    */
+       ===================================================== */
 
     const form =
         titleInput ||
@@ -1532,6 +1442,7 @@ async function editDiaryEntry(
    ========================================================= */
 
 async function saveDiaryEntry() {
+
     if (!supabase) {
 
         alert(
@@ -1540,6 +1451,7 @@ async function saveDiaryEntry() {
 
         return;
     }
+
 
     const titleInput =
         document.getElementById(
@@ -1608,25 +1520,18 @@ async function saveDiaryEntry() {
 
     const payload = {
         title: title,
-        content: content
+        content: content,
+        entry_date:
+            date || null
     };
-
-
-    if (date) {
-        payload.entry_date =
-            date;
-    } else {
-        payload.entry_date =
-            null;
-    }
 
 
     let error = null;
 
 
-    /*
-       MODE EDIT
-    */
+    /* =====================================================
+       MODE UPDATE
+       ===================================================== */
 
     if (
         diaryEditingId !== null &&
@@ -1636,7 +1541,9 @@ async function saveDiaryEntry() {
         const result =
             await supabase
                 .from('diaries')
-                .update(payload)
+                .update(
+                    payload
+                )
                 .eq(
                     'id',
                     diaryEditingId
@@ -1657,9 +1564,9 @@ async function saveDiaryEntry() {
     }
 
 
-    /*
+    /* =====================================================
        MODE TAMBAH
-    */
+       ===================================================== */
 
     else {
 
@@ -1685,6 +1592,10 @@ async function saveDiaryEntry() {
     }
 
 
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
     if (error) {
 
         console.error(
@@ -1700,9 +1611,9 @@ async function saveDiaryEntry() {
     }
 
 
-    /*
-       KEMBALI KE MODE TAMBAH
-    */
+    /* =====================================================
+       RESET MODE EDIT
+       ===================================================== */
 
     diaryEditingId =
         null;
@@ -1715,8 +1626,142 @@ async function saveDiaryEntry() {
         '';
 
     if (dateInput) {
+
         dateInput.value =
             '';
+
+    }
+
+
+    /* =====================================================
+       KEMBALIKAN TOMBOL SIMPAN
+       ===================================================== */
+
+    const diaryPage =
+        document.getElementById(
+            'page-diary'
+        );
+
+    if (diaryPage) {
+
+        diaryPage
+            .querySelectorAll(
+                'button'
+            )
+            .forEach(
+                button => {
+
+                    const text =
+                        (
+                            button.textContent ||
+                            ''
+                        )
+                            .trim()
+                            .toLowerCase();
+
+                    if (
+                        text ===
+                            'update catatan'
+                    ) {
+
+                        button.textContent =
+                            'SIMPAN CATATAN';
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       SEMBUNYIKAN BATAL UPDATE
+       ===================================================== */
+
+    const cancelButton =
+        document.getElementById(
+            'diary-cancel-update'
+        );
+
+    if (cancelButton) {
+
+        cancelButton.style.display =
+            'none';
+
+    }
+
+
+    /* =====================================================
+       KEMBALI KE HALAMAN 1
+       ===================================================== */
+
+    diaryCurrentPage =
+        1;
+
+    await renderDiaryEntries(
+        diaryCurrentPage
+    );
+}
+
+
+/* =========================================================
+   BATAL UPDATE DIARY
+   ========================================================= */
+
+function cancelDiaryUpdate() {
+
+    /*
+       HAPUS STATUS EDIT
+    */
+
+    diaryEditingId =
+        null;
+
+
+    /*
+       AMBIL FORM
+    */
+
+    const titleInput =
+        document.getElementById(
+            'diary-title'
+        );
+
+    const contentInput =
+        document.getElementById(
+            'diary-content'
+        );
+
+    const dateInput =
+        document.getElementById(
+            'diary-date'
+        );
+
+
+    /*
+       KOSONGKAN FORM
+    */
+
+    if (titleInput) {
+
+        titleInput.value =
+            '';
+
+    }
+
+    if (contentInput) {
+
+        contentInput.value =
+            '';
+
+    }
+
+    if (dateInput) {
+
+        dateInput.value =
+            '';
+
     }
 
 
@@ -1762,12 +1807,22 @@ async function saveDiaryEntry() {
     }
 
 
-    diaryCurrentPage =
-        1;
+    /*
+       SEMBUNYIKAN TOMBOL BATAL
+    */
 
-    await renderDiaryEntries(
-        diaryCurrentPage
-    );
+    const cancelButton =
+        document.getElementById(
+            'diary-cancel-update'
+        );
+
+    if (cancelButton) {
+
+        cancelButton.style.display =
+            'none';
+
+    }
+
 }
 
 
@@ -1778,6 +1833,7 @@ async function saveDiaryEntry() {
 async function deleteDiaryEntry(
     id
 ) {
+
     if (!supabase) {
 
         alert(
@@ -1787,11 +1843,13 @@ async function deleteDiaryEntry(
         return;
     }
 
+
     if (
         id === null ||
         id === undefined ||
         id === ''
     ) {
+
         return;
     }
 
@@ -1803,6 +1861,7 @@ async function deleteDiaryEntry(
 
 
     if (!confirmed) {
+
         return;
     }
 
@@ -1839,18 +1898,20 @@ async function deleteDiaryEntry(
     */
 
     if (
-        String(diaryEditingId) ===
+        diaryEditingId !== null &&
+        String(
+            diaryEditingId
+        ) ===
         String(id)
     ) {
 
-        diaryEditingId =
-            null;
+        cancelDiaryUpdate();
 
     }
 
 
     /*
-       CEK DATA SETELAH HAPUS
+       AMBIL DATA TERBARU
     */
 
     const {
@@ -1878,6 +1939,10 @@ async function deleteDiaryEntry(
             : 0;
 
 
+    /*
+       HITUNG ULANG TOTAL HALAMAN
+    */
+
     const totalPages =
         Math.max(
             1,
@@ -1887,6 +1952,11 @@ async function deleteDiaryEntry(
             )
         );
 
+
+    /*
+       JIKA HALAMAN SAAT INI
+       SUDAH TIDAK ADA
+    */
 
     if (
         diaryCurrentPage >
@@ -1899,6 +1969,10 @@ async function deleteDiaryEntry(
     }
 
 
+    /*
+       RENDER ULANG
+    */
+
     await renderDiaryEntries(
         diaryCurrentPage
     );
@@ -1906,8 +1980,7 @@ async function deleteDiaryEntry(
 
 
 /* =========================================================
-   EXPORT GLOBAL
-   SUPAYA ONCLICK HTML BISA MEMANGGIL
+   GLOBAL
    ========================================================= */
 
 window.editDiaryEntry =
@@ -1919,6 +1992,8 @@ window.deleteDiaryEntry =
 window.saveDiaryEntry =
     saveDiaryEntry;
 
+window.cancelDiaryUpdate =
+    cancelDiaryUpdate;
 
 // ==========================================
 // HUG FEATURE
