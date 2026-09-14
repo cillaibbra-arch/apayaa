@@ -654,9 +654,11 @@ function goToCard(index) {
 }
 
 
-// ==========================================
-// DIARY
-// ==========================================
+/* =========================================================
+   DIARY BOOK
+   1 CARD = 1 HALAMAN
+   EDIT + DELETE
+   ========================================================= */
 
 let diaryCurrentPage = 1;
 let diaryIsFlipping = false;
@@ -664,32 +666,536 @@ let diaryIsFlipping = false;
 const DIARY_ITEMS_PER_PAGE = 1;
 const DIARY_FLIP_DURATION = 520;
 
-async function flipDiaryPage(targetPage, direction = 'next') {
-    const diaryList = document.getElementById('diary-list');
+let diaryEditingId = null;
 
-    if (!diaryList || diaryIsFlipping) {
+
+/* =========================================================
+   AMBIL DATA DIARY
+   ========================================================= */
+
+async function getDiaryEntries() {
+    if (!supabase) {
+        return {
+            data: null,
+            error: new Error(
+                'Supabase belum berhasil terhubung.'
+            )
+        };
+    }
+
+    const { data, error } = await supabase
+        .from('diaries')
+        .select('*')
+        .order('created_at', {
+            ascending: false
+        });
+
+    return {
+        data,
+        error
+    };
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeDiaryHtml(value) {
+    const div = document.createElement('div');
+
+    div.textContent =
+        value === null ||
+        value === undefined
+            ? ''
+            : String(value);
+
+    return div.innerHTML;
+}
+
+
+/* =========================================================
+   FORMAT TANGGAL DIARY
+   ========================================================= */
+
+function getDiaryDateText(entry) {
+    const rawDate =
+        entry.entry_date ||
+        entry.date ||
+        entry.created_at;
+
+    if (!rawDate) {
+        return '';
+    }
+
+    const date = new Date(rawDate);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(rawDate);
+    }
+
+    return date.toLocaleDateString(
+        'id-ID',
+        {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }
+    );
+}
+
+
+/* =========================================================
+   RENDER DIARY
+   1 CARD = 1 HALAMAN
+   ========================================================= */
+
+async function renderDiaryEntries(
+    page = diaryCurrentPage
+) {
+    const diaryList =
+        document.getElementById(
+            'diary-list'
+        );
+
+    if (!diaryList) {
         return;
     }
 
-    const numericPage = Number(targetPage);
+    if (!supabase) {
+        diaryList.innerHTML = `
+            <div class="diary-empty">
+                Supabase belum berhasil terhubung.
+            </div>
+        `;
 
-    if (!Number.isInteger(numericPage) || numericPage < 1) {
+        const pagination =
+            document.getElementById(
+                'diary-pagination'
+            );
+
+        if (pagination) {
+            pagination.innerHTML = '';
+        }
+
         return;
     }
 
-    if (numericPage === diaryCurrentPage) {
+    diaryList.innerHTML = `
+        <div class="diary-loading">
+            Memuat catatan...
+        </div>
+    `;
+
+    const {
+        data,
+        error
+    } = await getDiaryEntries();
+
+    if (error) {
+        console.error(
+            'Gagal memuat diary:',
+            error
+        );
+
+        diaryList.innerHTML = `
+            <div class="diary-empty">
+                Gagal memuat catatan diary.
+            </div>
+        `;
+
+        const pagination =
+            document.getElementById(
+                'diary-pagination'
+            );
+
+        if (pagination) {
+            pagination.innerHTML = '';
+        }
+
         return;
     }
 
-    const currentCard = diaryList.querySelector('.diary-card');
+    const entries =
+        Array.isArray(data)
+            ? data
+            : [];
+
+    if (entries.length === 0) {
+        diaryCurrentPage = 1;
+
+        diaryList.innerHTML = `
+            <div class="diary-empty">
+                Belum ada catatan diary di database.
+            </div>
+        `;
+
+        renderDiaryPagination(
+            0
+        );
+
+        return;
+    }
+
+    const totalPages =
+        Math.ceil(
+            entries.length /
+            DIARY_ITEMS_PER_PAGE
+        );
+
+    let safePage =
+        Number(page);
+
+    if (
+        !Number.isInteger(safePage) ||
+        safePage < 1
+    ) {
+        safePage = 1;
+    }
+
+    if (safePage > totalPages) {
+        safePage = totalPages;
+    }
+
+    diaryCurrentPage =
+        safePage;
+
+    const startIndex =
+        (
+            safePage - 1
+        ) *
+        DIARY_ITEMS_PER_PAGE;
+
+    const pageEntries =
+        entries.slice(
+            startIndex,
+            startIndex +
+            DIARY_ITEMS_PER_PAGE
+        );
+
+    /*
+       Karena DIARY_ITEMS_PER_PAGE = 1,
+       hanya satu card yang dibuat.
+    */
+
+    diaryList.innerHTML =
+        pageEntries
+            .map(entry => {
+
+                const title =
+                    escapeDiaryHtml(
+                        entry.title ||
+                        'diary'
+                    );
+
+                const content =
+                    escapeDiaryHtml(
+                        entry.content ||
+                        ''
+                    ).replace(
+                        /\n/g,
+                        '<br>'
+                    );
+
+                const dateText =
+                    escapeDiaryHtml(
+                        getDiaryDateText(
+                            entry
+                        )
+                    );
+
+                return `
+                    <article
+                        class="diary-card"
+                        data-diary-id="${escapeDiaryHtml(entry.id)}"
+                    >
+
+                        <div class="diary-card-header">
+
+                            <h3 class="diary-title">
+                                ${title}
+                            </h3>
+
+                            <span class="diary-date">
+                                ${dateText}
+                            </span>
+
+                        </div>
+
+
+                        <div class="diary-content">
+                            ${content}
+                        </div>
+
+
+                        <div class="diary-card-actions">
+
+                            <button
+                                type="button"
+                                class="diary-edit-btn"
+                                onclick="editDiaryEntry('${String(entry.id).replace(/'/g, "\\'")}')"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                type="button"
+                                class="diary-delete-btn"
+                                onclick="deleteDiaryEntry('${String(entry.id).replace(/'/g, "\\'")}')"
+                            >
+                                Hapus
+                            </button>
+
+                        </div>
+
+                    </article>
+                `;
+            })
+            .join('');
+
+    renderDiaryPagination(
+        totalPages
+    );
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+function renderDiaryPagination(
+    totalPages
+) {
+    const pagination =
+        document.getElementById(
+            'diary-pagination'
+        );
+
+    if (!pagination) {
+        return;
+    }
+
+    if (
+        !totalPages ||
+        totalPages <= 1
+    ) {
+        pagination.innerHTML = '';
+
+        return;
+    }
+
+    pagination.innerHTML = '';
+
+    /*
+       TOMBOL SEBELUMNYA
+    */
+
+    const previousButton =
+        document.createElement(
+            'button'
+        );
+
+    previousButton.type =
+        'button';
+
+    previousButton.textContent =
+        'Sebelumnya';
+
+    previousButton.disabled =
+        diaryCurrentPage <= 1 ||
+        diaryIsFlipping;
+
+    previousButton.addEventListener(
+        'click',
+        function () {
+
+            if (
+                diaryCurrentPage > 1 &&
+                !diaryIsFlipping
+            ) {
+
+                flipDiaryPage(
+                    diaryCurrentPage - 1,
+                    'prev'
+                );
+
+            }
+
+        }
+    );
+
+    pagination.appendChild(
+        previousButton
+    );
+
+
+    /*
+       NOMOR HALAMAN
+    */
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+
+        const pageButton =
+            document.createElement(
+                'button'
+            );
+
+        pageButton.type =
+            'button';
+
+        pageButton.textContent =
+            page;
+
+        pageButton.classList.toggle(
+            'active',
+            page === diaryCurrentPage
+        );
+
+        pageButton.disabled =
+            diaryIsFlipping;
+
+        pageButton.addEventListener(
+            'click',
+            function () {
+
+                if (
+                    page ===
+                    diaryCurrentPage
+                ) {
+                    return;
+                }
+
+                if (
+                    diaryIsFlipping
+                ) {
+                    return;
+                }
+
+                flipDiaryPage(
+                    page,
+                    page <
+                    diaryCurrentPage
+                        ? 'prev'
+                        : 'next'
+                );
+
+            }
+        );
+
+        pagination.appendChild(
+            pageButton
+        );
+    }
+
+
+    /*
+       TOMBOL BERIKUTNYA
+    */
+
+    const nextButton =
+        document.createElement(
+            'button'
+        );
+
+    nextButton.type =
+        'button';
+
+    nextButton.textContent =
+        'Berikutnya';
+
+    nextButton.disabled =
+        diaryCurrentPage >=
+            totalPages ||
+        diaryIsFlipping;
+
+    nextButton.addEventListener(
+        'click',
+        function () {
+
+            if (
+                diaryCurrentPage <
+                    totalPages &&
+                !diaryIsFlipping
+            ) {
+
+                flipDiaryPage(
+                    diaryCurrentPage + 1,
+                    'next'
+                );
+
+            }
+
+        }
+    );
+
+    pagination.appendChild(
+        nextButton
+    );
+}
+
+
+/* =========================================================
+   ANIMASI FLIP HALAMAN
+   ========================================================= */
+
+async function flipDiaryPage(
+    targetPage,
+    direction = 'next'
+) {
+    const diaryList =
+        document.getElementById(
+            'diary-list'
+        );
+
+    if (
+        !diaryList ||
+        diaryIsFlipping
+    ) {
+        return;
+    }
+
+    const numericPage =
+        Number(targetPage);
+
+    if (
+        !Number.isInteger(
+            numericPage
+        ) ||
+        numericPage < 1
+    ) {
+        return;
+    }
+
+    if (
+        numericPage ===
+        diaryCurrentPage
+    ) {
+        return;
+    }
+
+    const currentCard =
+        diaryList.querySelector(
+            '.diary-card'
+        );
 
     if (!currentCard) {
-        diaryCurrentPage = numericPage;
-        await renderDiaryEntries(numericPage);
+
+        diaryCurrentPage =
+            numericPage;
+
+        await renderDiaryEntries(
+            numericPage
+        );
+
         return;
     }
 
-    diaryIsFlipping = true;
+    diaryIsFlipping =
+        true;
 
     playClickSound();
 
@@ -697,6 +1203,34 @@ async function flipDiaryPage(targetPage, direction = 'next') {
         direction === 'prev'
             ? 'prev'
             : 'next';
+
+
+    /*
+       MATIKAN TOMBOL PAGINATION
+    */
+
+    const pagination =
+        document.getElementById(
+            'diary-pagination'
+        );
+
+    if (pagination) {
+
+        pagination
+            .querySelectorAll(
+                'button'
+            )
+            .forEach(button => {
+                button.disabled =
+                    true;
+            });
+
+    }
+
+
+    /*
+       ANIMASI HALAMAN LAMA
+    */
 
     currentCard.classList.remove(
         'diary-book-flip-next',
@@ -713,426 +1247,124 @@ async function flipDiaryPage(targetPage, direction = 'next') {
             : 'diary-book-flip-prev'
     );
 
-    await new Promise(resolve => {
-        setTimeout(resolve, 500);
-    });
 
-    diaryCurrentPage = numericPage;
+    await new Promise(
+        resolve => {
+            setTimeout(
+                resolve,
+                DIARY_FLIP_DURATION
+            );
+        }
+    );
 
-    await renderDiaryEntries(numericPage);
 
-    const newCard = diaryList.querySelector('.diary-card');
+    /*
+       PINDAH HALAMAN
+    */
+
+    diaryCurrentPage =
+        numericPage;
+
+    await renderDiaryEntries(
+        numericPage
+    );
+
+
+    /*
+       ANIMASI HALAMAN BARU
+    */
+
+    const newCard =
+        diaryList.querySelector(
+            '.diary-card'
+        );
 
     if (newCard) {
+
         newCard.classList.add(
             safeDirection === 'next'
                 ? 'diary-book-new-next'
                 : 'diary-book-new-prev'
         );
 
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                newCard.classList.remove(
-                    'diary-book-new-next',
-                    'diary-book-new-prev'
-                );
-            });
-        });
-    }
+        requestAnimationFrame(
+            () => {
 
-    diaryIsFlipping = false;
-}
+                requestAnimationFrame(
+                    () => {
 
-
-async function renderDiaryEntries(
-    page = diaryCurrentPage
-) {
-    const diaryList =
-        document.getElementById(
-            'diary-list'
-        );
-
-    if (!diaryList) {
-        return;
-    }
-
-    if (!supabase) {
-        diaryList.innerHTML =
-            '<p>Supabase belum berhasil terhubung.</p>';
-
-        removeDiaryPagination();
-
-        return;
-    }
-
-    diaryList.innerHTML =
-        '<p>Memuat catatan...</p>';
-
-    try {
-        const {
-            data,
-            error
-        } = await supabase
-            .from('diaries')
-            .select('*')
-            .order(
-                'created_at',
-                {
-                    ascending: false
-                }
-            );
-
-        if (error) {
-            throw error;
-        }
-
-        diaryList.innerHTML = '';
-
-        if (
-            !data ||
-            data.length === 0
-        ) {
-            diaryList.innerHTML =
-                '<p>Belum ada catatan diary di database.</p>';
-
-            removeDiaryPagination();
-
-            return;
-        }
-
-        const totalPages =
-            Math.ceil(
-                data.length /
-                DIARY_ITEMS_PER_PAGE
-            );
-
-        diaryCurrentPage =
-            Math.max(
-                1,
-                Math.min(
-                    Number(page) || 1,
-                    totalPages
-                )
-            );
-
-        const startIndex =
-            (
-                diaryCurrentPage - 1
-            ) *
-            DIARY_ITEMS_PER_PAGE;
-
-        const pageData =
-            data.slice(
-                startIndex,
-                startIndex +
-                DIARY_ITEMS_PER_PAGE
-            );
-
-        pageData.forEach(
-            entry => {
-                const dateValue =
-                    entry.entry_date ||
-                    entry.created_at;
-
-                let dateFormatted = '';
-
-                if (dateValue) {
-                    const parsedDate =
-                        new Date(
-                            dateValue
+                        newCard.classList.remove(
+                            'diary-book-new-next',
+                            'diary-book-new-prev'
                         );
 
-                    if (
-                        !Number.isNaN(
-                            parsedDate.getTime()
-                        )
-                    ) {
-                        dateFormatted =
-                            parsedDate
-                                .toISOString()
-                                .split('T')[0];
-                    } else {
-                        dateFormatted =
-                            String(
-                                dateValue
-                            );
                     }
-                }
+                );
 
-                const card =
-                    document.createElement(
-                        'div'
-                    );
-
-                card.className =
-                    'diary-card';
-
-                card.innerHTML = `
-                    <div class="diary-card-header">
-                        <h3>
-                            ${escapeHtml(
-                                entry.title || ''
-                            )}
-                        </h3>
-
-                        <span class="diary-card-date">
-                            ${escapeHtml(
-                                dateFormatted
-                            )}
-                        </span>
-                    </div>
-
-                    <div class="diary-card-body">
-                        ${escapeHtml(
-                            entry.content || ''
-                        ).replace(
-                            /\n/g,
-                            '<br>'
-                        )}
-                    </div>
-
-                    <div class="diary-card-footer">
-                        <button
-                            type="button"
-                            class="btn-diary-action"
-                            onclick="deleteDiaryEntry('${String(
-                                entry.id
-                            )}')"
-                        >
-                            Hapus
-                        </button>
-                    </div>
-                `;
-
-                diaryList.appendChild(card);
             }
         );
 
-        renderDiaryPagination(
-            data.length,
-            totalPages
+    }
+
+
+    diaryIsFlipping =
+        false;
+}
+
+
+/* =========================================================
+   EDIT DIARY
+   ========================================================= */
+
+async function editDiaryEntry(
+    id
+) {
+    if (!supabase) {
+        alert(
+            'Supabase belum berhasil terhubung.'
         );
 
-    } catch (error) {
+        return;
+    }
+
+    if (
+        id === null ||
+        id === undefined ||
+        id === ''
+    ) {
+        return;
+    }
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from('diaries')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if (error) {
+
         console.error(
-            'Error loading diary:',
+            'Gagal mengambil diary:',
             error
         );
 
-        diaryList.innerHTML =
-            '<p>Gagal memuat catatan diary.</p>';
+        alert(
+            'Gagal membuka catatan untuk diedit.'
+        );
 
-        removeDiaryPagination();
-    }
-}
-
-
-function renderDiaryPagination(
-    totalItems,
-    totalPages
-) {
-    removeDiaryPagination();
-
-    if (
-        !totalPages ||
-        totalPages <= 1
-    ) {
         return;
     }
 
-    const diaryList =
-        document.getElementById(
-            'diary-list'
+    if (!data) {
+        alert(
+            'Catatan diary tidak ditemukan.'
         );
 
-    if (
-        !diaryList ||
-        !diaryList.parentNode
-    ) {
         return;
     }
-
-    const pagination =
-        document.createElement(
-            'div'
-        );
-
-    pagination.id =
-        'diary-pagination';
-
-    pagination.className =
-        'diary-pagination';
-
-    const previousButton =
-        document.createElement(
-            'button'
-        );
-
-    previousButton.type =
-        'button';
-
-    previousButton.className =
-        'diary-page-button';
-
-    previousButton.textContent =
-        'Sebelumnya';
-
-    previousButton.disabled =
-        diaryCurrentPage <= 1;
-
-    previousButton.addEventListener(
-        'click',
-        function () {
-            if (
-                diaryCurrentPage > 1
-            ) {
-                renderDiaryEntries(
-                    diaryCurrentPage - 1
-                );
-            }
-        }
-    );
-
-    pagination.appendChild(
-        previousButton
-    );
-
-    for (
-        let page = 1;
-        page <= totalPages;
-        page++
-    ) {
-        const pageButton =
-            document.createElement(
-                'button'
-            );
-
-        pageButton.type =
-            'button';
-
-        pageButton.className =
-            'diary-page-button';
-
-        pageButton.textContent =
-            String(page);
-
-        if (
-            page === diaryCurrentPage
-        ) {
-            pageButton.classList.add(
-                'active'
-            );
-        }
-
-        pageButton.addEventListener(
-            'click',
-            function () {
-                renderDiaryEntries(
-                    page
-                );
-            }
-        );
-
-        pagination.appendChild(
-            pageButton
-        );
-    }
-
-    const nextButton =
-        document.createElement(
-            'button'
-        );
-
-    nextButton.type =
-        'button';
-
-    nextButton.className =
-        'diary-page-button';
-
-    nextButton.textContent =
-        'Berikutnya';
-
-    nextButton.disabled =
-        diaryCurrentPage >=
-        totalPages;
-
-    nextButton.addEventListener(
-        'click',
-        function () {
-            if (
-                diaryCurrentPage <
-                totalPages
-            ) {
-                renderDiaryEntries(
-                    diaryCurrentPage + 1
-                );
-            }
-        }
-    );
-
-    pagination.appendChild(
-        nextButton
-    );
-
-    diaryList.parentNode.appendChild(
-        pagination
-    );
-}
-
-
-function removeDiaryPagination() {
-    const pagination =
-        document.getElementById(
-            'diary-pagination'
-        );
-
-    if (pagination) {
-        pagination.remove();
-    }
-}
-
-
-function initDiaryDate() {
-    const dateInput =
-        document.getElementById(
-            'diary-date'
-        );
-
-    if (!dateInput) {
-        return;
-    }
-
-    if (!dateInput.value) {
-        const now =
-            new Date();
-
-        const year =
-            now.getFullYear();
-
-        const month =
-            String(
-                now.getMonth() + 1
-            ).padStart(
-                2,
-                '0'
-            );
-
-        const day =
-            String(
-                now.getDate()
-            ).padStart(
-                2,
-                '0'
-            );
-
-        dateInput.value =
-            `${year}-${month}-${day}`;
-    }
-}
-
-
-async function addDiaryEntry() {
-    playClickSound();
 
     const titleInput =
         document.getElementById(
@@ -1149,12 +1381,194 @@ async function addDiaryEntry() {
             'diary-date'
         );
 
+
+    if (titleInput) {
+        titleInput.value =
+            data.title || '';
+    }
+
+
+    if (contentInput) {
+        contentInput.value =
+            data.content || '';
+    }
+
+
+    if (dateInput) {
+
+        const rawDate =
+            data.entry_date ||
+            data.date ||
+            '';
+
+        if (rawDate) {
+
+            dateInput.value =
+                String(
+                    rawDate
+                ).slice(
+                    0,
+                    10
+                );
+
+        } else {
+
+            dateInput.value =
+                '';
+
+        }
+
+    }
+
+
+    /*
+       SIMPAN ID YANG SEDANG DIEDIT
+    */
+
+    diaryEditingId =
+        data.id;
+
+
+    /*
+       UBAH TOMBOL SIMPAN
+    */
+
+    const saveButton =
+        document.querySelector(
+            '#page-diary button[onclick*="saveDiary"]'
+        );
+
+    if (saveButton) {
+
+        saveButton.textContent =
+            'UPDATE CATATAN';
+
+    }
+
+
+    /*
+       FALLBACK:
+       CARI TOMBOL SIMPAN DI AREA DIARY
+    */
+
+    if (!saveButton) {
+
+        const diaryPage =
+            document.getElementById(
+                'page-diary'
+            );
+
+        if (diaryPage) {
+
+            const buttons =
+                diaryPage.querySelectorAll(
+                    'button'
+                );
+
+            buttons.forEach(
+                button => {
+
+                    const text =
+                        (
+                            button.textContent ||
+                            ''
+                        )
+                            .trim()
+                            .toLowerCase();
+
+                    if (
+                        text ===
+                            'simpan catatan' ||
+                        text ===
+                            'simpan diary'
+                    ) {
+
+                        button.textContent =
+                            'UPDATE CATATAN';
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /*
+       SCROLL KE FORM
+    */
+
+    const form =
+        titleInput ||
+        contentInput ||
+        dateInput;
+
+    if (form) {
+
+        form.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+        setTimeout(
+            () => {
+
+                if (titleInput) {
+                    titleInput.focus();
+                }
+
+            },
+            400
+        );
+
+    }
+}
+
+
+/* =========================================================
+   SIMPAN / UPDATE DIARY
+   ========================================================= */
+
+async function saveDiaryEntry() {
+    if (!supabase) {
+
+        alert(
+            'Supabase belum berhasil terhubung.'
+        );
+
+        return;
+    }
+
+    const titleInput =
+        document.getElementById(
+            'diary-title'
+        );
+
+    const contentInput =
+        document.getElementById(
+            'diary-content'
+        );
+
+    const dateInput =
+        document.getElementById(
+            'diary-date'
+        );
+
+
     if (
         !titleInput ||
         !contentInput
     ) {
+
+        alert(
+            'Form diary tidak ditemukan.'
+        );
+
         return;
     }
+
 
     const title =
         titleInput.value.trim();
@@ -1162,141 +1576,348 @@ async function addDiaryEntry() {
     const content =
         contentInput.value.trim();
 
-    const entryDate =
+    const date =
         dateInput
             ? dateInput.value
             : '';
 
-    if (
-        !title ||
-        !content
-    ) {
+
+    if (!title) {
+
         alert(
-            'Judul dan isi diary harus diisi.'
+            'Judul diary belum diisi.'
         );
+
+        titleInput.focus();
 
         return;
     }
 
-    if (!supabase) {
+
+    if (!content) {
+
         alert(
-            'Supabase belum terhubung.'
+            'Isi diary belum diisi.'
         );
+
+        contentInput.focus();
 
         return;
     }
 
-    try {
-        const insertData = {
-            title: title,
-            content: content
-        };
 
-        if (entryDate) {
-            insertData.entry_date =
-                entryDate;
-        }
+    const payload = {
+        title: title,
+        content: content
+    };
 
-        const {
-            error
-        } = await supabase
-            .from('diaries')
-            .insert([
-                insertData
-            ]);
 
-        if (error) {
-            throw error;
-        }
-
-        titleInput.value = '';
-        contentInput.value = '';
-
-        if (dateInput) {
-            dateInput.value = '';
-            initDiaryDate();
-        }
-
-        alert(
-            'Diary berhasil disimpan.'
-        );
-
-        diaryCurrentPage = 1;
-
-        await renderDiaryEntries(1);
-
-    } catch (error) {
-        console.error(
-            'Error adding diary:',
-            error
-        );
-
-        alert(
-            error &&
-            error.message
-                ? error.message
-                : 'Gagal menyimpan diary.'
-        );
+    if (date) {
+        payload.entry_date =
+            date;
+    } else {
+        payload.entry_date =
+            null;
     }
-}
 
 
-async function deleteDiaryEntry(id) {
-    playClickSound();
+    let error = null;
 
-    if (!id) {
-        return;
-    }
+
+    /*
+       MODE EDIT
+    */
 
     if (
-        !confirm(
-            'Yakin ingin menghapus diary ini?'
-        )
+        diaryEditingId !== null &&
+        diaryEditingId !== undefined
     ) {
-        return;
-    }
 
-    if (!supabase) {
-        alert(
-            'Supabase belum terhubung.'
-        );
+        const result =
+            await supabase
+                .from('diaries')
+                .update(payload)
+                .eq(
+                    'id',
+                    diaryEditingId
+                );
 
-        return;
-    }
+        error =
+            result.error;
 
-    try {
-        const {
-            error
-        } = await supabase
-            .from('diaries')
-            .delete()
-            .eq(
-                'id',
-                id
+
+        if (!error) {
+
+            alert(
+                'Catatan diary berhasil diperbarui.'
             );
 
-        if (error) {
-            throw error;
         }
 
-        await renderDiaryEntries(
-            diaryCurrentPage
-        );
+    }
 
-    } catch (error) {
+
+    /*
+       MODE TAMBAH
+    */
+
+    else {
+
+        const result =
+            await supabase
+                .from('diaries')
+                .insert(
+                    payload
+                );
+
+        error =
+            result.error;
+
+
+        if (!error) {
+
+            alert(
+                'Catatan diary berhasil disimpan.'
+            );
+
+        }
+
+    }
+
+
+    if (error) {
+
         console.error(
-            'Error deleting diary:',
+            'Gagal menyimpan diary:',
             error
         );
 
         alert(
-            error &&
-            error.message
-                ? error.message
-                : 'Gagal menghapus diary.'
+            'Gagal menyimpan catatan diary.'
         );
+
+        return;
     }
+
+
+    /*
+       KEMBALI KE MODE TAMBAH
+    */
+
+    diaryEditingId =
+        null;
+
+
+    titleInput.value =
+        '';
+
+    contentInput.value =
+        '';
+
+    if (dateInput) {
+        dateInput.value =
+            '';
+    }
+
+
+    /*
+       KEMBALIKAN TOMBOL
+    */
+
+    const diaryPage =
+        document.getElementById(
+            'page-diary'
+        );
+
+    if (diaryPage) {
+
+        diaryPage
+            .querySelectorAll(
+                'button'
+            )
+            .forEach(
+                button => {
+
+                    const text =
+                        (
+                            button.textContent ||
+                            ''
+                        )
+                            .trim()
+                            .toLowerCase();
+
+                    if (
+                        text ===
+                            'update catatan'
+                    ) {
+
+                        button.textContent =
+                            'SIMPAN CATATAN';
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    diaryCurrentPage =
+        1;
+
+    await renderDiaryEntries(
+        diaryCurrentPage
+    );
 }
+
+
+/* =========================================================
+   HAPUS DIARY
+   ========================================================= */
+
+async function deleteDiaryEntry(
+    id
+) {
+    if (!supabase) {
+
+        alert(
+            'Supabase belum berhasil terhubung.'
+        );
+
+        return;
+    }
+
+    if (
+        id === null ||
+        id === undefined ||
+        id === ''
+    ) {
+        return;
+    }
+
+
+    const confirmed =
+        window.confirm(
+            'Apakah kamu yakin ingin menghapus catatan diary ini?'
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabase
+        .from('diaries')
+        .delete()
+        .eq(
+            'id',
+            id
+        );
+
+
+    if (error) {
+
+        console.error(
+            'Gagal menghapus diary:',
+            error
+        );
+
+        alert(
+            'Gagal menghapus catatan diary.'
+        );
+
+        return;
+    }
+
+
+    /*
+       KALAU YANG DIHAPUS
+       SEDANG DIEDIT
+    */
+
+    if (
+        String(diaryEditingId) ===
+        String(id)
+    ) {
+
+        diaryEditingId =
+            null;
+
+    }
+
+
+    /*
+       CEK DATA SETELAH HAPUS
+    */
+
+    const {
+        data,
+        error: fetchError
+    } = await getDiaryEntries();
+
+
+    if (fetchError) {
+
+        diaryCurrentPage =
+            1;
+
+        await renderDiaryEntries(
+            1
+        );
+
+        return;
+    }
+
+
+    const remaining =
+        Array.isArray(data)
+            ? data.length
+            : 0;
+
+
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(
+                remaining /
+                DIARY_ITEMS_PER_PAGE
+            )
+        );
+
+
+    if (
+        diaryCurrentPage >
+        totalPages
+    ) {
+
+        diaryCurrentPage =
+            totalPages;
+
+    }
+
+
+    await renderDiaryEntries(
+        diaryCurrentPage
+    );
+}
+
+
+/* =========================================================
+   EXPORT GLOBAL
+   SUPAYA ONCLICK HTML BISA MEMANGGIL
+   ========================================================= */
+
+window.editDiaryEntry =
+    editDiaryEntry;
+
+window.deleteDiaryEntry =
+    deleteDiaryEntry;
+
+window.saveDiaryEntry =
+    saveDiaryEntry;
 
 
 // ==========================================
