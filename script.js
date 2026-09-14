@@ -4351,9 +4351,6 @@ window.openFeelingPhoto =
 window.initFeelingsDate =
     initFeelingsDate;
 
-window.addDiaryEntry =
-    addDiaryEntry;
-
 window.deleteDiaryEntry =
     deleteDiaryEntry;
 
