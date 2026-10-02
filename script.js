@@ -525,48 +525,53 @@ function closeLoveCounterModal() {
 
 
 function renderCounterCard() {
-    const track =
-        document.getElementById(
-            'slider-track'
-        );
+    const wrapper = document.querySelector(
+        '.cards-slider-wrapper'
+    );
 
-    if (!track) {
+    const track = document.getElementById(
+        'slider-track'
+    );
+
+    if (!wrapper || !track) {
         return;
     }
 
-    const cards =
-        track.querySelectorAll(
-            '.memory-card'
-        );
+    const cards = track.querySelectorAll(
+        '.memory-card'
+    );
 
     if (!cards.length) {
         return;
     }
 
-    currentCardIndex =
-        Math.max(
-            0,
-            Math.min(
-                currentCardIndex,
-                cards.length - 1
-            )
-        );
+    currentCardIndex = Math.max(
+        0,
+        Math.min(
+            currentCardIndex,
+            cards.length - 1
+        )
+    );
 
-    track.style.transform =
-        `translateX(-${currentCardIndex * 100}%)`;
+    const targetCard = cards[currentCardIndex];
+
+    const targetLeft =
+        targetCard.offsetLeft -
+        (wrapper.clientWidth - targetCard.offsetWidth) / 2;
+
+    wrapper.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: 'smooth'
+    });
 
     document
-        .querySelectorAll(
-            '#slider-dots .dot'
-        )
-        .forEach(
-            (dot, index) => {
-                dot.classList.toggle(
-                    'active',
-                    index === currentCardIndex
-                );
-            }
-        );
+        .querySelectorAll('#slider-dots .dot')
+        .forEach((dot, index) => {
+            dot.classList.toggle(
+                'active',
+                index === currentCardIndex
+            );
+        });
 }
 
 
