@@ -5813,7 +5813,945 @@ body.theme-red .slider-main-title {
         scroll-behavior: auto !important;
     }
 }
+/* =========================================================
+   FEELINGS LOG — FULLSCREEN MODAL
+   ========================================================= */
 
+/* Saat tidak aktif, tetap tersembunyi */
+/* FEELINGS LOG MODAL */
+
+#page-feelings {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0 !important;
+
+    z-index: 10000 !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            color-mix(
+                in srgb,
+                var(--theme-primary) 18%,
+                transparent
+            ),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            color-mix(
+                in srgb,
+                var(--theme-secondary) 14%,
+                transparent
+            ),
+            transparent 35%
+        ),
+        var(--theme-bg);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Ikuti sistem .page yang sudah ada */
+#page-feelings:not(.active) {
+    display: none !important;
+}
+
+#page-feelings.active {
+    display: block !important;
+    animation: feelingsModalOpen 0.3s ease;
+}
+
+@keyframes feelingsModalOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#page-feelings .feelings-container {
+    width: min(920px, calc(100% - 30px)) !important;
+
+    margin:
+        70px auto 40px !important;
+
+    position: relative;
+    z-index: 10001;
+}
+
+
+/* =========================================================
+   ANIMASI MODAL
+   ========================================================= */
+
+@keyframes feelingsModalOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   CONTAINER MODAL
+   ========================================================= */
+
+#page-feelings .feelings-container {
+    width: 100% !important;
+    max-width: 920px !important;
+
+    margin: 20px auto 40px !important;
+
+    position: relative;
+    z-index: 2;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+#page-feelings > .btn-back {
+    position: fixed !important;
+
+    top: 20px !important;
+    left: 20px !important;
+
+    z-index: 10005 !important;
+
+    min-width: 80px;
+
+    padding: 10px 18px !important;
+
+    border-radius: 999px !important;
+
+    background:
+        var(--theme-surface-solid) !important;
+
+    color:
+        var(--theme-text) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    box-shadow:
+        var(--theme-shadow-soft) !important;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+#page-feelings > .btn-back:hover {
+    background:
+        var(--theme-primary) !important;
+
+    color:
+        var(--theme-button-text) !important;
+
+    border-color:
+        var(--theme-primary) !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+#page-feelings .feelings-title-box {
+    margin-top: 25px !important;
+    margin-bottom: 22px !important;
+
+    background:
+        var(--theme-surface) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    border-radius: 22px !important;
+
+    box-shadow:
+        var(--theme-shadow) !important;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#page-feelings .feelings-title-box h2 {
+    color:
+        var(--theme-text) !important;
+
+    text-shadow:
+        0 5px 25px
+        color-mix(
+            in srgb,
+            var(--theme-primary) 20%,
+            transparent
+        );
+
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   MAIN FEELINGS PAPER
+   ========================================================= */
+
+#page-feelings .feelings-paper {
+    width: 100% !important;
+
+    background:
+        var(--theme-surface) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    border-radius: 26px !important;
+
+    box-shadow:
+        var(--theme-shadow) !important;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PHOTO
+   ========================================================= */
+
+#page-feelings .feelings-photo {
+    background:
+        color-mix(
+            in srgb,
+            var(--theme-primary) 5%,
+            transparent
+        ) !important;
+}
+
+#page-feelings .feelings-photo-frame {
+    border-color:
+        var(--theme-border) !important;
+
+    background:
+        var(--theme-card) !important;
+
+    box-shadow:
+        var(--theme-shadow-soft) !important;
+}
+
+#page-feelings .feelings-photo-frame img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   PHOTO BUTTON
+   ========================================================= */
+
+#page-feelings .feelings-photo-btn {
+    background:
+        var(--theme-primary) !important;
+
+    color:
+        var(--theme-button-text) !important;
+
+    border:
+        1px solid transparent !important;
+
+    box-shadow:
+        var(--theme-shadow-soft) !important;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+#page-feelings .feelings-photo-btn:hover {
+    background:
+        var(--theme-primary-dark) !important;
+
+    transform: translateY(-2px);
+}
+
+
+#page-feelings .feelings-remove-photo {
+    color:
+        var(--theme-text-soft) !important;
+
+    border-color:
+        var(--theme-border) !important;
+
+    background:
+        transparent !important;
+}
+
+#page-feelings .feelings-remove-photo:hover {
+    color:
+        var(--theme-primary) !important;
+
+    border-color:
+        var(--theme-primary) !important;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+#page-feelings .feelings-form {
+    color:
+        var(--theme-text) !important;
+}
+
+#page-feelings .feelings-row {
+    color:
+        var(--theme-text) !important;
+}
+
+#page-feelings .feelings-row label,
+#page-feelings .feelings-question label {
+    color:
+        var(--theme-text-soft) !important;
+}
+
+#page-feelings .feelings-row input,
+#page-feelings .feelings-question input,
+#page-feelings .feelings-question textarea {
+    background:
+        var(--theme-input) !important;
+
+    color:
+        var(--theme-text) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    border-radius: 12px !important;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#page-feelings .feelings-row input:focus,
+#page-feelings .feelings-question input:focus,
+#page-feelings .feelings-question textarea:focus {
+    outline: none !important;
+
+    border-color:
+        var(--theme-primary) !important;
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--theme-primary) 14%,
+            transparent
+        ) !important;
+}
+
+
+/* =========================================================
+   RATING
+   ========================================================= */
+
+#page-feelings .feelings-stars button {
+    color:
+        var(--theme-secondary) !important;
+
+    background:
+        transparent !important;
+
+    border: none !important;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#page-feelings .feelings-stars button:hover {
+    color:
+        var(--theme-primary) !important;
+
+    transform: scale(1.12);
+}
+
+#page-feelings .feelings-stars button.active {
+    color:
+        var(--theme-primary) !important;
+
+    text-shadow:
+        0 0 15px
+        color-mix(
+            in srgb,
+            var(--theme-primary) 35%,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+#page-feelings .feelings-divider {
+    background:
+        var(--theme-border) !important;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+#page-feelings .feelings-save-btn {
+    display: block;
+
+    margin:
+        22px auto !important;
+
+    background:
+        var(--theme-primary) !important;
+
+    color:
+        var(--theme-button-text) !important;
+
+    border:
+        1px solid transparent !important;
+
+    border-radius: 999px !important;
+
+    box-shadow:
+        var(--theme-shadow-soft) !important;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#page-feelings .feelings-save-btn:hover {
+    background:
+        var(--theme-primary-dark) !important;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 30px
+        color-mix(
+            in srgb,
+            var(--theme-primary) 22%,
+            transparent
+        ) !important;
+}
+
+#page-feelings .feelings-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================================
+   FEELINGS HISTORY
+   ========================================================= */
+
+#page-feelings .feelings-list {
+    width: 100% !important;
+
+    margin-top: 25px !important;
+}
+
+#page-feelings .feeling-log-card {
+    background:
+        var(--theme-surface) !important;
+
+    color:
+        var(--theme-text) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    border-radius: 20px !important;
+
+    box-shadow:
+        var(--theme-shadow-soft) !important;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#page-feelings .feeling-log-card:hover {
+    border-color:
+        var(--theme-primary) !important;
+
+    transform:
+        translateY(-3px);
+}
+
+#page-feelings .feeling-log-date,
+#page-feelings .feeling-log-mood,
+#page-feelings .feeling-log-note {
+    color:
+        var(--theme-text) !important;
+}
+
+#page-feelings .feeling-log-rating span.active {
+    color:
+        var(--theme-primary) !important;
+}
+
+#page-feelings .feeling-log-rating span:not(.active) {
+    color:
+        var(--theme-secondary) !important;
+}
+
+#page-feelings .feeling-log-note {
+    background:
+        color-mix(
+            in srgb,
+            var(--theme-primary) 6%,
+            var(--theme-surface-solid)
+        ) !important;
+
+    border-color:
+        var(--theme-border) !important;
+}
+
+#page-feelings .delete-feeling-btn {
+    background:
+        transparent !important;
+
+    color:
+        var(--theme-text-soft) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+#page-feelings .delete-feeling-btn:hover {
+    color:
+        var(--theme-button-text) !important;
+
+    background:
+        var(--theme-primary-dark) !important;
+
+    border-color:
+        var(--theme-primary-dark) !important;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+#page-feelings .feelings-pagination {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin:
+        20px 0 35px;
+}
+
+#page-feelings .feelings-page-button {
+    background:
+        var(--theme-surface-solid) !important;
+
+    color:
+        var(--theme-text) !important;
+
+    border:
+        1px solid var(--theme-border) !important;
+
+    border-radius: 10px !important;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#page-feelings .feelings-page-button:hover,
+#page-feelings .feelings-page-button.active {
+    background:
+        var(--theme-primary) !important;
+
+    color:
+        var(--theme-button-text) !important;
+
+    border-color:
+        var(--theme-primary) !important;
+
+    transform:
+        translateY(-1px);
+}
+
+#page-feelings .feelings-page-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================================
+   STATUS TEXT
+   ========================================================= */
+
+#page-feelings .feelings-loading,
+#page-feelings .feelings-empty {
+    color:
+        var(--theme-text-soft) !important;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    #page-feelings.active {
+        padding:
+            15px 12px 25px !important;
+
+        align-items:
+            flex-start !important;
+    }
+
+    #page-feelings > .btn-back {
+        top: 12px !important;
+        left: 12px !important;
+
+        min-width: auto;
+
+        padding:
+            8px 14px !important;
+
+        font-size:
+            0.72rem !important;
+    }
+
+    #page-feelings .feelings-container {
+        margin:
+            48px auto 25px !important;
+
+        max-width:
+            100% !important;
+    }
+
+    #page-feelings .feelings-title-box {
+        margin-top:
+            0 !important;
+
+        border-radius:
+            18px !important;
+    }
+
+    #page-feelings .feelings-paper {
+        border-radius:
+            20px !important;
+    }
+
+    #page-feelings .feelings-photo {
+        border-right:
+            none !important;
+    }
+
+    #page-feelings .feelings-form {
+        width:
+            100% !important;
+    }
+
+    #page-feelings .feelings-row {
+        padding:
+            15px 14px !important;
+    }
+
+    #page-feelings .feelings-question {
+        padding:
+            15px 14px !important;
+    }
+
+    #page-feelings .feelings-stars button {
+        font-size:
+            1.8rem !important;
+    }
+
+    #page-feelings .feelings-save-btn {
+        width:
+            calc(100% - 28px) !important;
+
+        max-width:
+            320px !important;
+    }
+
+    #page-feelings .feeling-log-card {
+        border-radius:
+            16px !important;
+    }
+
+    #page-feelings .feelings-pagination {
+        padding:
+            0 5px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    #page-feelings.active {
+        padding:
+            10px 8px 20px !important;
+    }
+
+    #page-feelings > .btn-back {
+        top: 8px !important;
+        left: 8px !important;
+    }
+
+    #page-feelings .feelings-container {
+        margin-top:
+            45px !important;
+    }
+
+    #page-feelings .feelings-title-box h2 {
+        font-size:
+            1.7rem !important;
+    }
+
+    #page-feelings .feelings-stars button {
+        font-size:
+            1.55rem !important;
+    }
+}
+
+
+/* =========================================================
+   CYBERPUNK
+   ========================================================= */
+
+body.theme-cyberpunk #page-feelings.active {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 234, 255, 0.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 60, 172, 0.12),
+            transparent 35%
+        ),
+        #070711 !important;
+}
+
+body.theme-cyberpunk #page-feelings .feelings-paper,
+body.theme-cyberpunk #page-feelings .feelings-title-box,
+body.theme-cyberpunk #page-feelings .feeling-log-card {
+    box-shadow:
+        0 0 30px rgba(0, 234, 255, 0.08) !important;
+}
+
+
+/* =========================================================
+   VINTAGE
+   ========================================================= */
+
+body.theme-vintage #page-feelings .feelings-paper {
+    border-radius:
+        8px !important;
+
+    box-shadow:
+        inset 0 0 35px rgba(104, 67, 41, 0.08),
+        var(--theme-shadow) !important;
+}
+
+
+/* =========================================================
+   PASTEL
+   ========================================================= */
+
+body.theme-pastel #page-feelings .feelings-paper,
+body.theme-pastel #page-feelings .feelings-title-box,
+body.theme-pastel #page-feelings .feeling-log-card {
+    border-radius:
+        24px !important;
+}
+
+
+/* =========================================================
+   SKY
+   ========================================================= */
+
+body.theme-sky #page-feelings.active {
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(139, 203, 233, 0.28),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(85, 169, 217, 0.18),
+            transparent 35%
+        ),
+        #eaf6ff !important;
+}
+
+
+/* =========================================================
+   RED
+   ========================================================= */
+
+body.theme-red #page-feelings.active {
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(228, 87, 104, 0.14),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(185, 47, 64, 0.12),
+            transparent 35%
+        ),
+        #190b0e !important;
+}
+/* Feelings Log - tampilan hasil yang lebih kecil */
+.feelings-list {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feeling-card {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.feeling-card img {
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.feeling-card h3 {
+    font-size: 18px;
+    margin: 0 0 6px;
+}
+
+.feeling-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 4px 0;
+}
+
+.feeling-card .feeling-date,
+.feeling-card .feeling-rating {
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .feelings-list {
+        width: calc(100% - 24px);
+        margin: 15px auto 0;
+        gap: 10px;
+    }
+
+    .feeling-card {
+        padding: 11px 12px;
+        border-radius: 10px;
+    }
+
+    .feeling-card img {
+        max-width: 90px;
+        max-height: 90px;
+    }
+
+    .feeling-card h3 {
+        font-size: 16px;
+    }
+
+    .feeling-card p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+}
 /* =========================================================
    END
    ========================================================= */
